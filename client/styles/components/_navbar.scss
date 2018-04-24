@@ -1,0 +1,22 @@
+.nav-blue {
+  background: $blue;
+}
+
+.brand {
+  font-size: $sm-size;
+  margin-left: 3rem;
+  text-shadow: 1px 1px 1px $black;
+}
+
+.nav-items {
+  padding-right: 3rem;
+}
+
+.dropdown-content {
+  li {
+    a {
+      color: $blue;
+      font-size: $sm-size;
+    }
+  }
+}
