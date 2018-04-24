@@ -1,6 +1,6 @@
-// colors
-$red: #f00;
+@import './base/settings';
+@import './base/base';
+@import './base/mixins';
+@import './components/navbar';
 
-h1 {
-  color: $red;
-}
+
