@@ -20,3 +20,4 @@ coverage
 .node_repl_history
 *.tgz
 .vscode
+/client/public/bundle.js

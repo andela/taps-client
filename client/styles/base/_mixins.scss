@@ -1,0 +1,17 @@
+@mixin max-width($screen) {
+  @media (max-width: $screen + 'px') {
+    @content;
+  }
+}
+
+@mixin min-width($screen) {
+  @media (min-width: $screen + 'px') {
+    @content;
+  }
+}
+
+@mixin range($min, $max) {
+  @media (min-width: $min + 'px') and (max-width: $max + 'px') {
+    @content;
+  }
+}
