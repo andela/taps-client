@@ -20,6 +20,7 @@
         "ignoreTemplateLiterals": true
       }
     ],
-    "indent": ["error", 2]
+    "indent": ["error", 2],
+    "max-depth": ["error", 5]
   }
 }
