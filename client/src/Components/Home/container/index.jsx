@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-// Navbar
+// Actions
+import { fetchTeams } from '../../../actions';
+
+// components
 import Navbar from '../../Common/Navbar';
+import Card from '../components/Cards';
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,12 +16,26 @@ export default class Home extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.fetchTeams();
+  }
+
   render() {
+    const { teams } = this.props;
+    console.log('raw stuff', teams);
     return (
       <div>
         <Navbar />
-        <h4>Welcome to the homepage</h4>
+        <div className="row mt-2">
+          <Card teams={teams} />
+        </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  teams: state.teams
+});
+
+export default connect(mapStateToProps, { fetchTeams })(Home);

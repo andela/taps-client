@@ -7,7 +7,8 @@
   },
   "globals": {
     "document": true,
-    "M": true
+    "M": true,
+    "window": true
   },
   "rules": {
     "max-len": [

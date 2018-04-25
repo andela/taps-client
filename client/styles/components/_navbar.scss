@@ -10,6 +10,10 @@
 
 .nav-items {
   padding-right: 3rem;
+
+  .search-icon {
+    font-size: 1.5rem;
+  }
 }
 
 .dropdown-content {
@@ -18,5 +22,30 @@
       color: $blue;
       font-size: $sm-size;
     }
+
+    &:hover {
+      background: transparent;
+      border-left: .2rem solid $blue;
+    }
   }
+}
+
+.d-inline {
+  display: inline;
+}
+
+.notif-container {
+  position: relative;
+
+  // .notif-badge {
+  //   background: $red;
+  //   border-radius: 50%;
+  //   font-weight: 900;
+  //   height: .4rem;
+  //   // padding: .4rem;
+  //   position: absolute;
+  //   right: .4rem;
+  //   top: 1rem;
+  //   width: .4rem;
+  // }
 }

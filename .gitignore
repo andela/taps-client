@@ -21,3 +21,4 @@ coverage
 *.tgz
 .vscode
 /client/public/bundle.js
+db.json
