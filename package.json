@@ -8,18 +8,19 @@
     "start": " npm run build && node --require babel-register index.js",
     "start:dev": "nodemon --require babel-register index.js",
     "dev": "webpack-dev-server --watch --hot --config webpack.config.dev.js --port 8081",
-    "lint": "./node_modules/.bin/eslint *.js"
+    "lint": "./node_modules/.bin/eslint *.js",
+    "start:server": "npx json-server --watch db.json"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/andela-stuff/andela-teams-2"
   },
   "keywords": [
     "webpack"
   ],
   "author": "Emmanuel Ndukwe",
   "license": "ISC",
-  "homepage": "",
+  "homepage": "https://github.com/andela-stuff/andela-teams-2",
   "devDependencies": {
     "@babel/plugin-transform-react-constant-elements": "^7.0.0-beta.44",
     "@babel/plugin-transform-react-inline-elements": "^7.0.0-beta.44",
@@ -62,10 +63,13 @@
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
+    "react-addons-shallow-compare": "^15.6.2",
+    "react-avatar": "^2.5.1",
     "react-dom": "^16.3.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-toastify": "^4.0.0-rc.4",
+    "react-tooltip": "^3.5.0",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",

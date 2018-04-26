@@ -7,7 +7,8 @@
   },
   "globals": {
     "document": true,
-    "M": true
+    "M": true,
+    "window": true
   },
   "rules": {
     "max-len": [
@@ -21,6 +22,7 @@
       }
     ],
     "indent": ["error", 2],
-    "max-depth": ["error", 5]
+    "max-depth": ["error", 5],
+    "jsx-a11y/label-has-for": 0
   }
 }

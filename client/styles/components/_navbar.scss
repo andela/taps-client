@@ -8,15 +8,53 @@
   text-shadow: 1px 1px 1px $black;
 }
 
-.nav-items {
-  padding-right: 3rem;
-}
+.sidenav {
+  border-top: thick solid $blue;
 
-.dropdown-content {
-  li {
-    a {
+  li > a {
+    color: $grey;
+
+    &:hover {
       color: $blue;
-      font-size: $sm-size;
     }
   }
+}
+
+.sidenav-overlay {
+  z-index: 1;
+}
+
+.nav-items {
+  padding-right: 3rem;
+
+  .search-icon {
+    font-size: 1.5rem;
+  }
+}
+
+.navbar-fixed {
+  .dropdown-content {
+    border-bottom: .4rem solid $blue;
+    top: -5rem;
+  
+    li {
+      a {
+        color: $grey;
+        font-size: $sm-size;
+  
+        &:hover {
+          color: $blue;
+        }
+      }
+    }
+  }
+}
+
+
+.d-inline {
+  display: inline;
+}
+
+.notif-container {
+  position: relative;
 }

@@ -1,0 +1,28 @@
+.card {
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 8px 17px 2px $dark-shadow;
+  }
+
+  .card-image {
+    .card-title {
+      background: $overlay;
+      font-size: 1.5rem;
+      padding: 1rem;
+      width: 100%;
+    }
+  }
+
+  .tiny-small {
+    color: $black;
+    font-size: 1.4rem;
+  }
+
+}
+
+.card-action {
+  a {
+    color: $blue !important;
+  }
+}
