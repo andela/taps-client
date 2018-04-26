@@ -8,6 +8,22 @@
   text-shadow: 1px 1px 1px $black;
 }
 
+.sidenav {
+  border-top: thick solid $blue;
+
+  li > a {
+    color: $grey;
+
+    &:hover {
+      color: $blue;
+    }
+  }
+}
+
+.sidenav-overlay {
+  z-index: 1;
+}
+
 .nav-items {
   padding-right: 3rem;
 
@@ -17,15 +33,17 @@
 }
 
 .dropdown-content {
+  border-bottom: .4rem solid $blue;
+  top: -5rem;
+
   li {
     a {
-      color: $blue;
+      color: $grey;
       font-size: $sm-size;
-    }
 
-    &:hover {
-      background: transparent;
-      border-left: .2rem solid $blue;
+      &:hover {
+        color: $blue;
+      }
     }
   }
 }
@@ -36,16 +54,4 @@
 
 .notif-container {
   position: relative;
-
-  // .notif-badge {
-  //   background: $red;
-  //   border-radius: 50%;
-  //   font-weight: 900;
-  //   height: .4rem;
-  //   // padding: .4rem;
-  //   position: absolute;
-  //   right: .4rem;
-  //   top: 1rem;
-  //   width: .4rem;
-  // }
 }

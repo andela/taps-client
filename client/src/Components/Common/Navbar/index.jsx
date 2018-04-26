@@ -11,10 +11,6 @@ export default class Navbar extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  componentDidMount() {
-    
-  }
-
   handleSearch(event) {
     event.preventDefault();
     this.setState({
@@ -39,12 +35,9 @@ export default class Navbar extends Component {
     const mainNav = showSearchBar ? 'hide' : 'show';
     /* eslint-disable */
     return (
-      <div>
-        <nav className={`nav-blue navbar-fixed ${mainNav}`}>
+      <div className="navbar-fixed">
+        <nav className={`nav-blue  ${mainNav}`}>
           <div className="nav-wrapper">
-            <a href="#!" className="brand">
-              Andela Teams
-            </a>
             <a
               href="#!"
               data-target="main-navigation"
@@ -53,6 +46,16 @@ export default class Navbar extends Component {
               <i className="material-icons">menu</i>
             </a>
 
+            <a href="#!" className="brand">
+              Andela Teams
+            </a>
+            <a
+              href="#!"
+              onClick={() => this.toggleState('showSearchBar')}
+              className=" float-right sidenav-trigger"
+            >
+              <i className="material-icons">search</i>
+            </a>
             <ul className="right hide-on-med-and-down nav-items">
               <li>
                 <a href="#!" onClick={() => this.toggleState('showSearchBar')}>
@@ -96,7 +99,8 @@ export default class Navbar extends Component {
                   className="dropdown-trigger"
                   href="#!"
                   data-target="dropdown-menu-main"
-                  data-covertrigger="false"
+                  // data-covertrigger="false"
+                  data-beloworigin="true"
                 >
                   <i className="medium material-icons left">
                     account_circle arrow_drop_down
