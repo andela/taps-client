@@ -10,10 +10,8 @@ export default class Routes extends Component {
     M.AutoInit();
     const elem = document.querySelector('.dropdown-trigger');
     M.Dropdown.init(elem, {
+      constrainWidth: false,
       coverTrigger: false,
-      belowOrigin: true,
-      alignment: 'right',
-      hover: true,
       inDuration: 400
     });
   }

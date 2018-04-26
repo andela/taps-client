@@ -11,10 +11,6 @@ export default class Navbar extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  componentDidMount() {
-    
-  }
-
   handleSearch(event) {
     event.preventDefault();
     this.setState({
@@ -96,7 +92,8 @@ export default class Navbar extends Component {
                   className="dropdown-trigger"
                   href="#!"
                   data-target="dropdown-menu-main"
-                  data-covertrigger="false"
+                  // data-covertrigger="false"
+                  data-beloworigin="true"
                 >
                   <i className="medium material-icons left">
                     account_circle arrow_drop_down
