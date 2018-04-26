@@ -29,16 +29,21 @@ export default ({
           <i className="tiny-small material-icons right" data-tip={toolTip}>
             {lock}
           </i>
+          <a
+            className="waves-effect waves-light right modal-trigger icon-link"
+            href="#addMember"
+          >
+            <i className="tiny-small material-icons" data-tip="add member">
+              person_add
+            </i>
+          </a>
           <i
             className="tiny-small material-icons right"
-            data-tip="manage members"
+            data-tip={`manage ${item.members.length} member(s)`}
           >
             groups
           </i>
 
-          <i className="tiny-small material-icons right" data-tip="add member">
-            person_add
-          </i>
           <i
             className="tiny-small material-icons right"
             data-tip="admin settings"

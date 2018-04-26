@@ -32,21 +32,24 @@
   }
 }
 
-.dropdown-content {
-  border-bottom: .4rem solid $blue;
-  top: -5rem;
-
-  li {
-    a {
-      color: $grey;
-      font-size: $sm-size;
-
-      &:hover {
-        color: $blue;
+.navbar-fixed {
+  .dropdown-content {
+    border-bottom: .4rem solid $blue;
+    top: -5rem;
+  
+    li {
+      a {
+        color: $grey;
+        font-size: $sm-size;
+  
+        &:hover {
+          color: $blue;
+        }
       }
     }
   }
 }
+
 
 .d-inline {
   display: inline;

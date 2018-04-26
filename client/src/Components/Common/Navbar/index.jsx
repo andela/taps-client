@@ -99,7 +99,6 @@ export default class Navbar extends Component {
                   className="dropdown-trigger"
                   href="#!"
                   data-target="dropdown-menu-main"
-                  // data-covertrigger="false"
                   data-beloworigin="true"
                 >
                   <i className="medium material-icons left">

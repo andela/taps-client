@@ -4,8 +4,16 @@ import React, { Component } from 'react';
 import CardItem from './CardItem';
 
 export default class Cards extends Component {
-  componentDidMount() {
-    console.log('props======>', this.props);
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      users: { users }
+    } = nextProps;
+    const options = {
+      data: users
+    };
+    const elem = document.querySelector('.autocomplete');
+    M.Autocomplete.init(elem, options);
   }
 
   renderCards = ({ teams }) =>
