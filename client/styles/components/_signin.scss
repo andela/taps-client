@@ -1,0 +1,31 @@
+.sign-in-wrapper {
+  align-items: center;
+  background: linear-gradient(180deg, $blue-start, $from, $to),
+  url('/resources/images/bg-image.jpg') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+
+  .white-btn {
+    background: $white;
+    color: $blue;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2rem 0;
+
+    .logo {
+      align-self: center;
+      float: left;
+      margin: 1.4rem;
+      width: 2rem;
+    }
+
+    p {
+      align-self: center;
+      margin-right: 1.4rem;
+    }
+  }
+}

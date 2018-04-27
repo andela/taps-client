@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 // components
 import Home from '../Components/Home/container';
 import Footer from '../Components/Common/Footer';
+import SignIn from '../Components/Auth/Container';
 
 export default class Routes extends Component {
   componentDidMount() {
@@ -20,9 +21,9 @@ export default class Routes extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/teams" exact component={Home} />
+            <Route path="/" component={SignIn} />
           </Switch>
-          <Footer />
         </div>
       </BrowserRouter>
     );

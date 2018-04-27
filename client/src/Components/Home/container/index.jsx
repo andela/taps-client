@@ -9,6 +9,7 @@ import { fetchTeams, fetchUsers } from '../../../actions';
 import Navbar from '../../Common/Navbar';
 import Card from '../components/Cards';
 import Modal from '../../Common/Modals/AddMember';
+import Footer from '../../Common/Footer';
 
 class Home extends Component {
   static propTypes = {
@@ -23,6 +24,13 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    M.AutoInit();
+    const elem = document.querySelector('.dropdown-trigger');
+    M.Dropdown.init(elem, {
+      constrainWidth: false,
+      coverTrigger: false,
+      inDuration: 400
+    });
     this.props.fetchTeams();
     this.props.fetchUsers();
   }
@@ -36,6 +44,7 @@ class Home extends Component {
         <div className="row mt-2">
           <Card teams={teams} users={users} />
         </div>
+        <Footer />
       </div>
     );
   }
