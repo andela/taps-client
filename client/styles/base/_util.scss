@@ -5,3 +5,13 @@
 .float-right {
   float: right !important;
 }
+
+.blue-btn {
+  background: $blue;
+  color: $white;
+
+  &:hover {
+    background: $blue;
+  }
+}
+

@@ -10,22 +10,41 @@
   width: 100%;
 
   .white-btn {
+    align-items: center;
     background: $white;
     color: $blue;
     display: flex;
-    justify-content: space-evenly;
-    padding: 2rem 0;
 
     .logo {
       align-self: center;
-      float: left;
-      margin: 1.4rem;
-      width: 2rem;
+      width: 1.8rem;
     }
 
-    p {
-      align-self: center;
-      margin-right: 1.4rem;
+    .btn-divider {
+      background: $grey;
+      border-radius: 20%;
+      height: 1.7rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      width: .08rem;
     }
   }
+
+  .extra-form{
+    background: $white;
+    border-radius: 1.2rem;
+    margin: 1rem;
+    padding: 2rem;
+
+    .input-field input[type=text]:focus + label {
+     color: $blue;
+    }
+
+    .input-field input[type=text]:focus {
+     border-bottom: 1px solid $blue;
+     box-shadow: 0 1px 0 0 $blue;
+   }
+  }
+
 }
+

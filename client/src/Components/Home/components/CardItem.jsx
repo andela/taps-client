@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import PropTypes from 'prop-types';
 
-export default ({
+const CardItems = ({
   item, favorite, lock, toolTip
 }) => (
   <div>
@@ -56,3 +57,11 @@ export default ({
     </div>
   </div>
 );
+
+CardItems.propTypes = {
+  item: PropTypes.string.isRequired,
+  favorite: PropTypes.string.isRequired,
+  lock: PropTypes.string.isRequired,
+  toolTip: PropTypes.string.isRequired
+};
+export default CardItems;

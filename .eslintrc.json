@@ -8,7 +8,8 @@
   "globals": {
     "document": true,
     "M": true,
-    "window": true
+    "window": true,
+    "localStorage": true
   },
   "rules": {
     "max-len": [

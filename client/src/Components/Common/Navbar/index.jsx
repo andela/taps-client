@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip';
+import { connect } from 'react-redux';
+import { signOut } from '../../../actions/auth';
 
-export default class Navbar extends Component {
+class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,6 +11,7 @@ export default class Navbar extends Component {
     };
     this.toggleState = this.toggleState.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.signOut = this.signOut.bind(this);
   }
 
   handleSearch(event) {
@@ -16,6 +19,11 @@ export default class Navbar extends Component {
     this.setState({
       showSearchBar: true
     });
+  }
+
+  signOut(event) {
+    event.preventDefault();
+    this.props.signOut();
   }
 
   toggleState(state) {
@@ -133,7 +141,9 @@ export default class Navbar extends Component {
           </li>
           <li className="divider" />
           <li>
-            <a href="#!">Sign Out</a>
+            <a href="#!" onClick={this.signOut}>
+              Sign Out
+            </a>
           </li>
         </ul>
         <ul id="dropdown-menu" className="dropdown-content">
@@ -142,7 +152,9 @@ export default class Navbar extends Component {
           </li>
           <li className="divider" />
           <li>
-            <a href="#!">Sign Out</a>
+            <a href="#!" onClick={this.signOut}>
+              Sign Out
+            </a>
           </li>
         </ul>
         <ul className="sidenav" id="main-navigation">
@@ -172,3 +184,5 @@ export default class Navbar extends Component {
     );
   }
 }
+
+export default connect(null, { signOut })(Navbar);

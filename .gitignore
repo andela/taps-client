@@ -22,3 +22,4 @@ coverage
 .vscode
 /client/public/bundle.js
 db.json
+client/src/middleware
