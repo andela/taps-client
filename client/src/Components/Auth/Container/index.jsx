@@ -36,8 +36,15 @@ class SignIn extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.auth && nextProps.auth.auth.errors) {
-      this.setState(prevState => ({
-        showForm: !prevState.showForm
+      this.setState(() => ({
+        showForm: true,
+        slackId: '',
+        githubId: ''
+      }));
+    }
+    if (nextProps.auth.auth && nextProps.auth.auth.message) {
+      this.setState(() => ({
+        showForm: false
       }));
     }
     if (nextProps.auth.auth && nextProps.auth.auth.data) {
@@ -57,7 +64,6 @@ class SignIn extends Component {
   }
 
   handleChange(event) {
-    console.log(event.target.value);
     this.setState({
       [event.target.name]: event.target.value
     });

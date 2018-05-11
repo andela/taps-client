@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
  */
 const Preloader = ({ isLoading: { isLoading } }) => (
   <div className="fixed-top">
-    {console.log('is loading==>', isLoading)}
     {isLoading ? <Pace color="#f5b339" height={4} /> : null}
   </div>
 );

@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { signOut } from '../../../actions/auth';
 
 class Navbar extends Component {
+  static propTypes = {
+    signOut: PropTypes.func.isRequired
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -41,7 +45,6 @@ class Navbar extends Component {
     const { showSearchBar } = this.state;
     const searchBar = showSearchBar ? 'show' : 'hide';
     const mainNav = showSearchBar ? 'hide' : 'show';
-    /* eslint-disable */
     return (
       <div className="navbar-fixed">
         <nav className={`nav-blue  ${mainNav}`}>
@@ -125,6 +128,7 @@ class Navbar extends Component {
                 <label className="label-icon" htmlFor="search">
                   <i className="material-icons">search</i>
                 </label>
+                {/* eslint-disable-next-line */}
                 <i
                   className="material-icons"
                   onClick={() => this.toggleState('showSearchBar')}

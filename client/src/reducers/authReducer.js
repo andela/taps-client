@@ -1,6 +1,6 @@
 import { SIGN_UP, SIGN_IN, IS_LOGGED_IN } from '../actions/types';
 
-const authReducer = (state = {}, action) => {
+const authReducer = (state = { auth: {} }, action) => {
   switch (action.type) {
   case SIGN_IN:
     return {

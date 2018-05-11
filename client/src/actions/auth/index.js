@@ -6,7 +6,7 @@ import { success, isErrored, isLoading, isAuthenticated } from '../index';
 import instance from '../../config/axios';
 
 // toast
-import { successMessage } from '../../toasts';
+import { successMessage, errorMessage } from '../../toasts';
 
 export const signIn = data => dispatch => {
   dispatch(isLoading(true));
@@ -14,16 +14,19 @@ export const signIn = data => dispatch => {
   return instance
     .post('http://andela-teams-core.herokuapp.com/v1/auth/signin', postData)
     .then(response => {
-      const {
-        data: {
-          data: { userToken }
-        }
-      } = response;
+      if (!response.data.errors) {
+        const {
+          data: {
+            data: { userToken }
+          }
+        } = response;
+        localStorage.setItem('aTeamsToken', userToken);
+        successMessage('Login successful');
+      }
+
       dispatch(success(SIGN_IN, response.data));
-      localStorage.setItem('aTeamsToken', userToken);
       dispatch(isLoading(false));
       dispatch(isAuthenticated());
-      successMessage('Login successful');
     })
     .catch(error => {
       dispatch(isErrored(SIGN_IN, error));
@@ -37,16 +40,22 @@ export const signUp = data => dispatch => {
   return instance
     .post('http://andela-teams-core.herokuapp.com/v1/auth/signup', postData)
     .then(response => {
-      const {
-        data: {
-          data: { userToken }
-        }
-      } = response;
-      dispatch(success(SIGN_UP, response.data));
-      localStorage.setItem('aTeamsToken', userToken);
+      if (!response.data.errors) {
+        const {
+          data: {
+            data: { userToken }
+          }
+        } = response;
+        localStorage.setItem('aTeamsToken', userToken);
+        successMessage('Registration successful');
+        dispatch(success(SIGN_UP, response.data));
+        return;
+      }
+
+      dispatch(isErrored(SIGN_UP, { message: 'login with an andela email' }));
+      errorMessage('Login with an andela email');
       dispatch(isLoading(false));
       dispatch(isAuthenticated());
-      successMessage('Registration successful');
     })
     .catch(error => {
       dispatch(isErrored(SIGN_UP, error));

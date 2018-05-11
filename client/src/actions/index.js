@@ -1,9 +1,9 @@
 import jwtDecode from 'jwt-decode';
 import { IS_LOGGED_IN, IS_LOADING } from './types';
 
-export const isErrored = (type, data) => ({
+export const isErrored = (type, payload) => ({
   type,
-  data
+  payload
 });
 
 export const toggleLoader = (type, payload) => ({
@@ -27,7 +27,6 @@ export const notAuthenticated = () => ({
 });
 export const isAuthenticated = () => dispatch => {
   const jwtToken = window.localStorage.getItem('aTeamsToken');
-  console.log('coming from mdw ====>', jwtToken);
   if (!jwtToken || !jwtToken.length > 9) {
     dispatch(notAuthenticated());
   } else {
