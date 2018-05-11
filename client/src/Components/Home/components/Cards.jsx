@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // component
 import CardItem from './CardItem';
 
 export default class Cards extends Component {
+  static propTypes = {
+    users: PropTypes.shape({
+      users: PropTypes.object
+    }).isRequired,
+    teams: PropTypes.array.isRequired
+  };
 
   componentWillReceiveProps(nextProps) {
     const {

@@ -1,0 +1,50 @@
+.sign-in-wrapper {
+  align-items: center;
+  background: linear-gradient(180deg, $blue-start, $from, $to),
+  url('/resources/images/bg-image.jpg') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+
+  .white-btn {
+    align-items: center;
+    background: $white;
+    color: $blue;
+    display: flex;
+
+    .logo {
+      align-self: center;
+      width: 1.8rem;
+    }
+
+    .btn-divider {
+      background: $grey;
+      border-radius: 20%;
+      height: 1.7rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      width: .08rem;
+    }
+  }
+
+  .extra-form{
+    background: $white;
+    border-radius: 1.2rem;
+    margin: 1rem;
+    padding: 2rem;
+
+    .input-field input[type=text]:focus + label {
+     color: $blue;
+    }
+
+    .input-field input[type=text]:focus {
+     border-bottom: 1px solid $blue;
+     box-shadow: 0 1px 0 0 $blue;
+   }
+  }
+
+}
+

@@ -1,11 +1,16 @@
 // colors
 $red: #f00;
-$blue: #385cd7;
+$blue: rgb(56, 92, 215);
 $black: #000;
 $white: #fff;
 $dark-shadow: rgba(0, 0, 0, .14);
 $overlay: rgba(0, 0, 0, .6);
 $grey: #808080;
+
+//gradient
+$blue-start: rgba(75, 113, 236, .99);
+$from: rgba(56, 93, 215, .98);
+$to: rgba(56, 93, 215, .98);
 
 //font sizes
 $sm-size: 1rem;

@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Actions
-import { fetchTeams, fetchUsers } from '../../../actions';
+import { fetchTeams, fetchUsers } from '../../../actions/teams';
 
 // components
-import Navbar from '../../Common/Navbar';
+import Navbar from '../../common/Navbar';
 import Card from '../components/Cards';
-import Modal from '../../Common/Modals/AddMember';
+import Modal from '../../common/Modals/AddMember';
+import Footer from '../../common/Footer';
 
 class Home extends Component {
   static propTypes = {
@@ -19,12 +20,29 @@ class Home extends Component {
     }).isRequired,
     users: PropTypes.shape({
       users: PropTypes.object.isRequired
+    }).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired,
+    auth: PropTypes.shape({
+      loggedIn: PropTypes.bool
     }).isRequired
   };
 
   componentDidMount() {
+    M.AutoInit();
+    const elem = document.querySelector('.dropdown-trigger');
+    M.Dropdown.init(elem, {
+      constrainWidth: false,
+      coverTrigger: false,
+      inDuration: 400
+    });
     this.props.fetchTeams();
     this.props.fetchUsers();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.auth.loggedIn) nextProps.history.push('/');
   }
 
   render() {
@@ -36,6 +54,7 @@ class Home extends Component {
         <div className="row mt-2">
           <Card teams={teams} users={users} />
         </div>
+        <Footer />
       </div>
     );
   }
@@ -43,7 +62,8 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   teams: state.teams,
-  users: state.users
+  users: state.users,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, { fetchTeams, fetchUsers })(Home);

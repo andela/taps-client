@@ -1,26 +1,50 @@
-import axios from 'axios';
-import { FETCH_TEAMS, USERS } from './types';
+import jwtDecode from 'jwt-decode';
+import { IS_LOGGED_IN, IS_LOADING } from './types';
 
-export const isErrored = (type, data) => ({
+export const isErrored = (type, payload) => ({
   type,
-  data
+  payload
 });
-export const fetchTeams = () => dispatch =>
-  axios
-    .get('http://localhost:3000/teams')
-    .then(response => {
-      dispatch({ type: FETCH_TEAMS, payload: response.data });
-    })
-    .catch(error => {
-      dispatch(isErrored(FETCH_TEAMS, error.response.data));
-    });
 
-export const fetchUsers = () => dispatch =>
-  axios
-    .get('http://localhost:3000/users')
-    .then(response => {
-      dispatch({ type: USERS, payload: response.data });
-    })
-    .catch(error => {
-      dispatch(isErrored(USERS, error.response.data));
-    });
+export const toggleLoader = (type, payload) => ({
+  type,
+  payload
+});
+
+export const success = (type, payload) => ({
+  type,
+  payload
+});
+
+export const authenticated = () => ({
+  type: IS_LOGGED_IN,
+  payload: true
+});
+
+export const notAuthenticated = () => ({
+  type: IS_LOGGED_IN,
+  payload: false
+});
+export const isAuthenticated = () => dispatch => {
+  const jwtToken = window.localStorage.getItem('aTeamsToken');
+  if (!jwtToken || !jwtToken.length > 9) {
+    dispatch(notAuthenticated());
+  } else {
+    // check if token has expired
+    const decoded = jwtDecode(jwtToken);
+    if (decoded.exp < Date.now() / 1000) {
+      localStorage.removeItem('aTeamsToken');
+      dispatch(notAuthenticated());
+    }
+    dispatch(authenticated());
+  }
+};
+
+export const isLoading = payload => dispatch => {
+  if (payload === true) {
+    dispatch(isAuthenticated());
+    dispatch(toggleLoader(IS_LOADING, payload));
+    return;
+  }
+  dispatch(toggleLoader(IS_LOADING, payload));
+};

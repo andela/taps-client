@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // components
-import Home from '../Components/Home/container';
-import Footer from '../Components/Common/Footer';
+import Home from '../components/Home/container';
+import Preloader from '../components/common/Preloader';
+import SignIn from '../components/Auth/container/index';
 
 export default class Routes extends Component {
   componentDidMount() {
@@ -19,10 +22,12 @@ export default class Routes extends Component {
     return (
       <BrowserRouter>
         <div>
+          <Preloader />
+          <ToastContainer />
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/teams" exact component={Home} />
+            <Route path="/" component={SignIn} />
           </Switch>
-          <Footer />
         </div>
       </BrowserRouter>
     );
