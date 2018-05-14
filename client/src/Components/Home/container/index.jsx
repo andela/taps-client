@@ -37,7 +37,6 @@ class Home extends Component {
       teamsCount: 0,
       offset: 0,
       hasMore: true,
-      teams: []
     };
 
     this.loadMore = this.loadMore.bind(this);
@@ -87,9 +86,9 @@ class Home extends Component {
       }
     }
 
-    this.props.fetchTeams(2, this.state.offset);
+    this.props.fetchTeams(20, this.state.offset);
     this.setState(prevState => ({
-      offset: prevState.offset + 2
+      offset: prevState.offset + 20
     }));
   }
   render() {
