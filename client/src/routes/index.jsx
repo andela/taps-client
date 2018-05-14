@@ -4,9 +4,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // components
-import Home from '../components/Home/container';
-import Preloader from '../components/common/Preloader';
-import SignIn from '../components/Auth/container';
+import Home from '../modules/Home/container';
+import Preloader from '../modules/common/Preloader';
+import SignIn from '../modules/Auth/container';
 
 export default class Routes extends Component {
   componentDidMount() {
