@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // components
-import Home from '../components/Home/container/index.jsx';
+import Home from '../components/Home/container/index';
 import Preloader from '../components/common/Preloader/index.jsx';
 import SignIn from '../components/Auth/container/index.jsx';
 
