@@ -40,7 +40,6 @@ class Home extends Component {
     };
 
     this.loadMore = this.loadMore.bind(this);
-    this.spinner = this.spinner.bind(this);
   }
 
   componentDidMount() {
