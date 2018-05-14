@@ -6,7 +6,7 @@ import instance from '../../config/axios';
 export const fetchTeams = (limit, offset) => dispatch => {
   dispatch(isLoading(true));
   return instance
-    .get(`http://andela-teams-core.herokuapp.com/v1/teams?@limit=${limit}&@offset=${offset}`)
+    .get(`https://andela-teams-core.herokuapp.com/v1/teams?@limit=${limit}&@offset=${offset}`)
     .then(response => {
       const payload = {};
       payload.teams = response.data.data.teams;
