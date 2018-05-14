@@ -12,7 +12,7 @@ export const signIn = data => dispatch => {
   dispatch(isLoading(true));
   const postData = stringify(data);
   return instance
-    .post('http://andela-teams-core.herokuapp.com/v1/auth/signin', postData)
+    .post('https://andela-teams-core.herokuapp.com/v1/auth/signin', postData)
     .then(response => {
       if (!response.data.errors) {
         const {
@@ -38,7 +38,7 @@ export const signUp = data => dispatch => {
   dispatch(isLoading(true));
   const postData = stringify(data);
   return instance
-    .post('http://andela-teams-core.herokuapp.com/v1/auth/signup', postData)
+    .post('https://andela-teams-core.herokuapp.com/v1/auth/signup', postData)
     .then(response => {
       if (!response.data.errors) {
         const {
