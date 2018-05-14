@@ -16,7 +16,7 @@ import config from '../../../config';
 class Home extends Component {
   static propTypes = {
     fetchTeams: PropTypes.func.isRequired,
-    fetchUsers: PropTypes.func.isRequired,
+    // fetchUsers: PropTypes.func.isRequired,
     teams: PropTypes.shape({
       teams: PropTypes.object.isRequired
     }).isRequired,
@@ -36,11 +36,10 @@ class Home extends Component {
     this.state = {
       teamsCount: 0,
       offset: 0,
-      hasMore: true,
+      hasMore: true
     };
 
     this.loadMore = this.loadMore.bind(this);
-    this.spinner = this.spinner.bind(this);
   }
 
   componentDidMount() {
