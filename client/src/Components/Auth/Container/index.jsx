@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 // actions
 import { signIn, signUp } from '../../../actions/auth';
 
+//toasts
+import { errorMessage } from '../../../toasts';
+
 //components
 import Button from '../components/GoogleButton';
 import Form from '../components/ExtraForm';
@@ -81,9 +84,13 @@ class SignIn extends Component {
       googleId,
       photo: imageUrl
     };
-    this.setState({ data });
-    if (data) {
-      this.props.signIn(data);
+    if (email.includes('@andela.com')) {
+      this.setState({ data });
+      if (data) {
+        this.props.signIn(data);
+      }
+    } else {
+      errorMessage('Login with your andela email address');
     }
   }
   handleFailure = response => {

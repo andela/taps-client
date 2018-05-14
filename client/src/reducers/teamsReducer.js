@@ -5,7 +5,8 @@ const teamReducer = (state = { teams: [] }, action) => {
   case FETCH_TEAMS:
     return {
       ...state,
-      teams: action.payload
+      teams: [...state.teams, ...action.payload.teams],
+      meta: action.payload.meta
     };
   default:
     return state;

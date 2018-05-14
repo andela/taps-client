@@ -9,9 +9,24 @@
 .blue-btn {
   background: $blue;
   color: $white;
-
   &:hover {
     background: $blue;
   }
 }
 
+.preloader {
+  position: fixed;
+  top: 0;
+  margin: 0;
+  background: $blue-bg;
+  z-index: 2000;
+  .indeterminate {
+    background: $white;
+    border-radius: 0;
+  }
+}
+
+.custom-spinner {
+  height: 3rem;
+  width: 3rem;
+}

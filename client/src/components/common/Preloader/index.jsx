@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Pace from 'react-pace-progress';
 import PropTypes from 'prop-types';
 
 /**
@@ -11,8 +10,8 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element} React element
  */
 const Preloader = ({ isLoading: { isLoading } }) => (
-  <div className="fixed-top">
-    {isLoading ? <Pace color="#f5b339" height={4} /> : null}
+  <div className="progress preloader">
+    {isLoading && <div className="indeterminate" />}
   </div>
 );
 const mapStateToProps = state => ({

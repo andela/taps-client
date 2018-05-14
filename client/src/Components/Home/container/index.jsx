@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // Actions
 import { fetchTeams, fetchUsers } from '../../../actions/teams';
@@ -10,13 +11,14 @@ import Navbar from '../../common/Navbar';
 import Card from '../components/Cards';
 import Modal from '../../common/Modals/AddMember';
 import Footer from '../../common/Footer';
+import config from '../../../config';
 
 class Home extends Component {
   static propTypes = {
     fetchTeams: PropTypes.func.isRequired,
     fetchUsers: PropTypes.func.isRequired,
     teams: PropTypes.shape({
-      teams: PropTypes.array.isRequired
+      teams: PropTypes.object.isRequired
     }).isRequired,
     users: PropTypes.shape({
       users: PropTypes.object.isRequired
@@ -29,6 +31,18 @@ class Home extends Component {
     }).isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      teamsCount: 0,
+      offset: 0,
+      hasMore: true,
+    };
+
+    this.loadMore = this.loadMore.bind(this);
+    this.spinner = this.spinner.bind(this);
+  }
+
   componentDidMount() {
     M.AutoInit();
     const elem = document.querySelector('.dropdown-trigger');
@@ -37,22 +51,70 @@ class Home extends Component {
       coverTrigger: false,
       inDuration: 400
     });
-    this.props.fetchTeams();
-    this.props.fetchUsers();
+    this.loadMore();
+    // this.props.fetchUsers();
   }
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.auth.loggedIn) nextProps.history.push('/');
-  }
 
+    if (nextProps.teams.teams && nextProps.teams.meta) {
+      const {
+        teams: {
+          meta: {
+            pagination: { total }
+          }
+        }
+      } = nextProps;
+
+      this.setState(prevState => ({
+        teamsCount: prevState.TeamsCount + total
+      }));
+
+      if (nextProps.teams.teams.length >= total) {
+        this.setState(prevState => ({
+          hasMore: !prevState.hasMore
+        }));
+      }
+    }
+  }
+  loadMore() {
+    const { offset, teamsCount } = this.state;
+    if (this.props.teams && this.props.teams.meta) {
+      if (offset >= teamsCount) {
+        return;
+      }
+    }
+
+    this.props.fetchTeams(20, this.state.offset);
+    this.setState(prevState => ({
+      offset: prevState.offset + 20
+    }));
+  }
   render() {
     const { teams, users } = this.props;
+    const { hasMore } = this.state;
     return (
       <div>
         <Navbar />
         <Modal />
         <div className="row mt-2">
-          <Card teams={teams} users={users} />
+          <InfiniteScroll
+            dataLength={this.state.teamsCount}
+            next={this.loadMore}
+            hasMore={hasMore}
+            loader={
+              <div className="center">
+                <img
+                  src={config.spinner}
+                  className="custom-spinner"
+                  alt="loading..."
+                />
+              </div>
+            }
+          >
+            <Card teams={teams} users={users} />
+          </InfiniteScroll>
         </div>
         <Footer />
       </div>

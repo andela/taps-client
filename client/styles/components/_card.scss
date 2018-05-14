@@ -1,10 +1,12 @@
 .card {
   cursor: pointer;
-
+  .card-action {
+    border: 0;
+    padding-top: 0;
+  }
   &:hover {
     box-shadow: 0 8px 17px 2px $dark-shadow;
   }
-
   .card-image {
     .card-title {
       background: $overlay;
@@ -13,12 +15,35 @@
       width: 100%;
     }
   }
-
   .tiny-small {
     color: $black;
     font-size: 1.4rem;
   }
+  .progress-bar {
+    margin: 0;
+    padding-bottom: 0;
+  }
+}
 
+.progress-bar {
+  .zero {
+    background: $red;
+  }
+  .zero-bg {
+    background: $red-background;
+  }
+  .half-way {
+    background: $yellow;
+  }
+  .half-way-bg {
+    background: $yellow-background;
+  }
+  .completed {
+    background: $green;
+  }
+  .completed-bg {
+    background: $green-background;
+  }
 }
 
 .card-action {
@@ -26,4 +51,3 @@
     color: $blue !important;
   }
 }
-
