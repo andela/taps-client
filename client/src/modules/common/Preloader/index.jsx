@@ -10,9 +10,13 @@ import PropTypes from 'prop-types';
  * @returns {JSX.Element} React element
  */
 const Preloader = ({ isLoading: { isLoading } }) => (
-  <div className="progress preloader">
-    {isLoading && <div className="indeterminate" />}
-  </div>
+  <React.Fragment>
+    {isLoading && (
+      <div className="progress preloader">
+        <div className="indeterminate" />
+      </div>
+    )}
+  </React.Fragment>
 );
 const mapStateToProps = state => ({
   isLoading: state.isLoading

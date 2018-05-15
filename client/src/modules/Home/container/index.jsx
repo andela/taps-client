@@ -71,8 +71,8 @@ class Home extends Component {
       }));
 
       if (nextProps.teams.teams.length >= total) {
-        this.setState(prevState => ({
-          hasMore: !prevState.hasMore
+        this.setState(() => ({
+          hasMore: false
         }));
       }
     }
