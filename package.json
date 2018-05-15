@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "project x",
   "main": "index.js",
+  "engines": {
+    "node": "8.9.2"
+  },
   "scripts": {
     "heroku-postbuild": "webpack --config webpack.config.dev.js --progress",
     "build": "webpack",
