@@ -15,10 +15,11 @@
 }
 
 .preloader {
+  background: $blue-bg;
+  border-radius: 0;
   position: fixed;
   top: 0;
   margin: 0;
-  background: $blue-bg;
   z-index: 2000;
   .indeterminate {
     background: $white;

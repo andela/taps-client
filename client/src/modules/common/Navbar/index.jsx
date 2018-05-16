@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
+import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../../actions/auth';
 
@@ -20,8 +21,10 @@ class Navbar extends Component {
 
   handleSearch(event) {
     event.preventDefault();
+    // this.toggleState('searchBar');
+    this.props.handleSubmit(event);
     this.setState({
-      showSearchBar: true
+      showSearchBar: false
     });
   }
 
@@ -57,9 +60,13 @@ class Navbar extends Component {
               <i className="material-icons">menu</i>
             </a>
 
-            <a href="#!" className="brand">
+            <NavLink
+              to="/teams"
+              className="brand"
+              onClick={this.props.gotoHome}
+            >
               Andela Teams
-            </a>
+            </NavLink>
             <a
               href="#!"
               onClick={() => this.toggleState('showSearchBar')}
@@ -76,11 +83,11 @@ class Navbar extends Component {
                 </a>
               </li>
               <li>
-                <a href="#!">
+                <NavLink to="/teams" onClick={this.props.gotoHome}>
                   <i className="material-icons" data-tip="Teams">
                     group
                   </i>
-                </a>
+                </NavLink>
               </li>
 
               <li>
@@ -122,9 +129,15 @@ class Navbar extends Component {
         </nav>
         <nav className={`nav-blue navbar-fixed ${searchBar}`}>
           <div className="nav-wrapper">
-            <form>
+            <form onSubmit={this.handleSearch}>
               <div className="input-field">
-                <input id="search" type="search" required />
+                <input
+                  id="search"
+                  type="search"
+                  required
+                  value={this.props.searchValue}
+                  onChange={this.props.handleInput}
+                />
                 <label className="label-icon" htmlFor="search">
                   <i className="material-icons">search</i>
                 </label>
