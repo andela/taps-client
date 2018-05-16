@@ -21,14 +21,14 @@ export default class Routes extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
+        <React.Fragment>
           <Preloader />
           <ToastContainer />
           <Switch>
             <Route path="/teams" exact component={Home} />
             <Route path="/" component={SignIn} />
           </Switch>
-        </div>
+        </React.Fragment>
       </BrowserRouter>
     );
   }

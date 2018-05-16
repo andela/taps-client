@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // Actions
-import { fetchTeams, fetchUsers } from '../../../actions/teams';
+import { fetchTeams, clearTeams } from '../../../actions/teams';
 
 // components
 import Navbar from '../../common/Navbar';
@@ -16,7 +16,7 @@ import config from '../../../config';
 class Home extends Component {
   static propTypes = {
     fetchTeams: PropTypes.func.isRequired,
-    // fetchUsers: PropTypes.func.isRequired,
+    clearTeams: PropTypes.func.isRequired,
     teams: PropTypes.shape({
       teams: PropTypes.object.isRequired
     }).isRequired,
@@ -36,10 +36,15 @@ class Home extends Component {
     this.state = {
       teamsCount: 0,
       offset: 0,
-      hasMore: true
+      searchOffset: 0,
+      hasMore: true,
+      searchInput: ''
     };
 
     this.loadMore = this.loadMore.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchInput = this.handleSearchInput.bind(this);
+    this.gotoHome = this.gotoHome.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +60,9 @@ class Home extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.setState(() => ({
+      hasMore: true
+    }));
     if (!nextProps.auth.loggedIn) nextProps.history.push('/');
 
     if (nextProps.teams.teams && nextProps.teams.meta) {
@@ -70,22 +78,59 @@ class Home extends Component {
         teamsCount: prevState.TeamsCount + total
       }));
 
-      if (nextProps.teams.teams.length >= total) {
+      console.log(this.state.searchOffset, total);
+      if (
+        nextProps.teams.teams.length >= total ||
+        this.state.searchOffset >= total
+      ) {
         this.setState(() => ({
           hasMore: false
         }));
       }
     }
   }
-  loadMore() {
-    const { offset, teamsCount } = this.state;
-    if (this.props.teams && this.props.teams.meta) {
-      if (offset >= teamsCount) {
-        return;
-      }
-    }
 
-    this.props.fetchTeams(20, this.state.offset);
+  gotoHome(event) {
+    console.log('going back home.....');
+    this.setState(() => ({ searchInput: '', searchOffset: 0, offset: 0 }));
+    this.props.clearTeams();
+    this.loadMore('', 0);
+  }
+
+  handleSearch(event) {
+    event.preventDefault();
+    this.props.clearTeams();
+    this.loadMore(this.state.searchInput);
+    this.setState(() => ({ offset: 0, searchInput: '', searchOffset: 0 }));
+  }
+
+  handleSearchInput(event) {
+    this.setState({
+      searchInput: event.target.value,
+      searchOffset: 0
+    });
+  }
+
+  loadMore(query = this.state.searchInput, refreshOffset = null) {
+    console.log('query===>', query);
+    const { offset, searchOffset } = this.state;
+    console.log('state===>', this.state);
+    // if (this.props.teams && this.props.teams.meta) {
+    //   if (offset >= teamsCount) {
+    //     return;
+    //   }
+    // }
+    let queryOffset = offset;
+    if (query) {
+      queryOffset = searchOffset;
+      this.setState(prevState => ({
+        searchOffset: prevState.searchOffset + 20
+      }));
+    } else if (refreshOffset === 0) {
+      queryOffset = refreshOffset;
+      console.log('offset=====>', queryOffset);
+    }
+    this.props.fetchTeams(20, queryOffset, query);
     this.setState(prevState => ({
       offset: prevState.offset + 20
     }));
@@ -95,7 +140,12 @@ class Home extends Component {
     const { hasMore } = this.state;
     return (
       <div>
-        <Navbar />
+        <Navbar
+          handleSubmit={this.handleSearch}
+          handleInput={this.handleSearchInput}
+          searchValue={this.state.searchInput}
+          gotoHome={this.gotoHome}
+        />
         <Modal />
         <div className="row mt-2">
           <InfiniteScroll
@@ -127,4 +177,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { fetchTeams, fetchUsers })(Home);
+export default connect(mapStateToProps, { fetchTeams, clearTeams })(Home);
