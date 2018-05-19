@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 // component
 import CardItem from './CardItem';
@@ -38,14 +39,17 @@ export default class Cards extends Component {
         progress = ['completed', 'completed-bg'];
       }
       return (
-        <CardItem
-          key={items.id}
-          item={items}
-          favorite={favorite}
-          lock={lock}
-          toolTip={toolTip}
-          progressBar={progress}
-        />
+        <React.Fragment>
+          <CardItem
+            key={items.id}
+            item={items}
+            favorite={favorite}
+            lock={lock}
+            toolTip={toolTip}
+            progressBar={progress}
+          />
+          <ReactTooltip />
+        </React.Fragment>
       );
     });
 

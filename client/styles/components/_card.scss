@@ -1,11 +1,52 @@
 .card {
+  transition: all 100ms ease-in;
   cursor: pointer;
-  .card-action {
-    border: 0;
-    padding-top: 0;
+  height: 20rem;
+  overflow: hidden;
+  box-shadow: 0 5px 20px -4px $dark-shadow;
+  .transparent {
+    background: transparent !important;
+    box-shadow: none !important;
+  }.favorite-btn {
+    background: $red;
+    position: absolute;
+    top: 3rem;
+  }
+  .card-description {
+    padding: 1rem;
   }
   &:hover {
-    box-shadow: 0 8px 17px 2px $dark-shadow;
+    transform: scale(1.03);
+  }
+  .card-header {
+    top: 0;
+    color: $white;
+    padding: 1rem;
+  }
+  .card-icons {
+    background: $white;
+    border: 0;
+    padding: 1rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  .favorite-icon {
+    text-transform: capitalize !important;
+    border: thin solid $blue;
+    border-radius: .3rem;
+    font-size: 1rem;
+    border-color: $black;
+    color: $black !important;
+    padding: .1rem .5rem;
+    font-size: .8rem;
+    letter-spacing: .1rem;
+    color: #000 !important;
+    &:hover {
+      background: $red;
+      color: $white !important;
+      border-color: $red;
+    }
   }
   .card-image {
     .card-title {
@@ -48,6 +89,6 @@
 
 .card-action {
   a {
-    color: $blue !important;
+    // color: $black !important;
   }
 }

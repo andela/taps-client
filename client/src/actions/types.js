@@ -7,3 +7,4 @@ export const SIGN_UP = '[auth]: user sign up';
 export const IS_LOGGED_IN = '[auth]: check if user is logged in';
 export const IS_LOADING = '[ui]: show preloader';
 export const CLEAR_TEAMS = '[teams]: clear teams array';
+export const CREATE_TEAM = '[teams]: create teams';

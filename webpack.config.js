@@ -3,7 +3,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  mode: 'development',
   entry: './client/src/app.jsx',
   output: {
     path: path.join(__dirname, './client/public'),

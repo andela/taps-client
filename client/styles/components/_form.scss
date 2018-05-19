@@ -1,0 +1,23 @@
+.form-wrapper {
+  background: $white;
+  margin-top: 5rem;
+  border-radius: .5rem;
+  .form-wrapper-inner {
+    padding: 1.5rem;
+  }
+  .form-header {
+    padding: 1rem;
+    border-radius: .5rem .5rem 0 0;
+    .header-text {
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      color: white;
+    }
+  }
+}
+
+.sign-in-text {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}

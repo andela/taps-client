@@ -1,4 +1,9 @@
-import { FETCH_TEAMS, SEARCH_TEAMS, CLEAR_TEAMS } from '../actions/types';
+import {
+  FETCH_TEAMS,
+  SEARCH_TEAMS,
+  CLEAR_TEAMS,
+  CREATE_TEAM
+} from '../actions/types';
 
 const teamReducer = (state = { teams: [] }, action) => {
   switch (action.type) {
@@ -13,7 +18,13 @@ const teamReducer = (state = { teams: [] }, action) => {
     return {
       ...state,
       teams: [],
-      meta: action.payload.meta
+      meta: action.payload.meta,
+      data: []
+    };
+  case CREATE_TEAM:
+    return {
+      ...state,
+      data: action.payload
     };
   default:
     return state;

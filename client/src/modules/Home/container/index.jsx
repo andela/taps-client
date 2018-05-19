@@ -55,8 +55,9 @@ class Home extends Component {
       coverTrigger: false,
       inDuration: 400
     });
-    this.loadMore();
-    // this.props.fetchUsers();
+    if (this.props.teams.teams.length === 0) {
+      this.loadMore();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,7 +79,6 @@ class Home extends Component {
         teamsCount: prevState.TeamsCount + total
       }));
 
-      console.log(this.state.searchOffset, total);
       if (
         nextProps.teams.teams.length >= total ||
         this.state.searchOffset >= total
@@ -90,8 +90,11 @@ class Home extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.clearTeams();
+  }
+
   gotoHome(event) {
-    console.log('going back home.....');
     this.setState(() => ({ searchInput: '', searchOffset: 0, offset: 0 }));
     this.props.clearTeams();
     this.loadMore('', 0);
@@ -112,14 +115,7 @@ class Home extends Component {
   }
 
   loadMore(query = this.state.searchInput, refreshOffset = null) {
-    console.log('query===>', query);
     const { offset, searchOffset } = this.state;
-    console.log('state===>', this.state);
-    // if (this.props.teams && this.props.teams.meta) {
-    //   if (offset >= teamsCount) {
-    //     return;
-    //   }
-    // }
     let queryOffset = offset;
     if (query) {
       queryOffset = searchOffset;
@@ -128,7 +124,6 @@ class Home extends Component {
       }));
     } else if (refreshOffset === 0) {
       queryOffset = refreshOffset;
-      console.log('offset=====>', queryOffset);
     }
     this.props.fetchTeams(20, queryOffset, query);
     this.setState(prevState => ({
@@ -145,25 +140,28 @@ class Home extends Component {
           handleInput={this.handleSearchInput}
           searchValue={this.state.searchInput}
           gotoHome={this.gotoHome}
+          showIcon
         />
         <Modal />
-        <div className="row mt-2">
-          <InfiniteScroll
-            dataLength={this.state.teamsCount}
-            next={this.loadMore}
-            hasMore={hasMore}
-            loader={
-              <div className="center">
-                <img
-                  src={config.spinner}
-                  className="custom-spinner"
-                  alt="loading..."
-                />
-              </div>
-            }
-          >
-            <Card teams={teams} users={users} />
-          </InfiniteScroll>
+        <div className="custom-container">
+          <div className="row mt-2 pb-3">
+            <InfiniteScroll
+              dataLength={this.state.teamsCount}
+              next={this.loadMore}
+              hasMore={hasMore}
+              loader={
+                <div className="center">
+                  <img
+                    src={config.spinner}
+                    className="custom-spinner"
+                    alt="loading..."
+                  />
+                </div>
+              }
+            >
+              <Card teams={teams} users={users} />
+            </InfiniteScroll>
+          </div>
         </div>
         <Footer />
       </div>

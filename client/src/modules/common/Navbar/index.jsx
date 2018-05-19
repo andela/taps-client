@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../../actions/auth';
 
 class Navbar extends Component {
   static propTypes = {
-    signOut: PropTypes.func.isRequired
+    signOut: PropTypes.func.isRequired,
   };
   constructor(props) {
     super(props);
@@ -21,7 +21,6 @@ class Navbar extends Component {
 
   handleSearch(event) {
     event.preventDefault();
-    // this.toggleState('searchBar');
     this.props.handleSubmit(event);
     this.setState({
       showSearchBar: false
@@ -67,21 +66,28 @@ class Navbar extends Component {
             >
               Andela Teams
             </NavLink>
-            <a
-              href="#!"
-              onClick={() => this.toggleState('showSearchBar')}
-              className=" float-right sidenav-trigger"
-            >
-              <i className="material-icons">search</i>
-            </a>
+            {this.props.showIcon && (
+              <a
+                href="#!"
+                onClick={() => this.toggleState('showSearchBar')}
+                className=" float-right sidenav-trigger"
+              >
+                <i className="material-icons">search</i>
+              </a>
+            )}
             <ul className="right hide-on-med-and-down nav-items">
-              <li>
-                <a href="#!" onClick={() => this.toggleState('showSearchBar')}>
-                  <i className="material-icons" data-tip="search teams">
-                    search
-                  </i>
-                </a>
-              </li>
+              {this.props.showIcon && (
+                <li>
+                  <a
+                    href="#!"
+                    onClick={() => this.toggleState('showSearchBar')}
+                  >
+                    <i className="material-icons" data-tip="search teams">
+                      search
+                    </i>
+                  </a>
+                </li>
+              )}
               <li>
                 <NavLink to="/teams" onClick={this.props.gotoHome}>
                   <i className="material-icons" data-tip="Teams">
@@ -91,11 +97,11 @@ class Navbar extends Component {
               </li>
 
               <li>
-                <a href="#!">
+                <NavLink to="/teams/create">
                   <i className="material-icons" data-tip="Create teams">
                     group_add
                   </i>
-                </a>
+                </NavLink>
               </li>
               <li>
                 <a href="#!">
@@ -176,13 +182,13 @@ class Navbar extends Component {
         </ul>
         <ul className="sidenav" id="main-navigation">
           <li>
-            <a href="#!">Teams</a>
+            <NavLink to="/teams">Teams</NavLink>
           </li>
           <li>
             <a href="#!">Favorite Teams</a>
           </li>
           <li>
-            <a href="#!">Create Team</a>
+            <NavLink to="/teams/create">Create Team</NavLink>
           </li>
           <li>
             <a

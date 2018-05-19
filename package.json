@@ -7,7 +7,7 @@
     "node": "8.9.2"
   },
   "scripts": {
-    "heroku-postbuild": "webpack --config webpack.config.dev.js --progress",
+    "heroku-postbuild": "webpack --config webpack.prod.js --progress",
     "build": "webpack",
     "start": "node --require babel-register index.js",
     "start:dev": "nodemon --require babel-register index.js",
@@ -19,7 +19,9 @@
     "type": "git",
     "url": "https://github.com/andela-stuff/andela-teams-2"
   },
-  "keywords": ["webpack"],
+  "keywords": [
+    "webpack"
+  ],
   "author": "Emmanuel Ndukwe",
   "license": "ISC",
   "homepage": "https://github.com/andela-stuff/andela-teams-2",
@@ -47,6 +49,8 @@
     "@babel/core": "^7.0.0-beta.44",
     "@babel/preset-env": "^7.0.0-beta.44",
     "@babel/preset-react": "^7.0.0-beta.44",
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/react-fontawesome": "0.0.20",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
@@ -61,6 +65,7 @@
     "fancy-log": "^1.3.2",
     "file-loader": "^1.1.11",
     "jwt-decode": "^2.2.0",
+    "materialize-css": "^1.0.0-rc.1",
     "morgan": "^1.9.0",
     "node-sass": "^4.8.3",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
@@ -81,6 +86,7 @@
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "url-loader": "^1.0.1",
     "webpack": "^4.5.0",
     "webpack-cli": "^2.0.14",
