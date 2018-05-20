@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Home from '../modules/Home/container';
 import Preloader from '../modules/common/Preloader';
 import SignIn from '../modules/Auth/container';
+import CreateTeam from '../modules/CreateTeam/container';
 
 export default class Routes extends Component {
   componentDidMount() {
@@ -26,7 +27,8 @@ export default class Routes extends Component {
           <ToastContainer />
           <Switch>
             <Route path="/teams" exact component={Home} />
-            <Route path="/" component={SignIn} />
+            <Route path="/" exact component={SignIn} />
+            <Route path="/teams/create" exact component={CreateTeam} />
           </Switch>
         </React.Fragment>
       </BrowserRouter>

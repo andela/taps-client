@@ -1,7 +1,14 @@
 import { stringify } from 'qs';
-import { FETCH_TEAMS, USERS, SEARCH_TEAMS, CLEAR_TEAMS } from '../types';
+import {
+  FETCH_TEAMS,
+  USERS,
+  SEARCH_TEAMS,
+  CLEAR_TEAMS,
+  CREATE_TEAM
+} from '../types';
 import { success, isErrored, isLoading } from '../index';
 import instance from '../../config/axios';
+import { successMessage, errorMessage } from '../../toasts';
 
 export const fetchTeams = (limit, offset, query = '') => dispatch => {
   let stringifyQuery = 'search=';
@@ -25,6 +32,24 @@ export const fetchTeams = (limit, offset, query = '') => dispatch => {
     })
     .catch(error => {
       dispatch(isErrored(type, error.response));
+      dispatch(isLoading(false));
+    });
+};
+
+export const createTeam = data => dispatch => {
+  dispatch(isLoading(true));
+  return instance
+    .post('https://andela-teams-core.herokuapp.com/v1/teams', data)
+    .then(response => {
+      dispatch(success(CREATE_TEAM, response.data));
+      dispatch(isLoading(false));
+      if (response.data.errors) {
+        errorMessage(response.data.errors[0]);
+        return;
+      }
+      successMessage(`${data.name} successfully created`);
+    })
+    .catch(error => {
       dispatch(isLoading(false));
     });
 };

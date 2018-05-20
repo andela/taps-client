@@ -9,7 +9,12 @@ const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) :
     compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk, logger));
+let enhancer;
+if (process.env.NODE_ENV !== 'production') {
+  enhancer = composeEnhancers(applyMiddleware(thunk, logger));
+} else {
+  enhancer = composeEnhancers(applyMiddleware(thunk));
+}
 
 const store = createStore(reducers, enhancer);
 
