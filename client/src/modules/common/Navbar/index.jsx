@@ -7,7 +7,7 @@ import { signOut } from '../../../actions/auth';
 
 class Navbar extends Component {
   static propTypes = {
-    signOut: PropTypes.func.isRequired,
+    signOut: PropTypes.func.isRequired
   };
   constructor(props) {
     super(props);
@@ -45,11 +45,13 @@ class Navbar extends Component {
 
   render() {
     const { showSearchBar } = this.state;
+    const { showTabs, switchContent } = this.props;
     const searchBar = showSearchBar ? 'show' : 'hide';
     const mainNav = showSearchBar ? 'hide' : 'show';
+    const extendNavbar = showTabs ? 'nav-extended ' : '';
     return (
       <div className="navbar-fixed">
-        <nav className={`nav-blue  ${mainNav}`}>
+        <nav className={`nav-blue ${extendNavbar} ${mainNav}`}>
           <div className="nav-wrapper">
             <a
               href="#!"
@@ -128,6 +130,34 @@ class Navbar extends Component {
                   <i className="medium material-icons left">
                     account_circle arrow_drop_down
                   </i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="nav-content">
+            <ul className="tabs tabs-transparent">
+              <li className="tab">
+                <a
+                  href="#Projects"
+                  onClick={event => switchContent(event, 'project')}
+                >
+                  Projects
+                </a>
+              </li>
+              <li className="tab">
+                <a
+                  href="#members"
+                  onClick={event => switchContent(event, 'member')}
+                >
+                  Members
+                </a>
+              </li>
+              <li className="tab">
+                <a
+                  href="#account"
+                  onClick={event => switchContent(event, 'account')}
+                >
+                  Account
                 </a>
               </li>
             </ul>

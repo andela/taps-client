@@ -1,0 +1,59 @@
+.sidebar {
+  transition: all 400ms ease-in-out;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  padding: .5rem;
+  background: $blue;
+  overflow-y: scroll;
+  padding-top: 7rem; // width: 100%;
+  .sidebar-nav {
+    margin-top: 0;
+  }
+  .nav-link {
+    cursor: pointer;
+    padding: 1rem .4rem;
+    margin: .5rem 0;
+    color: $white;
+    // letter-spacing: .1rem;
+    text-transform: capitalize;
+    &:hover {
+      background: $blue-nav;
+      box-shadow: 0 5px 20px -4px $dark-shadow;
+    }
+    a {
+      color: inherit;
+    }
+  }
+}
+
+.sidebar-inner {
+  background: rgba(255, 255, 255, 0.04);
+  height: auto;
+  // padding-bottom: 1rem;
+  width: 100%;
+}
+
+.nav-menu {
+  display: inline-block;
+  padding-top: 1rem;
+  a {
+    color: $white;
+  }
+}
+
+.nav-submenu {
+  display: block;
+  padding-top: 1rem;
+  a {
+    color: $white;
+  }
+}
+
+.side-nav-width-expanded {
+  width: 15rem;
+}
+
+.side-nav-width-collapsed {
+  min-width: 2rem;
+}

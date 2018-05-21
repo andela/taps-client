@@ -39,9 +39,8 @@ export default class Cards extends Component {
         progress = ['completed', 'completed-bg'];
       }
       return (
-        <React.Fragment>
+        <React.Fragment key={items.id}>
           <CardItem
-            key={items.id}
             item={items}
             favorite={favorite}
             lock={lock}

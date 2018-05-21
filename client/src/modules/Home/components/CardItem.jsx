@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 const CardItems = ({
   item, favorite, lock, toolTip, progressBar
@@ -17,7 +18,7 @@ const CardItems = ({
             <i className="material-icons">favorite</i>
           </a>
         </div>
-        <div className="card-description">
+        <div className="card-description black-text">
           <p>{item.description}</p>
         </div>
         <div className="card-icons">
@@ -33,9 +34,12 @@ const CardItems = ({
               />
             </div>
           </div>
-          <a href="#!" className=" waves-effect waves-light uppercase">
+          <NavLink
+            to={`teams/${item.id}`}
+            className=" waves-effect waves-light uppercase"
+          >
             View team
-          </a>
+          </NavLink>
           <i className="tiny-small material-icons right" data-tip={toolTip}>
             {lock}
           </i>
