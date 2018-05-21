@@ -7,6 +7,7 @@ import Navbar from '../../common/Navbar';
 import Project from '../components/Project';
 import Member from '../components/Member';
 import Account from '../components/Account';
+import Form from '../components/Form';
 
 export default class Teams extends Component {
   static propTypes = {};

@@ -3,6 +3,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import reducers from './reducers';
+import { isAuthenticated } from './actions/index';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
@@ -17,5 +18,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const store = createStore(reducers, enhancer);
+store.dispatch(isAuthenticated());
 
 export default store;

@@ -7,17 +7,31 @@ import { signOut } from '../../../actions/auth';
 
 class Navbar extends Component {
   static propTypes = {
-    signOut: PropTypes.func.isRequired
+    signOut: PropTypes.func.isRequired,
+    auth: PropTypes.shape({
+      name: PropTypes.string
+    }).isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    switchContent: PropTypes.bool.isRequired,
+    showTabs: PropTypes.bool.isRequired,
+    showIcon: PropTypes.bool.isRequired,
+    gotoHome: PropTypes.func.isRequired
   };
   constructor(props) {
     super(props);
     this.state = {
-      showSearchBar: false
+      showSearchBar: false,
+      name: ''
     };
     this.toggleState = this.toggleState.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.signOut = this.signOut.bind(this);
   }
+  componentDidMount = () => {
+    if (this.props.auth) {
+      this.setState(() => ({ name: this.props.auth.name }));
+    }
+  };
 
   handleSearch(event) {
     event.preventDefault();
@@ -44,14 +58,16 @@ class Navbar extends Component {
   }
 
   render() {
-    const { showSearchBar } = this.state;
-    const { showTabs, switchContent } = this.props;
+    const { showSearchBar, name } = this.state;
+    const {
+      showTabs, switchContent, showIcon, gotoHome
+    } = this.props;
     const searchBar = showSearchBar ? 'show' : 'hide';
     const mainNav = showSearchBar ? 'hide' : 'show';
     const extendNavbar = showTabs ? 'nav-extended ' : '';
     return (
       <div className="navbar-fixed">
-        <nav className={`nav-blue ${extendNavbar} ${mainNav}`}>
+        <nav className={`nav-white ${extendNavbar} ${mainNav}`}>
           <div className="nav-wrapper">
             <a
               href="#!"
@@ -61,14 +77,10 @@ class Navbar extends Component {
               <i className="material-icons">menu</i>
             </a>
 
-            <NavLink
-              to="/teams"
-              className="brand"
-              onClick={this.props.gotoHome}
-            >
+            <NavLink to="/teams" className="brand" onClick={gotoHome}>
               Andela Teams
             </NavLink>
-            {this.props.showIcon && (
+            {showIcon && (
               <a
                 href="#!"
                 onClick={() => this.toggleState('showSearchBar')}
@@ -92,32 +104,36 @@ class Navbar extends Component {
               )}
               <li>
                 <NavLink to="/teams" onClick={this.props.gotoHome}>
-                  <i className="material-icons" data-tip="Teams">
+                  Teams
+                  {/* <i className="material-icons" data-tip="Teams">
                     group
-                  </i>
+                  </i> */}
                 </NavLink>
               </li>
 
               <li>
                 <NavLink to="/teams/create">
-                  <i className="material-icons" data-tip="Create teams">
+                  Create team
+                  {/* <i className="material-icons" data-tip="Create teams">
                     group_add
-                  </i>
+                  </i> */}
                 </NavLink>
               </li>
               <li>
                 <a href="#!">
-                  <i className="material-icons" data-tip="favorite teams">
+                  Favorite teams
+                  {/* <i className="material-icons" data-tip="favorite teams">
                     favorite
-                  </i>
+                  </i> */}
                 </a>
               </li>
               <li className="notif-container">
                 <a href="#!">
-                  <span className="notif-badge" />
+                  Notifications
+                  {/* <span className="notif-badge" />
                   <i className="material-icons" data-tip="notifications">
                     notifications_active
-                  </i>
+                  </i> */}
                 </a>
               </li>
               <li>
@@ -127,41 +143,42 @@ class Navbar extends Component {
                   data-target="dropdown-menu-main"
                   data-beloworigin="true"
                 >
-                  <i className="medium material-icons left">
-                    account_circle arrow_drop_down
-                  </i>
+                  <i className="material-icons right">arrow_drop_down</i>
+                  <span>{name}</span>
                 </a>
               </li>
             </ul>
           </div>
-          <div className="nav-content">
-            <ul className="tabs tabs-transparent">
-              <li className="tab">
-                <a
-                  href="#Projects"
-                  onClick={event => switchContent(event, 'project')}
-                >
-                  Projects
-                </a>
-              </li>
-              <li className="tab">
-                <a
-                  href="#members"
-                  onClick={event => switchContent(event, 'member')}
-                >
-                  Members
-                </a>
-              </li>
-              <li className="tab">
-                <a
-                  href="#account"
-                  onClick={event => switchContent(event, 'account')}
-                >
-                  Account
-                </a>
-              </li>
-            </ul>
-          </div>
+          {showTabs && (
+            <div className="nav-content">
+              <ul className="tabs tabs-transparent">
+                <li className="tab">
+                  <a
+                    href="#Projects"
+                    onClick={event => switchContent(event, 'project')}
+                  >
+                    Projects
+                  </a>
+                </li>
+                <li className="tab">
+                  <a
+                    href="#members"
+                    onClick={event => switchContent(event, 'member')}
+                  >
+                    Members
+                  </a>
+                </li>
+                <li className="tab">
+                  <a
+                    href="#account"
+                    onClick={event => switchContent(event, 'account')}
+                  >
+                    Account
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
         </nav>
         <nav className={`nav-blue navbar-fixed ${searchBar}`}>
           <div className="nav-wrapper">
@@ -238,4 +255,8 @@ class Navbar extends Component {
   }
 }
 
-export default connect(null, { signOut })(Navbar);
+const mapStateToProps = ({ auth }) => ({
+  auth
+});
+
+export default connect(mapStateToProps, { signOut })(Navbar);

@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
+// Component
+import Form from './Form';
+
 const Project = ({ expanded, toggleSidenav }) => {
   const showSidenav = expanded ?
     'side-nav-width-expanded' :
@@ -45,8 +48,10 @@ const Project = ({ expanded, toggleSidenav }) => {
       </aside>
       <section className="row">
         <div className={`col ${contentWidth}`}>
-          <h1>Team Project</h1>
-          <h6>More magic to come</h6>
+          <div className="body-wrapper">
+            <h6>Team Project</h6>
+            {/* <Form /> */}
+          </div>
         </div>
       </section>
     </React.Fragment>

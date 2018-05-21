@@ -2,10 +2,14 @@
   background: $blue;
 }
 
+.nav-white {
+  background: $white;
+}
+
 .brand {
-  font-size: $sm-size;
-  margin-left: 3rem;
-  text-shadow: 1px 1px 1px $black;
+  color: $blue;
+  font-size: 2rem;
+  margin-left: 3rem; // text-shadow: 1px 1px 1px $black;
 }
 
 .sidenav {
@@ -28,6 +32,9 @@
     padding: 0 !important; // padding-bottom: .5rem;
     margin: 0;
     text-transform: uppercase;
+    a {
+      color: $blue !important;
+    }
   }
 }
 
@@ -35,8 +42,19 @@
   z-index: 1;
 }
 
+.dropdown-trigger {
+  padding: 0 1rem;
+  i.right {
+    margin-left: 0 !important;
+  }
+}
+
 .nav-items {
   padding-right: 3rem;
+  color: $blue !important;
+  a {
+    color: $blue; // text-transform: lowercase;
+  }
   .search-icon {
     font-size: 1.5rem;
   }
@@ -44,8 +62,7 @@
 
 .navbar-fixed {
   .dropdown-content {
-    border-bottom: .4rem solid $blue;
-    top: -5rem;
+    border-top: .4rem solid $blue; // top: -5rem;
     li {
       a {
         color: $grey;
@@ -66,34 +83,11 @@
   position: relative;
 }
 
-// nav {
-//   height: 30px;
-//   line-height: 30px;
-// }
+.tabs.tabs-transparent .indicator {
+  background: $blue;
+}
 
-// nav i,
-// nav [class^="mdi-"],
-// nav [class*="mdi-"],
-// nav i.material-icons {
-//   height: 30px;
-//   line-height: 30px;
-// }
-
-// nav .button-collapse i {
-//   height: 30px;
-//   line-height: 30px;
-// }
-
-// nav .brand-logo {
-//   font-size: 1.6rem;
-// }
-
-// @media only screen and (min-width: 601px) {
-//   nav,
-//   nav .nav-wrapper i,
-//   nav a.button-collapse,
-//   nav a.button-collapse i {
-//     height: 30px;
-//     line-height: 30px;
-//   }
-// }
+.tabs .tab a:focus,
+.tabs .tab a:focus.active {
+  background: transparent;
+} 

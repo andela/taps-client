@@ -16,9 +16,10 @@ export const success = (type, payload) => ({
   payload
 });
 
-export const authenticated = () => ({
+export const authenticated = (name) => ({
   type: IS_LOGGED_IN,
-  payload: true
+  payload: true,
+  name
 });
 
 export const notAuthenticated = () => ({
@@ -32,11 +33,13 @@ export const isAuthenticated = () => dispatch => {
   } else {
     // check if token has expired
     const decoded = jwtDecode(jwtToken);
+    const { email } = decoded;
+    const name = email.split('.');
     if (decoded.exp < Date.now() / 1000) {
       localStorage.removeItem('aTeamsToken');
       dispatch(notAuthenticated());
     }
-    dispatch(authenticated());
+    dispatch(authenticated(name[0].toUpperCase()));
   }
 };
 
