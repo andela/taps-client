@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const instance = axios.create();
+const instance = axios.create({
+  baseURL: 'https://andela-teams-core.herokuapp.com/v1/'
+});
 
 instance.defaults.headers.post['Content-Type'] =
   'application/x-www-form-urlencoded';

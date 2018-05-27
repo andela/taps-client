@@ -2,8 +2,8 @@ import React from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import reducers from './reducers';
-import { isAuthenticated } from './actions/index';
+import reducers from './redux/reducers';
+import { isAuthenticated } from './redux/actions/index';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?

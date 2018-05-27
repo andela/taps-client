@@ -1,16 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
+// import { NavLink } from 'react-router-dom';
+// actions
+import { fetchMembers } from '../../../redux/actions/teams/members';
 // Components
 import Navbar from '../../common/Navbar';
 import Project from '../components/Project';
 import Member from '../components/Member';
 import Account from '../components/Account';
-import Form from '../components/Form';
+// import Form from '../components/Form';
 
-export default class Teams extends Component {
-  static propTypes = {};
+class Teams extends Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({ id: PropTypes.string })
+    }).isRequired,
+    fetchMembers: PropTypes.func.isRequired,
+    members: PropTypes.shape({
+      data: PropTypes.shape({
+        memberships: PropTypes.array
+      })
+    }).isRequired
+  };
 
   constructor(props) {
     super(props);
@@ -26,6 +40,12 @@ export default class Teams extends Component {
 
   componentDidMount() {
     M.AutoInit();
+    const {
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    this.props.fetchMembers(id);
   }
 
   switchContent(event, content) {
@@ -40,6 +60,11 @@ export default class Teams extends Component {
 
   renderContent(content) {
     const { expanded } = this.state;
+    const {
+      members: {
+        data: { memberships }
+      }
+    } = this.props;
     switch (content) {
     case 'account':
       return (
@@ -48,7 +73,11 @@ export default class Teams extends Component {
       break;
     case 'member':
       return (
-        <Member expanded={expanded} toggleSidenav={this.toggleSidenav} />
+        <Member
+          expanded={expanded}
+          toggleSidenav={this.toggleSidenav}
+          members={memberships}
+        />
       );
       break;
     default:
@@ -62,10 +91,17 @@ export default class Teams extends Component {
   render() {
     const { content } = this.state;
     return (
-      <React.Fragment>
+      <div className="team-bg">
         <Navbar showTabs switchContent={this.switchContent} />
         {this.renderContent(content)}
-      </React.Fragment>
+        <ReactTooltip />
+      </div>
     );
   }
 }
+
+const mapStateToProps = ({ teams: { members } }) => ({
+  members
+});
+
+export default connect(mapStateToProps, { fetchMembers })(Teams);

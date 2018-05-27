@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // actions
-import { createTeam, clearTeams } from '../../../actions/teams';
+import { createTeam, clearTeams } from '../../../redux/actions/teams';
 
 //components
 import Navbar from '../../common/Navbar';
@@ -22,7 +22,6 @@ class CreateTeam extends Component {
     history: PropTypes.shape({
       push: PropTypes.func
     }).isRequired
-
   };
 
   constructor(props) {

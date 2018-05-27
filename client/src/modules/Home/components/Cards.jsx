@@ -7,18 +7,16 @@ import CardItem from './CardItem';
 
 export default class Cards extends Component {
   static propTypes = {
-    users: PropTypes.shape({
-      users: PropTypes.object
-    }).isRequired,
     teams: PropTypes.object.isRequired
   };
 
   componentWillReceiveProps(nextProps) {
-    const {
-      users: { users }
-    } = nextProps;
     const options = {
-      data: users
+      data: {
+        Apple: null,
+        Microsoft: null,
+        Google: 'https://placehold.it/250x250'
+      }
     };
 
     const elem = document.querySelector('.autocomplete');

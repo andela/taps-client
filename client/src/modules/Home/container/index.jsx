@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // Actions
-import { fetchTeams, clearTeams } from '../../../actions/teams';
+import { fetchTeams, clearTeams } from '../../../redux/actions/teams';
 
 // components
 import Navbar from '../../common/Navbar';
@@ -38,13 +38,15 @@ class Home extends Component {
       offset: 0,
       searchOffset: 0,
       hasMore: true,
-      searchInput: ''
+      searchInput: '',
+      // userSearch: ''
     };
 
     this.loadMore = this.loadMore.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchInput = this.handleSearchInput.bind(this);
     this.gotoHome = this.gotoHome.bind(this);
+    // this.handleUserSearch = this.handleUserSearch.bind(this);
   }
 
   componentDidMount() {
@@ -93,6 +95,18 @@ class Home extends Component {
   componentWillUnmount() {
     this.props.clearTeams();
   }
+
+  // searchUser(event) {
+  //   event.preventDefault();
+  //   console.log("value")
+  // }
+
+  // handleUserSearch(event) {
+  //   const {
+  //     target: { value }
+  //   } = event;
+  //   this.setState({ userSearch: value });
+  // }
 
   gotoHome(event) {
     this.setState(() => ({ searchInput: '', searchOffset: 0, offset: 0 }));

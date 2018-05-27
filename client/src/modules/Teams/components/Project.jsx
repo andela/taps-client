@@ -9,7 +9,7 @@ const Project = ({ expanded, toggleSidenav }) => {
   const showSidenav = expanded ?
     'side-nav-width-expanded' :
     'side-nav-width-collapsed';
-  const contentWidth = expanded ? 'offset-s3 s9' : ' offset-s1 s11';
+  const contentWidth = expanded ? 'offset-s3 s9' : ' offset-s-half s11';
   return (
     <React.Fragment>
       <aside className="col s3 sidebar-wrapper">

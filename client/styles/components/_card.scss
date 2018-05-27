@@ -1,13 +1,30 @@
+.team-card {
+  .card {
+    height: 20rem;
+  }
+}
+
+.member-card {
+  .card-content {
+    padding: .2rem;
+  }
+  .card-title {
+    font-weight: 400;
+    font-size: 1.5rem;
+  }
+}
+
 .card {
   transition: all 100ms ease-in;
-  cursor: pointer;
-  height: 20rem;
+  cursor: pointer; // height: 20rem;
+  max-width: 35rem;
   overflow: hidden;
   box-shadow: 0 5px 20px -4px $dark-shadow;
   .transparent {
     background: transparent !important;
     box-shadow: none !important;
-  }.favorite-btn {
+  }
+  .favorite-btn {
     background: $red;
     position: absolute;
     top: 3rem;
@@ -17,6 +34,7 @@
   }
   &:hover {
     transform: scale(1.03);
+    transform-origin: 0% 0;
   }
   .card-header {
     top: 0;

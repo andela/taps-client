@@ -7,8 +7,8 @@ import {
   CREATE_TEAM
 } from '../types';
 import { success, isErrored, isLoading } from '../index';
-import instance from '../../config/axios';
-import { successMessage, errorMessage } from '../../toasts';
+import instance from '../../../config/axios';
+import { successMessage, errorMessage } from '../../../toasts';
 
 export const fetchTeams = (limit, offset, query = '') => dispatch => {
   let stringifyQuery = 'search=';
@@ -20,7 +20,7 @@ export const fetchTeams = (limit, offset, query = '') => dispatch => {
   }
   dispatch(isLoading(true));
   return instance
-    .get(`https://andela-teams-core.herokuapp.com/v1/teams?@limit=${limit}&@offset=${offset}&@${stringifyQuery}`)
+    .get(`teams?@limit=${limit}&@offset=${offset}&@${stringifyQuery}`)
     .then(response => {
       const payload = {};
       payload.teams = response.data.data.teams;
@@ -39,7 +39,7 @@ export const fetchTeams = (limit, offset, query = '') => dispatch => {
 export const createTeam = data => dispatch => {
   dispatch(isLoading(true));
   return instance
-    .post('https://andela-teams-core.herokuapp.com/v1/teams', data)
+    .post('teams', data)
     .then(response => {
       dispatch(success(CREATE_TEAM, response.data));
       dispatch(isLoading(false));

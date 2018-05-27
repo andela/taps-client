@@ -1,3 +1,8 @@
+.team-bg {
+  background: rgb(248, 248, 248);
+  
+}
+
 .sidebar {
   transition: all 400ms ease-in-out;
   position: fixed;
@@ -14,8 +19,7 @@
     cursor: pointer;
     padding: 1rem .4rem;
     margin: .5rem 0;
-    color: $white;
-    // letter-spacing: .1rem;
+    color: $white; // letter-spacing: .1rem;
     text-transform: capitalize;
     &:hover {
       background: $blue-nav;
@@ -29,8 +33,7 @@
 
 .sidebar-inner {
   background: rgba(255, 255, 255, 0.04);
-  height: auto;
-  // padding-bottom: 1rem;
+  height: auto; // padding-bottom: 1rem;
   width: 100%;
 }
 
@@ -60,4 +63,42 @@
 
 .body-wrapper {
   margin-top: 4rem;
+}
+
+.small-icons {
+  font-size: 1.5rem;
+}
+
+.small-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.list-wrapper {
+  background: $white;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  padding: 1rem;
+  img,
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  .username,
+  .role {
+    padding: 0;
+    padding-left: 2rem;
+    margin: 0;
+  }
+  .user-action {
+    justify-self: flex-start;
+  }
+}
+
+.user-photo {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
 }

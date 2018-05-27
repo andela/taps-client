@@ -6,7 +6,7 @@ const CardItems = ({
   item, favorite, lock, toolTip, progressBar
 }) => (
   <div>
-    <div className="col s12 m6 l4">
+    <div className="col s12 m6 l3 team-card">
       <div className="card">
         <div className={`card-header ${progressBar[0]}`}>
           <span className="card-title">{item.name}</span>

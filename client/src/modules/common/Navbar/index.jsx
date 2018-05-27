@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { signOut } from '../../../actions/auth';
+import { signOut } from '../../../redux/actions/auth';
 
 class Navbar extends Component {
   static propTypes = {
@@ -11,11 +11,11 @@ class Navbar extends Component {
     auth: PropTypes.shape({
       name: PropTypes.string
     }).isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    switchContent: PropTypes.bool.isRequired,
-    showTabs: PropTypes.bool.isRequired,
-    showIcon: PropTypes.bool.isRequired,
-    gotoHome: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func,
+    switchContent: PropTypes.func,
+    showTabs: PropTypes.bool,
+    showIcon: PropTypes.bool,
+    gotoHome: PropTypes.func
   };
   constructor(props) {
     super(props);
