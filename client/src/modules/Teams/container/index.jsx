@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip';
 
 // import { NavLink } from 'react-router-dom';
 // actions
-import { fetchMembers } from '../../../redux/actions/teams/members';
+import { fetchMembers, addMember } from '../../../redux/actions/teams/members';
 // Components
 import Navbar from '../../common/Navbar';
 import Project from '../components/Project';
@@ -36,6 +36,7 @@ class Teams extends Component {
     this.renderContent = this.renderContent.bind(this);
     this.switchContent = this.switchContent.bind(this);
     this.toggleSidenav = this.toggleSidenav.bind(this);
+    this.addNewMember = this.addNewMember.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +52,16 @@ class Teams extends Component {
   switchContent(event, content) {
     event.preventDefault();
     this.setState(() => ({ content }));
+  }
+
+  addNewMember(event, userId) {
+    const {
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    event.preventDefault();
+    this.props.addMember(id, userId);
   }
 
   toggleSidenav(event) {
@@ -77,6 +88,7 @@ class Teams extends Component {
           expanded={expanded}
           toggleSidenav={this.toggleSidenav}
           members={memberships}
+          addNewMember={this.addNewMember}
         />
       );
       break;
@@ -100,8 +112,8 @@ class Teams extends Component {
   }
 }
 
-const mapStateToProps = ({ teams: { members } }) => ({
+const mapStateToProps = ({ teams: { members, addMember } }) => ({
   members
 });
 
-export default connect(mapStateToProps, { fetchMembers })(Teams);
+export default connect(mapStateToProps, { fetchMembers, addMember })(Teams);

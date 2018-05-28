@@ -10,3 +10,4 @@ export const CLEAR_TEAMS = '[teams]: clear teams array';
 export const CREATE_TEAM = '[teams]: create teams';
 export const FETCH_MEMBERS = '[members]: fetch members';
 export const SEARCH_USERS = '[users]: search members';
+export const ADD_MEMBER = '[users]: add member to a team';

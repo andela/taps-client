@@ -38,7 +38,10 @@ const Project = ({ expanded, toggleSidenav }) => {
               <ul className="sidebar-nav">
                 <li className="nav-link ">
                   <a href="#!" className="">
-                    Create new project
+                    <i className="material-icons left nav-icons">
+                      create_new_folder
+                    </i>
+                    <span className="nav-icons">Create new project</span>
                   </a>
                 </li>
               </ul>

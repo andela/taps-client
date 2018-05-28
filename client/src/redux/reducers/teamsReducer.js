@@ -3,12 +3,14 @@ import {
   SEARCH_TEAMS,
   CLEAR_TEAMS,
   CREATE_TEAM,
+  ADD_MEMBER,
   FETCH_MEMBERS
 } from '../actions/types';
 
 const initialState = {
   teams: [],
-  members: { data: { memberships: [] } }
+  members: { data: { memberships: [] } },
+  addMember: ''
 };
 
 const teamReducer = (state = initialState, action) => {
@@ -36,6 +38,11 @@ const teamReducer = (state = initialState, action) => {
     return {
       ...state,
       members: action.payload
+    };
+  case ADD_MEMBER:
+    return {
+      ...state,
+      addMember: action.payload
     };
   default:
     return state;

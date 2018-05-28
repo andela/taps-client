@@ -23,7 +23,7 @@ export class InviteMember extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderSearchOutput = this.renderSearchOutput.bind(this);
-    this.addMember = this.addMember.bind(this);
+    // this.addMember = this.addMember.bind(this);
   }
 
   handleSearch(event) {
@@ -37,21 +37,19 @@ export class InviteMember extends Component {
     this.setState({ searchInput: '' });
   }
 
-  addMember(event) {
-    event.preventDefault();
-  }
-
   renderSearchOutput(users) {
-    const { searchInput } = this.state;
+    const { addMember } = this.props;
     return users.map(item => {
       const temp = item.email.slice(0, -11);
       const fullName = temp.split('.').join(' ');
       return (
         <MemberCard
           name={fullName}
-          role={item.role}
+          // role={item.role}
           photo={item.photo}
           key={item.id}
+          userId={item.id}
+          addMember={addMember}
         />
       );
     });

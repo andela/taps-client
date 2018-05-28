@@ -4,7 +4,7 @@ import ReactTooltip from 'react-tooltip';
 
 // components
 import Gallery from './Gallery';
-import NewMembers from './InviteMembers';
+import InviteMembers from './InviteMembers';
 
 class Member extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class Member extends Component {
   }
 
   renderContent(content) {
-    const { members } = this.props;
+    const { members, addNewMember } = this.props;
     switch (content) {
     case 'see members':
       return members.map(member => (
@@ -32,11 +32,11 @@ class Member extends Component {
       ));
       break;
     case 'invite members':
-      return <NewMembers />;
+      return <InviteMembers addMember={addNewMember} />;
       break;
 
     default:
-      return <NewMembers />;
+      return <InviteMembers addMember={addNewMember} />;
       break;
     }
   }
@@ -73,11 +73,6 @@ class Member extends Component {
                       <i className="material-icons">person_add</i>
                     </a>
                   </li>
-                  <li className="nav-submenu" data-tip="add roles to members">
-                    <a href="#!">
-                      <i className="material-icons">assignment</i>
-                    </a>
-                  </li>
                   <li className="nav-submenu" data-tip="see members">
                     <a href="#!">
                       <i className="material-icons">group</i>
@@ -96,18 +91,15 @@ class Member extends Component {
                       this.chooseContent(event, 'invite members')
                     }
                   >
-                    <span>invite new members</span>
-                  </li>
-                  <li className="nav-link ">
-                    <a href="#!" className="">
-                      add roles to members
-                    </a>
+                    <i className="material-icons left nav-icons">person_add</i>
+                    <span className="nav-icons">Invite new members</span>
                   </li>
                   <li
                     className="nav-link "
                     onClick={event => this.chooseContent(event, 'see members')}
                   >
-                    <span>See members</span>
+                    <i className="material-icons left nav-icons">group</i>
+                    <span className="nav-icons">See members</span>
                   </li>
                 </ul>
               </div>

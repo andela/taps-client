@@ -1,6 +1,5 @@
 .team-bg {
   background: rgb(248, 248, 248);
-  
 }
 
 .sidebar {
@@ -18,12 +17,17 @@
   .nav-link {
     cursor: pointer;
     padding: 1rem .4rem;
+    font-size: 1rem;
+    line-height: 1;
     margin: .5rem 0;
     color: $white; // letter-spacing: .1rem;
     text-transform: capitalize;
     &:hover {
       background: $blue-nav;
       box-shadow: 0 5px 20px -4px $dark-shadow;
+    }
+    .nav-icons {
+      font-size: 1.1rem;
     }
     a {
       color: inherit;
@@ -79,7 +83,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  height: 5rem;
+  height: 8rem;
   padding: 1rem;
   img,
   p {
@@ -91,6 +95,13 @@
     padding: 0;
     padding-left: 2rem;
     margin: 0;
+  }
+  .role {
+    font-size: 1.3rem;
+    em {
+      font-style: normal;
+      font-size: .8rem;
+    }
   }
   .user-action {
     justify-self: flex-start;

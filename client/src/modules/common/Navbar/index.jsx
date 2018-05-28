@@ -104,36 +104,36 @@ class Navbar extends Component {
               )}
               <li>
                 <NavLink to="/teams" onClick={this.props.gotoHome}>
-                  Teams
-                  {/* <i className="material-icons" data-tip="Teams">
+                  {/* Teams */}
+                  <i className="material-icons" data-tip="Teams">
                     group
-                  </i> */}
+                  </i>
                 </NavLink>
               </li>
 
               <li>
                 <NavLink to="/teams/create">
-                  Create team
-                  {/* <i className="material-icons" data-tip="Create teams">
+                  {/* Create team */}
+                  <i className="material-icons" data-tip="Create teams">
                     group_add
-                  </i> */}
+                  </i>
                 </NavLink>
               </li>
               <li>
                 <a href="#!">
-                  Favorite teams
-                  {/* <i className="material-icons" data-tip="favorite teams">
+                  {/* Favorite teams */}
+                  <i className="material-icons" data-tip="favorite teams">
                     favorite
-                  </i> */}
+                  </i>
                 </a>
               </li>
               <li className="notif-container">
                 <a href="#!">
-                  Notifications
-                  {/* <span className="notif-badge" />
+                  {/* Notifications */}
+                  <span className="notif-badge" />
                   <i className="material-icons" data-tip="notifications">
                     notifications_active
-                  </i> */}
+                  </i>
                 </a>
               </li>
               <li>
@@ -143,8 +143,13 @@ class Navbar extends Component {
                   data-target="dropdown-menu-main"
                   data-beloworigin="true"
                 >
-                  <i className="material-icons right">arrow_drop_down</i>
-                  <span>{name}</span>
+                  <i className="material-icons right">
+                    account_circle arrow_drop_down
+                  </i>
+                  {/* <i className="material-icons left" data-tip="notifications">
+                    account_circle
+                  </i> */}
+                  {/* <span>{name}</span> */}
                 </a>
               </li>
             </ul>
