@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
+import autoBind from 'auto-bind';
 
 // import { NavLink } from 'react-router-dom';
 // actions
 import { fetchMembers, addMember } from '../../../redux/actions/teams/members';
+import {
+  renderContent,
+  renderSubContent
+} from '../../../redux/actions/teams/renderPage';
 // Components
 import Navbar from '../../common/Navbar';
 import Project from '../components/Project';
@@ -33,10 +38,7 @@ class Teams extends Component {
       expanded: true
     };
 
-    this.renderContent = this.renderContent.bind(this);
-    this.switchContent = this.switchContent.bind(this);
-    this.toggleSidenav = this.toggleSidenav.bind(this);
-    this.addNewMember = this.addNewMember.bind(this);
+    autoBind(this);
   }
 
   componentDidMount() {
@@ -51,7 +53,12 @@ class Teams extends Component {
 
   switchContent(event, content) {
     event.preventDefault();
-    this.setState(() => ({ content }));
+    this.props.renderContent(content);
+  }
+
+  chooseContent(event, content) {
+    event.preventDefault();
+    this.props.renderSubContent(content);
   }
 
   addNewMember(event, userId) {
@@ -71,6 +78,7 @@ class Teams extends Component {
 
   renderContent(content) {
     const { expanded } = this.state;
+    const { subtitle } = this.props;
     const {
       members: {
         data: { memberships }
@@ -81,39 +89,50 @@ class Teams extends Component {
       return (
         <Account expanded={expanded} toggleSidenav={this.toggleSidenav} />
       );
-      break;
     case 'member':
       return (
         <Member
           expanded={expanded}
           toggleSidenav={this.toggleSidenav}
           members={memberships}
+          content={subtitle}
+          chooseContent={this.chooseContent}
           addNewMember={this.addNewMember}
         />
       );
-      break;
     default:
       return (
         <Project expanded={expanded} toggleSidenav={this.toggleSidenav} />
       );
-      break;
     }
   }
 
   render() {
     const { content } = this.state;
+    const { title } = this.props;
     return (
       <div className="team-bg">
         <Navbar showTabs switchContent={this.switchContent} />
-        {this.renderContent(content)}
+        {this.renderContent(title)}
         <ReactTooltip />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ teams: { members, addMember } }) => ({
-  members
+const mapStateToProps = ({
+  teams: {
+    members, addMember, title, subtitle
+  }
+}) => ({
+  members,
+  title,
+  subtitle
 });
 
-export default connect(mapStateToProps, { fetchMembers, addMember })(Teams);
+export default connect(mapStateToProps, {
+  fetchMembers,
+  addMember,
+  renderContent,
+  renderSubContent
+})(Teams);

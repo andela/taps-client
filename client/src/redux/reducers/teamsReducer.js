@@ -4,13 +4,17 @@ import {
   CLEAR_TEAMS,
   CREATE_TEAM,
   ADD_MEMBER,
-  FETCH_MEMBERS
+  FETCH_MEMBERS,
+  RENDER_CONTENT,
+  RENDER_SUB_CONTENT
 } from '../actions/types';
 
 const initialState = {
   teams: [],
   members: { data: { memberships: [] } },
-  addMember: ''
+  addMember: '',
+  title: 'project',
+  subtitle: 'invite members'
 };
 
 const teamReducer = (state = initialState, action) => {
@@ -43,6 +47,16 @@ const teamReducer = (state = initialState, action) => {
     return {
       ...state,
       addMember: action.payload
+    };
+  case RENDER_CONTENT:
+    return {
+      ...state,
+      title: action.title
+    };
+  case RENDER_SUB_CONTENT:
+    return {
+      ...state,
+      subtitle: action.title
     };
   default:
     return state;

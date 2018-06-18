@@ -55,6 +55,7 @@
     "@babel/preset-react": "^7.0.0-beta.44",
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/react-fontawesome": "0.0.20",
+    "auto-bind": "^1.2.0",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
+import autoBind from 'auto-bind';
 
 // components
 import Gallery from './Gallery';
@@ -12,19 +13,17 @@ class Member extends Component {
     this.state = {
       content: false
     };
-    this.renderMembers = this.renderMembers.bind(this);
-    this.renderContent = this.renderContent.bind(this);
-    this.chooseContent = this.chooseContent.bind(this);
+    autoBind(this);
   }
 
-  chooseContent(event, content) {
-    console.log('clicked=========>', content);
-    event.preventDefault();
-    this.setState({ content });
-  }
+  // chooseContent(event, content) {
+  //   event.preventDefault();
+  //   this.setState({ content });
+  // }
 
   renderContent(content) {
     const { members, addNewMember } = this.props;
+    console.log('subtitle ======>', content);
     switch (content) {
     case 'see members':
       return members.map(member => (
@@ -47,8 +46,10 @@ class Member extends Component {
     ));
   }
   render = () => {
-    const { content } = this.state;
-    const { expanded, toggleSidenav } = this.props;
+    // const { content } = this.state;
+    const {
+      expanded, toggleSidenav, chooseContent, content
+    } = this.props;
     const showSidenav = expanded ?
       'side-nav-width-expanded' :
       'side-nav-width-collapsed';
@@ -87,16 +88,14 @@ class Member extends Component {
                 <ul className="sidebar-nav">
                   <li
                     className="nav-link"
-                    onClick={event =>
-                      this.chooseContent(event, 'invite members')
-                    }
+                    onClick={event => chooseContent(event, 'invite members')}
                   >
                     <i className="material-icons left nav-icons">person_add</i>
                     <span className="nav-icons">Invite new members</span>
                   </li>
                   <li
                     className="nav-link "
-                    onClick={event => this.chooseContent(event, 'see members')}
+                    onClick={event => chooseContent(event, 'see members')}
                   >
                     <i className="material-icons left nav-icons">group</i>
                     <span className="nav-icons">See members</span>

@@ -11,3 +11,6 @@ export const CREATE_TEAM = '[teams]: create teams';
 export const FETCH_MEMBERS = '[members]: fetch members';
 export const SEARCH_USERS = '[users]: search members';
 export const ADD_MEMBER = '[users]: add member to a team';
+export const RENDER_CONTENT = '[ui]: render page';
+export const RENDER_SUB_CONTENT = '[ui]: render page content';
+
