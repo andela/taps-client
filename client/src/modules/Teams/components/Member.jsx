@@ -10,20 +10,11 @@ import InviteMembers from './InviteMembers';
 class Member extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      content: false
-    };
     autoBind(this);
   }
 
-  // chooseContent(event, content) {
-  //   event.preventDefault();
-  //   this.setState({ content });
-  // }
-
   renderContent(content) {
     const { members, addNewMember } = this.props;
-    console.log('subtitle ======>', content);
     switch (content) {
     case 'see members':
       return members.map(member => (
@@ -46,7 +37,6 @@ class Member extends Component {
     ));
   }
   render = () => {
-    // const { content } = this.state;
     const {
       expanded, toggleSidenav, chooseContent, content
     } = this.props;
