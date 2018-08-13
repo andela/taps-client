@@ -9,7 +9,8 @@
     "document": true,
     "M": true,
     "window": true,
-    "localStorage": true
+    "localStorage": true,
+    "expect": true
   },
   "rules": {
     "max-len": [
@@ -24,6 +25,8 @@
     ],
     "indent": ["error", 2],
     "max-depth": ["error", 5],
-    "jsx-a11y/label-has-for": 0
+    "jsx-a11y/label-has-for": 0,
+    "quote-props": "off",
+    "import/no-extraneous-dependencies": "off"
   }
 }
