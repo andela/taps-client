@@ -120,12 +120,12 @@ class Navbar extends Component {
                 </NavLink>
               </li>
               <li>
-                <a href="#!">
+                <NavLink to="/teams/favorites">
                   {/* Favorite teams */}
                   <i className="material-icons" data-tip="favorite teams">
                     favorite
                   </i>
-                </a>
+                </NavLink>
               </li>
               <li className="notif-container">
                 <a href="#!">
@@ -237,7 +237,7 @@ class Navbar extends Component {
             <NavLink to="/teams">Teams</NavLink>
           </li>
           <li>
-            <a href="#!">Favorite Teams</a>
+            <NavLink to="/teams/favorites">Favorite teams</NavLink>
           </li>
           <li>
             <NavLink to="/teams/create">Create Team</NavLink>

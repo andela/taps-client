@@ -20,7 +20,9 @@ export const signIn = data => dispatch => {
             data: { userToken }
           }
         } = response;
+        const { data: { data: { user: { id } } } } = response;
         localStorage.setItem('aTeamsToken', userToken);
+        localStorage.setItem('userId', id);
         successMessage('Login successful');
       }
 

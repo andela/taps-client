@@ -5,6 +5,8 @@ import {
   CREATE_TEAM,
   ADD_MEMBER,
   FETCH_MEMBERS,
+  TOGGLE_FAVORITES,
+  FETCH_FAVORITES,
   RENDER_CONTENT,
   RENDER_SUB_CONTENT
 } from '../actions/types';
@@ -14,7 +16,10 @@ const initialState = {
   members: { data: { memberships: [] } },
   addMember: '',
   title: 'project',
-  subtitle: 'invite members'
+  subtitle: 'invite members',
+  favoriteTeams: [],
+  userFavoriteId: [],
+  favoritesId: []
 };
 
 const teamReducer = (state = initialState, action) => {
@@ -57,6 +62,27 @@ const teamReducer = (state = initialState, action) => {
     return {
       ...state,
       subtitle: action.title
+    };
+  case TOGGLE_FAVORITES:
+    return {
+      ...state,
+      teams: state.teams.map(team => {
+        if (team.id !== action.favoriteData.favoriteTeams.teamId) {
+          return team;
+        }
+        return {
+          ...team,
+          teams: action.toggleType === 'add' ?
+            [...team.teams, { userId: action.userId }] :
+            team.teams.filter(favorite => favorite.userId !== action.userId)
+        };
+      }),
+      userFavoriteId: action.favoriteData.userIDs
+    };
+  case FETCH_FAVORITES:
+    return {
+      ...state,
+      favoriteTeams: action.favoriteTeams
     };
   default:
     return state;

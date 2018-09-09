@@ -102,7 +102,7 @@ class Teams extends Component {
       );
     default:
       return (
-        <Project expanded={expanded} toggleSidenav={this.toggleSidenav} />
+        <Project expanded={expanded} toggleSidenav={this.toggleSidenav} team={memberships} />
       );
     }
   }

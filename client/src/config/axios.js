@@ -1,7 +1,8 @@
 import axios from 'axios';
+import host from './host';
 
 const instance = axios.create({
-  baseURL: 'https://andela-teams-core.herokuapp.com/v1/'
+  baseURL: host
 });
 
 instance.defaults.headers.post['Content-Type'] =

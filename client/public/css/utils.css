@@ -548,3 +548,21 @@ Background colors*/
     line-height: 1.5em !important;
 }
 
+.favorite-icons i {
+    color: white;
+    background: red;
+}
+
+.favorite-text {
+    position: absolute;
+    top: 30%;
+    left: 38%;
+    font-size: 2rem;
+}
+
+.favorites-header {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 35px;
+    font-family: cursive;
+}

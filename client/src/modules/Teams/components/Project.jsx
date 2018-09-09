@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip';
 // Component
 import Form from './Form';
 
-const Project = ({ expanded, toggleSidenav }) => {
+const Project = ({ expanded, toggleSidenav, team }) => {
   const showSidenav = expanded ?
     'side-nav-width-expanded' :
     'side-nav-width-collapsed';
@@ -35,6 +35,11 @@ const Project = ({ expanded, toggleSidenav }) => {
           )}
           {expanded && (
             <div className="sidebar-inner">
+              <ul className="sidebar-nav">
+                <li className="nav-link ">
+                  <span className="nav-icons">{team.length >= 1 && team[0].team.name }</span>
+                </li>
+              </ul>
               <ul className="sidebar-nav">
                 <li className="nav-link ">
                   <a href="#!" className="">

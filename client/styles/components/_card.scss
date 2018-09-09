@@ -40,6 +40,10 @@
     top: 0;
     color: $white;
     padding: 1rem;
+
+    &.zero {
+      background: $blue;
+    }
   }
   .card-icons {
     background: $white;
