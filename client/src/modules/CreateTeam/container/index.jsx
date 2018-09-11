@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // actions
-import { createTeam, clearTeams } from '../../../actions/teams';
+import { createTeam, clearTeams } from '../../../redux/actions/teams';
 
 //components
 import Navbar from '../../common/Navbar';
@@ -22,7 +22,6 @@ class CreateTeam extends Component {
     history: PropTypes.shape({
       push: PropTypes.func
     }).isRequired
-
   };
 
   constructor(props) {
@@ -48,14 +47,8 @@ class CreateTeam extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.teams.data) {
-      this.setState(prevState => ({
-        submitting: !prevState.submitting
-      }));
-
-      if (nextProps.teams.data.data) {
-        nextProps.history.push('/teams');
-      }
+    if (nextProps.teams.data && nextProps.teams.data.data) {
+      nextProps.history.push('/teams');
     }
   }
 
@@ -90,7 +83,7 @@ class CreateTeam extends Component {
 
   render() {
     const {
-      name, description, visibility, submitting
+      name, description, visibility
     } = this.state;
     return (
       <React.Fragment>
@@ -103,7 +96,7 @@ class CreateTeam extends Component {
               name={name}
               desc={description}
               checked={visibility}
-              submitting={submitting}
+              submitting={this.props.isFetching.isLoading}
             />
           </div>
         </div>
@@ -113,7 +106,8 @@ class CreateTeam extends Component {
 }
 
 const mapStateToProps = state => ({
-  teams: state.teams
+  teams: state.teams,
+  isFetching: state.isLoading
 });
 
 export default connect(mapStateToProps, { createTeam, clearTeams })(CreateTeam);

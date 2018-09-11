@@ -3,21 +3,35 @@ import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { signOut } from '../../../actions/auth';
+import { signOut } from '../../../redux/actions/auth';
 
 class Navbar extends Component {
   static propTypes = {
     signOut: PropTypes.func.isRequired,
+    auth: PropTypes.shape({
+      name: PropTypes.string
+    }).isRequired,
+    handleSubmit: PropTypes.func,
+    switchContent: PropTypes.func,
+    showTabs: PropTypes.bool,
+    showIcon: PropTypes.bool,
+    gotoHome: PropTypes.func
   };
   constructor(props) {
     super(props);
     this.state = {
-      showSearchBar: false
+      showSearchBar: false,
+      name: ''
     };
     this.toggleState = this.toggleState.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.signOut = this.signOut.bind(this);
   }
+  componentDidMount = () => {
+    if (this.props.auth) {
+      this.setState(() => ({ name: this.props.auth.name }));
+    }
+  };
 
   handleSearch(event) {
     event.preventDefault();
@@ -44,12 +58,16 @@ class Navbar extends Component {
   }
 
   render() {
-    const { showSearchBar } = this.state;
+    const { showSearchBar, name } = this.state;
+    const {
+      showTabs, switchContent, showIcon, gotoHome
+    } = this.props;
     const searchBar = showSearchBar ? 'show' : 'hide';
     const mainNav = showSearchBar ? 'hide' : 'show';
+    const extendNavbar = showTabs ? 'nav-extended ' : '';
     return (
       <div className="navbar-fixed">
-        <nav className={`nav-blue  ${mainNav}`}>
+        <nav className={`nav-white ${extendNavbar} ${mainNav}`}>
           <div className="nav-wrapper">
             <a
               href="#!"
@@ -59,14 +77,10 @@ class Navbar extends Component {
               <i className="material-icons">menu</i>
             </a>
 
-            <NavLink
-              to="/teams"
-              className="brand"
-              onClick={this.props.gotoHome}
-            >
+            <NavLink to="/teams" className="brand" onClick={gotoHome}>
               Andela Teams
             </NavLink>
-            {this.props.showIcon && (
+            {showIcon && (
               <a
                 href="#!"
                 onClick={() => this.toggleState('showSearchBar')}
@@ -90,6 +104,7 @@ class Navbar extends Component {
               )}
               <li>
                 <NavLink to="/teams" onClick={this.props.gotoHome}>
+                  {/* Teams */}
                   <i className="material-icons" data-tip="Teams">
                     group
                   </i>
@@ -98,20 +113,23 @@ class Navbar extends Component {
 
               <li>
                 <NavLink to="/teams/create">
+                  {/* Create team */}
                   <i className="material-icons" data-tip="Create teams">
                     group_add
                   </i>
                 </NavLink>
               </li>
               <li>
-                <a href="#!">
+                <NavLink to="/teams/favorites">
+                  {/* Favorite teams */}
                   <i className="material-icons" data-tip="favorite teams">
                     favorite
                   </i>
-                </a>
+                </NavLink>
               </li>
               <li className="notif-container">
                 <a href="#!">
+                  {/* Notifications */}
                   <span className="notif-badge" />
                   <i className="material-icons" data-tip="notifications">
                     notifications_active
@@ -125,13 +143,47 @@ class Navbar extends Component {
                   data-target="dropdown-menu-main"
                   data-beloworigin="true"
                 >
-                  <i className="medium material-icons left">
+                  <i className="material-icons right">
                     account_circle arrow_drop_down
                   </i>
+                  {/* <i className="material-icons left" data-tip="notifications">
+                    account_circle
+                  </i> */}
+                  {/* <span>{name}</span> */}
                 </a>
               </li>
             </ul>
           </div>
+          {showTabs && (
+            <div className="nav-content">
+              <ul className="tabs tabs-transparent">
+                <li className="tab">
+                  <a
+                    href="#Projects"
+                    onClick={event => switchContent(event, 'project')}
+                  >
+                    Projects
+                  </a>
+                </li>
+                <li className="tab">
+                  <a
+                    href="#members"
+                    onClick={event => switchContent(event, 'member')}
+                  >
+                    Members
+                  </a>
+                </li>
+                <li className="tab">
+                  <a
+                    href="#account"
+                    onClick={event => switchContent(event, 'account')}
+                  >
+                    Account
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
         </nav>
         <nav className={`nav-blue navbar-fixed ${searchBar}`}>
           <div className="nav-wrapper">
@@ -185,7 +237,7 @@ class Navbar extends Component {
             <NavLink to="/teams">Teams</NavLink>
           </li>
           <li>
-            <a href="#!">Favorite Teams</a>
+            <NavLink to="/teams/favorites">Favorite teams</NavLink>
           </li>
           <li>
             <NavLink to="/teams/create">Create Team</NavLink>
@@ -208,4 +260,8 @@ class Navbar extends Component {
   }
 }
 
-export default connect(null, { signOut })(Navbar);
+const mapStateToProps = ({ auth }) => ({
+  auth
+});
+
+export default connect(mapStateToProps, { signOut })(Navbar);

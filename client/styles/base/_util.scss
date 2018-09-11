@@ -6,12 +6,28 @@
   margin-top: 2rem;
 }
 
+.mt-11 {
+  margin-top: 1.1rem;
+}
+
 .pb-3 {
   padding-bottom: 5rem;
 }
 
+.pb-1 {
+  padding-bottom: 1rem;
+}
+
+.mt-5 {
+  margin-top: 5rem;
+}
+
 .pr-1 {
   padding-right: 1rem;
+}
+
+.offset-s-half {
+  margin-left: 3% !important;
 }
 
 .capitalize {
@@ -40,14 +56,14 @@
 }
 
 .preloader {
-  background: $blue-bg;
+  background: $white;
   border-radius: 0;
   position: fixed;
   top: 0;
   margin: 0;
   z-index: 2000;
   .indeterminate {
-    background: $white;
+    background: $blue;
     border-radius: 0;
   }
 }
@@ -150,4 +166,24 @@
 
 .completed-bg {
   background: $green-background;
+}
+
+.light-shadow {
+  box-shadow: 0 5px 20px -4px $dark-shadow;
+  transition: all 400ms ease-in-out;
+  &:hover {
+    box-shadow: 0 10px 30px -6px $dark-shadow;
+  }
+}
+
+.text-red {
+  color: $red;
+}
+
+.hovered {
+  cursor: pointer;
+}
+
+.text-blue {
+  color: $blue
 }

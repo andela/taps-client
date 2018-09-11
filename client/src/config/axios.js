@@ -1,6 +1,9 @@
 import axios from 'axios';
+import host from './host';
 
-const instance = axios.create();
+const instance = axios.create({
+  baseURL: host
+});
 
 instance.defaults.headers.post['Content-Type'] =
   'application/x-www-form-urlencoded';
