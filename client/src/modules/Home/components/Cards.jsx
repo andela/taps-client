@@ -4,11 +4,15 @@ import PropTypes from 'prop-types';
 import HOC from '../../HOC';
 
 // thunk actions
-import { toggleFavoritesAction } from '../../../redux/actions/teams';
+import { toggleFavoritesAction, clearTeams } from '../../../redux/actions/teams';
 
 class Cards extends Component {
   static propTypes = {
-    teams: PropTypes.object.isRequired
+    teams: PropTypes.object.isRequired,
+    toggleFavoritesAction: PropTypes.func.isRequired,
+    clearTeams: PropTypes.func.isRequired,
+    teamsState: PropTypes.array.isRequired,
+    favoriteId: PropTypes.array.isRequired
   };
 
   componentWillReceiveProps(nextProps) {
@@ -24,6 +28,10 @@ class Cards extends Component {
     M.Autocomplete.init(elem, options);
   }
 
+  componentWillUnmount() {
+    this.props.clearTeams();
+  }
+
   addFavorites = (id) => {
     this.props.teamsState.map(team => {
       if (team.id === id) {
@@ -35,13 +43,18 @@ class Cards extends Component {
   renderCards = HOC;
 
   render() {
-    return this.renderCards(this.addFavorites, this.props.teams);
+    return this.renderCards(
+      this.addFavorites,
+      this.props.teams
+    );
   }
 }
 
 const mapStateToProps = state => ({
-  teamsState: state.teams.teams,
-  favoriteId: state.teams.userFavoriteId
+  teamsState: state.teams.teams
 });
 
-export default connect(mapStateToProps, { toggleFavoritesAction })(Cards);
+export default connect(
+  mapStateToProps,
+  { toggleFavoritesAction, clearTeams }
+)(Cards);

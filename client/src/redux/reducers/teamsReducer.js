@@ -5,10 +5,11 @@ import {
   CREATE_TEAM,
   ADD_MEMBER,
   FETCH_MEMBERS,
-  TOGGLE_FAVORITES,
+  ADD_FAVORITE_TEAM,
   FETCH_FAVORITES,
   RENDER_CONTENT,
-  RENDER_SUB_CONTENT
+  RENDER_SUB_CONTENT,
+  REMOVE_FAVORITE_TEAM
 } from '../actions/types';
 
 const initialState = {
@@ -18,7 +19,7 @@ const initialState = {
   title: 'project',
   subtitle: 'invite members',
   favoriteTeams: [],
-  userFavoriteId: [],
+  favoriteTeamObject: [],
   favoritesId: []
 };
 
@@ -35,6 +36,7 @@ const teamReducer = (state = initialState, action) => {
     return {
       ...state,
       teams: [],
+      favoriteTeamObject: [],
       meta: action.payload.meta,
       data: []
     };
@@ -63,26 +65,34 @@ const teamReducer = (state = initialState, action) => {
       ...state,
       subtitle: action.title
     };
-  case TOGGLE_FAVORITES:
+  case ADD_FAVORITE_TEAM:
+    console.log('the supposed action', action)
     return {
       ...state,
       teams: state.teams.map(team => {
-        if (team.id !== action.favoriteData.favoriteTeams.teamId) {
+        if (team.id !== action.favoriteData.teamId) {
           return team;
         }
+
         return {
           ...team,
-          teams: action.toggleType === 'add' ?
-            [...team.teams, { userId: action.userId }] :
-            team.teams.filter(favorite => favorite.userId !== action.userId)
+          favoritedByYou: !team.favoritedByYou
         };
-      }),
-      userFavoriteId: action.favoriteData.userIDs
+      })
     };
   case FETCH_FAVORITES:
     return {
       ...state,
       favoriteTeams: action.favoriteTeams
+    };
+  case REMOVE_FAVORITE_TEAM:
+    return {
+      ...state,
+      favoriteTeams: {
+        ...state.favoriteTeams,
+        teams: state.favoriteTeams
+          .teams.filter(team => team.teamId !== action.teamId)
+      }
     };
   default:
     return state;

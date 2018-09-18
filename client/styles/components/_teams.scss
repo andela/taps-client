@@ -1,5 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Open+Sans+Condensed:300');
+
 .team-bg {
   background: rgb(248, 248, 248);
+}
+
+.account-container {
+  margin-top: 200px;
+  text-align: center;
+  background: white;
+  box-shadow: 0 5px 20px -4px $dark-shadow;
+  border-radius: 7px;
+  width: 50%;
+  padding: 50px;
+}
+
+.integration-row {
+  margin-left: 90px !important;
+}
+
+.integration-icons {
+  margin-right: 20px;
+  color: $andela-blue;
+  font-size: 35px;
+}
+
+.integration-h6 {
+  font-size: 2rem;
+  font-family: 'Lato';
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+
+.integration-button {
+  height: 40px;
+  border-radius: 7px;
+  margin-top: 15px;
+  box-sizing: border-box;
+  cursor: pointer;
+  box-shadow: 0 5px 20px -4px $dark-shadow;
+  background: $andela-blue;
+  color: white;
+  padding: 10px;
+
+  &:hover {
+    box-sizing: border-box;
+    box-shadow: -2px 9px 28px 3px $dark-shadow;
+  }
+}
+
+.integration-tools {
+  border-block-end: inherit;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  font-family: 'Lato';
+}
+
+.integration-header {
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Lato';
 }
 
 .sidebar {

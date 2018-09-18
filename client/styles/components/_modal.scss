@@ -3,3 +3,7 @@
     border-color: $blue !important;
   }
 }
+
+.ReactModalPortal .ReactModal__Overlay {
+  transition: opacity 300ms ease-in-out;
+}
