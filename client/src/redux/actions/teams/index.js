@@ -5,12 +5,13 @@ import {
   SEARCH_TEAMS,
   CLEAR_TEAMS,
   CREATE_TEAM,
-  TOGGLE_FAVORITES,
-  FETCH_FAVORITES
+  ADD_FAVORITE_TEAM,
+  FETCH_FAVORITES,
+  REMOVE_FAVORITE_TEAM
 } from '../types';
 import { success, isErrored, isLoading } from '../index';
 import instance from '../../../config/axios';
-import { successMessage, errorMessage } from '../../../toasts';
+import { successMessage, errorMessage, warningMessage } from '../../../toasts';
 
 export const fetchTeams = (limit, offset, query = '') => dispatch => {
   let stringifyQuery = 'search=';
@@ -77,39 +78,51 @@ export const fetchUsers = () => dispatch => {
     });
 };
 
-const toggleUserFavorite = (favoriteData, userId, toggleType) => ({
-  type: TOGGLE_FAVORITES,
-  favoriteData,
-  userId,
-  toggleType
+const addFavoriteTeam = (favoriteData) => ({
+  type: ADD_FAVORITE_TEAM,
+  favoriteData
 });
 
-export const toggleFavoritesAction = id => (dispatch, getState) => instance.post(`/teams/favorites/${id}`)
+const removeFavoriteTeam = (teamId) => ({
+  type: REMOVE_FAVORITE_TEAM,
+  teamId
+});
+
+export const toggleFavoritesAction = id => (dispatch, getState) => instance.post(`/favorites/${id}`)
   .then(response => {
-    const userId = localStorage.getItem('userId');
-    successMessage(response.data.message);
-    dispatch(toggleUserFavorite(
-      response.data,
-      userId,
-      response.data.message === 'Successfully removed team from your list of favorites' ?
-        'remove' : 'add'
-    ));
+    if (response.data.data) {
+      successMessage('Successfully added team to favorites');
+      dispatch(addFavoriteTeam(response.data.data.favorite));
+    } else if (response.data.errors) {
+      dispatch(warningMessage('You already favorited this team.'));
+    }
   }).catch(error => {
     console.error(error);
   });
 
-const fecthFavoriteTeams = (favoriteTeams) => ({
+const fetchFavoriteTeams = (favoriteTeams) => ({
   type: FETCH_FAVORITES,
   favoriteTeams
 });
 
-export const fetchFavoriteTeamsAction = (id) => dispatch => {
-  return instance.get(`/teams/favorites/${id}`)
+export const fetchFavoriteTeamsAction = () => dispatch => {
+  dispatch(isLoading(true));
+  return instance.get(`/favorites`)
     .then((response) => {
       const payload = {};
-      payload.teams = response.data.favoriteTeam;
-      console.log(response);
-      dispatch(fecthFavoriteTeams(payload));
+      payload.teams = response.data.data.favorites;
+      dispatch(fetchFavoriteTeams(payload));
+      dispatch(isLoading(false));
+    }).catch((error) => {
+      console.error(error);
+    });
+};
+
+export const removeFavoritesTeamsAction = (id) => dispatch => {
+  return instance.delete(`/favorites/${id}`)
+    .then(() => {
+      dispatch(removeFavoriteTeam(id));
+      successMessage('Team successfully removed from favorites');
     }).catch((error) => {
       console.error(error);
     });
