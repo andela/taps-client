@@ -24,3 +24,6 @@ coverage
 db.json
 client/src/middleware
 client/src/components/Home/components/Preloader.jsx
+.coveralls.yml
+coverage
+*.snap
