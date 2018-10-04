@@ -1,7 +1,11 @@
 {
     "name": "taps-client",
     "scripts": {},
-    "env": {},
+    "env": {
+      "GOOGLE_CLIENT_ID": {
+        "required": true
+      }
+    },
     "formation": {},
     "addons": [],
     "buildpacks": []
