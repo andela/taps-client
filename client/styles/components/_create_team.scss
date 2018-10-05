@@ -14,6 +14,12 @@
     height: 5rem;
 }
 
+.select-wrapper {
+    ul {
+        top: 37px !important
+    }
+}
+
 .team-accounts {
    display: flex;
    border: 1px solid rgba(34,36,38,.15);

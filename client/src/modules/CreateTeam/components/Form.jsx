@@ -37,7 +37,8 @@ const Form = ({
   const slackOptions = [
     {key: `ah-${teamName}`, text: `ah-${teamName}`, value: `ah-${teamName}`},
     {key: `${teamName}-general`, text: `${teamName}-general`, value: `${teamName}-general`},
-    {key: `${teamName}-standup`, text: `${teamName}-standup`, value: `${teamName}-standup`}
+    {key: `${teamName}-standups`, text: `${teamName}-standups`, value: `${teamName}-standups`},
+    {key: `${teamName}-bots`, text: `${teamName}-bots`, value: `${teamName}-bots`}
   ]
 
   return (
@@ -101,7 +102,7 @@ const Form = ({
         {!showSubmitButton && (
           <div className="submit-btn">
             <button className="btn right disabled top-margin bottom-margin">
-              Submit
+            Submit
             </button>
           </div>
         )}
