@@ -21,3 +21,20 @@
   margin-bottom: 0;
   padding-bottom: 0;
 }
+
+.tooltip {
+  position: absolute;
+  width: 3rem;
+  font-size: 1.1rem;
+  -webkit-transition: color .2s;
+  transition: color .2s;
+  top: .5rem; 
+}
+
+.tooltip:hover {
+  color: rgba(56, 93, 215, 0.98);
+}
+
+.l-style {
+  list-style-type:circle;
+}
