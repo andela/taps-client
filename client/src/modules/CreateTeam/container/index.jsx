@@ -37,11 +37,7 @@ class CreateTeam extends Component {
       submitting: false,
       integrations: {
         github: []
-<<<<<<< HEAD
       },
-=======
-      }
->>>>>>> ft(create-github-repo): implement create github-repo
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -132,6 +128,7 @@ class CreateTeam extends Component {
               submitting={this.props.isFetching.isLoading}
             />
           </div>
+          }
         </div>
       </React.Fragment>
     );
