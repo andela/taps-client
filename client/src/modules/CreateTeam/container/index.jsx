@@ -30,7 +30,10 @@ class CreateTeam extends Component {
       name: '',
       description: '',
       visibility: false,
-      submitting: false
+      submitting: false,
+      integrations: {
+        github: []
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -58,11 +61,12 @@ class CreateTeam extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { name, visibility, description } = this.state;
+    const { name, visibility, description, integrations } = this.state;
     const data = {
       name,
       description,
-      private: visibility
+      private: visibility,
+      integrations
     };
     if (!name.trim() || !description.trim()) {
       return errorMessage('All fields are required');
@@ -75,15 +79,22 @@ class CreateTeam extends Component {
       submitting: !prevState.submitting
     }));
   }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
+  menuChange = (event, item) => {
+    this.setState({
+      integrations: {...this.state.integrations, [item.name]: item.value }
+    })
+  }
+
   render() {
     const {
-      name, description, visibility
+      name, description, visibility, github
     } = this.state;
     return (
       <React.Fragment>
@@ -93,9 +104,11 @@ class CreateTeam extends Component {
             <Form
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
+              menuChange={this.menuChange}
               name={name}
               desc={description}
               checked={visibility}
+              github={github}
               submitting={this.props.isFetching.isLoading}
             />
           </div>
