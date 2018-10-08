@@ -11,6 +11,7 @@ import Form from '../components/Form';
 
 // toast
 import { errorMessage } from '../../../toasts';
+import MessagePopup from '../../../toasts/popup';
 
 class CreateTeam extends Component {
   static propTypes = {
@@ -30,7 +31,10 @@ class CreateTeam extends Component {
       name: '',
       description: '',
       visibility: false,
-      submitting: false
+      submitting: false,
+      integrations: {
+        github: []
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -58,11 +62,12 @@ class CreateTeam extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { name, visibility, description } = this.state;
+    const { name, visibility, description, integrations } = this.state;
     const data = {
       name,
       description,
-      private: visibility
+      private: visibility,
+      integrations
     };
     if (!name.trim() || !description.trim()) {
       return errorMessage('All fields are required');
@@ -75,30 +80,41 @@ class CreateTeam extends Component {
       submitting: !prevState.submitting
     }));
   }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
+  menuChange = (event, item) => {
+    this.setState({
+      integrations: {...this.state.integrations, [item.name]: item.value }
+    })
+  }
+
   render() {
     const {
-      name, description, visibility
+      name, description, visibility, github
     } = this.state;
     return (
       <React.Fragment>
         <Navbar />
         <div className="container">
+          {this.props.teams.showModal ? <MessagePopup response={this.props.apiMessage} />:
           <div className="row valign-wrapper">
             <Form
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
+              menuChange={this.menuChange}
               name={name}
               desc={description}
               checked={visibility}
+              github={github}
               submitting={this.props.isFetching.isLoading}
             />
           </div>
+          }
         </div>
       </React.Fragment>
     );
@@ -107,6 +123,7 @@ class CreateTeam extends Component {
 
 const mapStateToProps = state => ({
   teams: state.teams,
+  apiMessage: state.teams.apiResponse,
   isFetching: state.isLoading
 });
 

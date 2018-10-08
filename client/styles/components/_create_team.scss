@@ -72,3 +72,23 @@
         border-radius: 5px;
     }
 }
+
+.message-overlay {
+    z-index: 3;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(255, 255, 255, 0.75);
+  }
+.modalStyle {
+    margin: 5% auto;
+  width: 66%;
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}

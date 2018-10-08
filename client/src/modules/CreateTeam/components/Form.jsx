@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react'
 import slack from '../../../../public/resources/images/slack.png';
-import pt from '../../../../public/resources/images/pt.jpg'
+import pt from '../../../../public/resources/images/pt.jpg';
+
+const newChange = (e, data) => {
+  console.log(e)
+  console.log(data)
+}
 
 const Form = ({
   handleChange,
@@ -10,7 +15,8 @@ const Form = ({
   desc,
   checked,
   handleSubmit,
-  submitting
+  submitting,
+  menuChange
 }) => {
   let showSubmitButton = false;
   let teamName = 'example';
@@ -88,8 +94,8 @@ const Form = ({
           </div>
         </div>
         <div className="team-accounts top-margin">
-          <i className="fab fa-github integration-icon"></i>
-          <Dropdown placeholder='Repo name' fluid multiple selection search options={githubOptions} />
+          <i className="fab fa-github integration-icon">`</i>
+          <Dropdown name='github' onChange={menuChange} placeholder='Repo name' fluid multiple selection search options={githubOptions} />
         </div>
         <div className="team-accounts top-margin">
           <img src={pt} className="integration-icon small-icon" alt="pt-image"/>

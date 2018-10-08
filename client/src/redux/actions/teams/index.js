@@ -5,13 +5,19 @@ import {
   SEARCH_TEAMS,
   CLEAR_TEAMS,
   CREATE_TEAM,
+  SHOW_RESPONSE,
   ADD_FAVORITE_TEAM,
   FETCH_FAVORITES,
   REMOVE_FAVORITE_TEAM
 } from '../types';
 import { success, isErrored, isLoading } from '../index';
 import instance from '../../../config/axios';
-import { successMessage, errorMessage, warningMessage } from '../../../toasts';
+import { successMessage, errorMessage, warningMessage, apiAlert } from '../../../toasts';
+
+export const apiResponse = (type, payload) => ({
+  type,
+  payload
+});
 
 export const fetchTeams = (limit, offset, query = '') => dispatch => {
   let stringifyQuery = 'search=';
@@ -41,18 +47,58 @@ export const fetchTeams = (limit, offset, query = '') => dispatch => {
 
 export const createTeam = data => dispatch => {
   dispatch(isLoading(true));
+  let teamInfo = {
+    name: data.name,
+    description: data.description,
+    private: data.private,
+  }
+  
+  const allRequest = {
+    team: [],
+    github: []
+  }
+
+  let githubArray = data.integrations.github
   return instance
-    .post('teams', data)
+    .post('teams', teamInfo)
     .then(response => {
-      dispatch(success(CREATE_TEAM, response.data));
-      dispatch(isLoading(false));
+      console.log('>>>>>>>>>>>>>>>> DATA', response.data)
+      githubArray.length && githubArray.map((repoName) => {
+        let githubInfo = {
+          name: repoName,
+          type: 'github_repo'
+        }
+        instance.post(`teams/${response.data.data.team.id}/accounts`, githubInfo)
+        .then(response => {
+          if (response.data.errors) {
+            allRequest.github = [...allRequest.github, {created: false, name: githubInfo.name}]
+            console.log('github error >>>>>>>>>>>>>>>',response.data.errors);
+            return
+          }
+          allRequest.github = [...allRequest.github, {created: false, name: githubInfo.name}]
+          console.log('github success >>>>>>>>>>>>>>>>> response', response)
+        }).catch(error => {
+          failures.github = [...failures.github, `failed to create ${githubInfo.name}`]
+          console.log('>>>>>>>>>>>>>>>>>>errors', error)
+        })
+      })
+      
+      
       if (response.data.errors) {
         errorMessage(response.data.errors[0]);
         return;
       }
+      console.log('>>>>>>>>>>>>>>>failure', allRequest)
+      dispatch(isLoading(false));
+      // apiAlert(success, failures)
       successMessage(`${data.name} successfully created`);
+      dispatch(apiResponse(SHOW_RESPONSE, allRequest))
+      // dispatch(success(CREATE_TEAM, response.data));
+
+
     })
     .catch(error => {
+      console.log('general error >>>>>>>>>>>>>>>>>>>>>', error)
       dispatch(isLoading(false));
     });
 };
