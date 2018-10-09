@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // actions
-import { createTeam, clearTeams } from '../../../redux/actions/teams';
+import { createTeam, clearTeams, modalState } from '../../../redux/actions/teams';
 
 //components
 import Navbar from '../../common/Navbar';
@@ -11,14 +11,18 @@ import Form from '../components/Form';
 
 // toast
 import { errorMessage } from '../../../toasts';
+import VisualFeedback from '../../../toasts/VisualFeedback';
 
 class CreateTeam extends Component {
   static propTypes = {
-    teams: PropTypes.shape({
-      data: PropTypes.object
-    }).isRequired,
+    teams: PropTypes.object.isRequired,
     createTeam: PropTypes.func.isRequired,
     clearTeams: PropTypes.func.isRequired,
+    modalState: PropTypes.func.isRequired,
+    apiMessage: PropTypes.object.isRequired,
+    isFetching: PropTypes.shape({
+      isLoading: PropTypes.bool.isRequired
+    }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func
     }).isRequired
@@ -33,7 +37,7 @@ class CreateTeam extends Component {
       submitting: false,
       integrations: {
         github: []
-      }
+      },
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -92,14 +96,26 @@ class CreateTeam extends Component {
     })
   }
 
+  /**
+   * @description controls modal visibility
+   * @param {bool} bool
+   */
+  handleModalState = (bool) => {
+    this.props.modalState(bool);
+    return this.props.history.push('/teams');
+  }
+
   render() {
     const {
       name, description, visibility, github
     } = this.state;
+    const { showModal } = this.props.teams
     return (
       <React.Fragment>
         <Navbar />
         <div className="container">
+          {showModal && <VisualFeedback modalState={this.handleModalState}
+           response={this.props.apiMessage} isModalOpened={showModal} />}
           <div className="row valign-wrapper">
             <Form
               handleSubmit={this.handleSubmit}
@@ -118,9 +134,10 @@ class CreateTeam extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  teams: state.teams,
-  isFetching: state.isLoading
+const mapStateToProps = ({ teams, isLoading }) => ({
+  teams: teams,
+  apiMessage: teams.apiResponse,
+  isFetching: isLoading
 });
 
-export default connect(mapStateToProps, { createTeam, clearTeams })(CreateTeam);
+export default connect(mapStateToProps, { createTeam, clearTeams, modalState })(CreateTeam);

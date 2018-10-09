@@ -7,8 +7,10 @@ import {
   FETCH_MEMBERS,
   ADD_FAVORITE_TEAM,
   FETCH_FAVORITES,
+  SHOW_RESPONSE,
   RENDER_CONTENT,
   RENDER_SUB_CONTENT,
+  ISMODAL_OPENED,
   REMOVE_FAVORITE_TEAM
 } from '../actions/types';
 
@@ -20,7 +22,9 @@ const initialState = {
   subtitle: 'invite members',
   favoriteTeams: [],
   favoriteTeamObject: [],
-  favoritesId: []
+  favoritesId: [],
+  apiResponse: {},
+  showModal: false
 };
 
 const teamReducer = (state = initialState, action) => {
@@ -94,6 +98,17 @@ const teamReducer = (state = initialState, action) => {
           .teams.filter(team => team.teamId !== action.teamId)
       }
     };
+  case ISMODAL_OPENED:
+    return {
+      ...state,
+      showModal: action.payload
+    }
+  case SHOW_RESPONSE:
+    return {
+      ...state,
+      apiResponse: action.payload,
+      showModal: true
+    }
   default:
     return state;
   }
