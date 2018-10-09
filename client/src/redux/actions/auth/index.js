@@ -21,8 +21,10 @@ export const signIn = data => dispatch => {
           }
         } = response;
         const { data: { data: { user: { id } } } } = response;
+        const { data: { data: { user: { role } } } } = response;
         localStorage.setItem('aTeamsToken', userToken);
         localStorage.setItem('userId', id);
+        localStorage.setItem('role', role);
         successMessage('Login successful');
       }
 
@@ -48,7 +50,9 @@ export const signUp = data => dispatch => {
             data: { userToken }
           }
         } = response;
+        const { data: { data: { user: { role } } } } = response;
         localStorage.setItem('aTeamsToken', userToken);
+        localStorage.setItem('role', role);
         successMessage('Registration successful');
         dispatch(success(SIGN_UP, response.data));
         return;
@@ -68,6 +72,7 @@ export const signUp = data => dispatch => {
 export const signOut = data => dispatch => {
   dispatch(isLoading(true));
   localStorage.removeItem('aTeamsToken');
+  localStorage.removeItem('role');
   dispatch(isLoading(false));
   dispatch(isAuthenticated());
   successMessage('Signed out successfully');
