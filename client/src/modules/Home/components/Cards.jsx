@@ -6,7 +6,7 @@ import HOC from '../../HOC';
 // thunk actions
 import { toggleFavoritesAction, clearTeams } from '../../../redux/actions/teams';
 
-class Cards extends Component {
+export class Cards extends Component {
   static propTypes = {
     teams: PropTypes.object.isRequired,
     toggleFavoritesAction: PropTypes.func.isRequired,
@@ -43,14 +43,18 @@ class Cards extends Component {
   renderCards = HOC;
 
   render() {
-    return this.renderCards(
-      this.addFavorites,
-      this.props.teams
+    return (
+      <span>
+        {this.renderCards(
+          this.addFavorites,
+          this.props.teams
+        )}
+      </span>
     );
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   teamsState: state.teams.teams
 });
 
