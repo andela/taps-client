@@ -39,22 +39,45 @@ export const fetchTeams = (limit, offset, query = '') => dispatch => {
     });
 };
 
-export const createTeam = data => dispatch => {
+export const createTeam = data => async (dispatch) => {
   dispatch(isLoading(true));
-  return instance
-    .post('teams', data)
-    .then(response => {
-      dispatch(success(CREATE_TEAM, response.data));
-      dispatch(isLoading(false));
-      if (response.data.errors) {
-        errorMessage(response.data.errors[0]);
-        return;
+  try {
+    const teamInfo = {
+      name: data.name,
+      description: data.description,
+      private: data.private,
+    }
+    const githubRepos = data.integrations.github;
+    
+    const response = await instance.post('teams', teamInfo)
+    if (response.data.errors) {
+      errorMessage(response.data.errors[0]);
+      return;
+    }
+    successMessage(`${data.name} successfully created`);
+    
+    githubRepos.length && githubRepos.map( async (repoName) => {
+      let githubInfo = {
+        name: repoName,
+        type: 'github_repo'
       }
-      successMessage(`${data.name} successfully created`);
+      try {
+        let gitRepo = await instance.post(`teams/${response.data.data.team.id}/accounts`, githubInfo)
+        if (gitRepo.data.errors) {
+        errorMessage(gitRepo.data.errors[0]);
+        return
+      }
+      successMessage(`${repoName} successfully created`);
+      } catch(error) {
+        errorMessage(`failed to create ${repoName}`);
+      }
     })
-    .catch(error => {
-      dispatch(isLoading(false));
-    });
+
+    dispatch(success(CREATE_TEAM, response.data));
+
+  } catch(error) {
+    dispatch(isLoading(false));
+  }
 };
 
 export const clearTeams = () => dispatch => {
