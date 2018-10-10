@@ -59,6 +59,7 @@ class Navbar extends Component {
 
   render() {
     const { showSearchBar, name } = this.state;
+    const role = localStorage.getItem("role");
     const {
       showTabs, switchContent, showIcon, gotoHome
     } = this.props;
@@ -102,20 +103,32 @@ class Navbar extends Component {
                   </a>
                 </li>
               )}
+              {
+                role === 'admin' ?
+                  <li>
+                    <NavLink to="/teams/create">
+                      {/* Create team */}
+                      <i className="material-icons" data-tip="Create teams">
+                        group_add
+                      </i>
+                    </NavLink>
+                  </li> :
+                  <li>
+                    <button className="admin-request-btn">
+                      <i
+                        className="tiny material-icons"
+                        data-tip="Only LFs can make this request">
+                        info
+                      </i>
+                      Request admin privilege
+                    </button>
+                  </li>
+              }
               <li>
                 <NavLink to="/teams" onClick={this.props.gotoHome}>
                   {/* Teams */}
                   <i className="material-icons" data-tip="Teams">
                     group
-                  </i>
-                </NavLink>
-              </li>
-
-              <li>
-                <NavLink to="/teams/create">
-                  {/* Create team */}
-                  <i className="material-icons" data-tip="Create teams">
-                    group_add
                   </i>
                 </NavLink>
               </li>

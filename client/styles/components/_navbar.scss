@@ -91,3 +91,27 @@
 .tabs .tab a:focus.active {
   background: transparent;
 } 
+
+
+.admin-request-btn {
+  position: relative;
+  margin-right: 20px;
+  padding: 8px 30px 8px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: #385cd7;
+  color: #ffffff;
+}
+
+
+.admin-request-btn {
+  .material-icons {
+    position: absolute;
+    top: 50%;
+    right: 3px;
+    transform: translateY(-50%);
+    color: #ffffff;
+    font-size:18px !important;
+    margin-right: 5px;
+  }
+}
