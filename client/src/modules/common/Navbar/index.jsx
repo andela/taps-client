@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../../redux/actions/auth';
 
-class Navbar extends Component {
+export class Navbar extends Component {
   static propTypes = {
     signOut: PropTypes.func.isRequired,
     auth: PropTypes.shape({
@@ -83,6 +83,7 @@ class Navbar extends Component {
             </NavLink>
             {showIcon && (
               <a
+                id="showSearchBar2"
                 href="#!"
                 onClick={() => this.toggleState('showSearchBar')}
                 className=" float-right sidenav-trigger"
@@ -94,6 +95,7 @@ class Navbar extends Component {
               {this.props.showIcon && (
                 <li>
                   <a
+                    id="showSearchBar3"
                     href="#!"
                     onClick={() => this.toggleState('showSearchBar')}
                   >
@@ -172,6 +174,7 @@ class Navbar extends Component {
               <ul className="tabs tabs-transparent">
                 <li className="tab">
                   <a
+                    id="projects"
                     href="#Projects"
                     onClick={event => switchContent(event, 'project')}
                   >
@@ -180,6 +183,7 @@ class Navbar extends Component {
                 </li>
                 <li className="tab">
                   <a
+                    id="members"
                     href="#members"
                     onClick={event => switchContent(event, 'member')}
                   >
@@ -188,6 +192,7 @@ class Navbar extends Component {
                 </li>
                 <li className="tab">
                   <a
+                    id="account"
                     href="#account"
                     onClick={event => switchContent(event, 'account')}
                   >
@@ -214,6 +219,7 @@ class Navbar extends Component {
                 </label>
                 {/* eslint-disable-next-line */}
                 <i
+                  id="showSearchBar"
                   className="material-icons"
                   onClick={() => this.toggleState('showSearchBar')}
                 >

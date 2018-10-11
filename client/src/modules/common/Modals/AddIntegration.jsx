@@ -19,12 +19,11 @@ const customStyles = {
   }
 };
 
-Modal.setAppElement('#app');
-
 const AddIntegration = ({ isModalOpen, closeModal }) => (
   <Modal
     isOpen={isModalOpen}
     contentLabel="Add Integration"
+    ariaHideApp="false"
     onRequestClose={closeModal}
     style={customStyles}
   >
