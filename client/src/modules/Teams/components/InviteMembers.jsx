@@ -95,7 +95,7 @@ export class InviteMember extends Component {
       <components.MultiValueLabel {...props}>
         {props.data.type === 'github_repo' ?
           <label className="select-account-label">
-            <img src="/resources/images/github.png" className="account-icon" alt="github" />
+            <img src="/resources/images/github.svg" className="account-icon" alt="github" />
             {` ${props.data.label}`}
           </label> :
           <label>
@@ -105,7 +105,7 @@ export class InviteMember extends Component {
                 {` ${props.data.label}`}
               </label> :
               <label className="select-account-label">
-                <img src="/resources/images/pt.jpg" className="account-icon" alt="pt" />
+                <img src="/resources/images/pt.png" className="account-icon" alt="pt" />
                 {` ${props.data.label}`}
               </label>}
           </label>}
@@ -116,7 +116,7 @@ export class InviteMember extends Component {
       <components.Option {...props}>
         {props.data.type === 'github_repo' ?
           <label className="select-account-dropdown">
-            <img src="/resources/images/github.png" className="account-icon" alt="github" />
+            <img src="/resources/images/github.svg" className="account-icon" alt="github" />
             {` ${props.data.label}`}
           </label> :
           <label>
@@ -126,7 +126,7 @@ export class InviteMember extends Component {
                 {` ${props.data.label}`}
               </label> :
               <label className="select-account-dropdown">
-                <img src="/resources/images/pt.jpg" className="account-icon" alt="pt" />
+                <img src="/resources/images/pt.png" className="account-icon" alt="pt" />
                 {` ${props.data.label}`}
               </label>}
           </label>}
