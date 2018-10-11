@@ -49,4 +49,19 @@ describe('<Test Component />', () => {
     wrapper.instance().isDisabled();
     expect(isDisabled).toHaveBeenCalled();
   });
+
+  it('selectUser class methods should be called when a user is selected', () => {
+    const selectUser = jest.spyOn(InviteMember.prototype, 'selectUser');
+    const wrapper = shallow(<InviteMember {...props} />);
+    wrapper.find('.user-label').simulate('click');
+    wrapper.instance().selectUser();
+    expect(selectUser).toHaveBeenCalled();
+  });
+
+  it('handleSubmit class methods should be called', () => {
+    const handleSubmit = jest.spyOn(InviteMember.prototype, 'handleSubmit');
+    const wrapper = shallow(<InviteMember {...props} />);
+    wrapper.instance().handleSubmit({ preventDefault: jest.fn() });
+    expect(handleSubmit).toHaveBeenCalled();
+  });
 });

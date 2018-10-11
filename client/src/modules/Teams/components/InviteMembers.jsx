@@ -5,10 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import Select, { components } from 'react-select';
 
 // Actions
-import { searchUser } from '../../../redux/actions/users';
-
-// Components
-import MemberCard from './MemberCard';
+import { searchUser, clearUser } from '../../../redux/actions/users';
 
 export class InviteMember extends Component {
   static propTypes = {
@@ -22,7 +19,8 @@ export class InviteMember extends Component {
       searchInput: '',
       accounts: { value: 'ghoullies-bot', label: 'ghoullies-bot', type: 'slack_channel' },
       ismultiSelectDisabled: false,
-      selectAllDisabled: true
+      selectAllDisabled: true,
+      user: {}
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -32,34 +30,35 @@ export class InviteMember extends Component {
     this.handleSelected = this.handleSelected.bind(this);
     this.inviteMember = this.inviteMember.bind(this);
     this.isDisabled = this.isDisabled.bind(this);
-  }
-
-  handleSearch(event) {
-    this.setState({ searchInput: event.target.value });
+    this.selectUser = this.selectUser.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    const user = this.props.users[0];
+    const temp = user.email.slice(0, -11);
+    const fullName = temp.split('.').join(' ');
+    this.setState({ searchInput: fullName, user });
+    this.props.clearUser();
+  }
+
+  handleSearch(event) {
     this.setState({ searchInput: event.target.value });
     const { searchInput } = this.state;
     this.props.searchUser(searchInput);
-    this.setState({ searchInput: '' });
   }
 
   renderSearchOutput(users) {
-    const { addMember } = this.props;
     return users.map(item => {
       const temp = item.email.slice(0, -11);
       const fullName = temp.split('.').join(' ');
       return (
-        <MemberCard
-          name={fullName}
-          // role={item.role}
-          photo={item.photo}
-          key={item.id}
-          userId={item.id}
-          addMember={addMember}
-        />
+        <div className={`user-placeholder ${this.state.visibility}`} key={item.id}>
+          <label role="button" onClick={() => this.selectUser(fullName, item)}>
+            <img src={item.photo} className="search-img" alt="user" />
+            <label className="user-label">{fullName} &lt;{item.email}&gt;</label>
+          </label>
+        </div>
       );
     });
   }
@@ -71,6 +70,9 @@ export class InviteMember extends Component {
 
   inviteMember(e) {
     e.preventDefault();
+    const { addMember } = this.props;
+    const userId = this.state.user.id;
+    addMember(e, userId);
     if (!this.state.ismultiSelectDisabled && this.state.selectAllDisabled) {
       const { accounts } = this.state;
       console.log(accounts);
@@ -85,6 +87,11 @@ export class InviteMember extends Component {
     } else {
       this.setState({ ismultiSelectDisabled: true, selectAllDisabled: false });
     }
+  }
+
+  selectUser(name, item) {
+    this.setState({ searchInput: name, user: item });
+    this.props.clearUser();
   }
 
   render() {
@@ -144,7 +151,7 @@ export class InviteMember extends Component {
         <div className="row">
           <div className="col s12">
             <form onSubmit={this.handleSubmit}>
-              <div className="input-field inline col s11 custom-form team-account-wrapper">
+              <div className="input-field inline col s11 custom-form search-result">
                 <i className="material-icons prefix">search</i>
                 <input
                   id="invite-members"
@@ -152,13 +159,16 @@ export class InviteMember extends Component {
                   value={searchInput}
                   onChange={this.handleSearch}
                   placeholder="Invite members"
+                  autoComplete="off"
                 />
-                <span className="helper-text">search by username or email</span>
+                <span className="helper-text user-placeholder">search by username or email</span>
+                {users && this.renderSearchOutput(users)}
               </div>
+
             </form>
           </div>
         </div>
-        {users && this.renderSearchOutput(users)}
+
         <ReactTooltip />
         {this.state.searchInput &&
         <div className="row account-row">
@@ -224,4 +234,4 @@ const mapStateToProps = ({
   users
 });
 
-export default connect(mapStateToProps, { searchUser })(InviteMember);
+export default connect(mapStateToProps, { searchUser, clearUser })(InviteMember);
