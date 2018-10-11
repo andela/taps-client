@@ -5,13 +5,20 @@ import {
   SEARCH_TEAMS,
   CLEAR_TEAMS,
   CREATE_TEAM,
+  SHOW_RESPONSE,
   ADD_FAVORITE_TEAM,
   FETCH_FAVORITES,
-  REMOVE_FAVORITE_TEAM
+  REMOVE_FAVORITE_TEAM,
+  ISMODAL_OPENED
 } from '../types';
-import { success, isErrored, isLoading } from '../index';
+import { success, isErrored, isLoading, modalVisibility } from '../index';
 import instance from '../../../config/axios';
 import { successMessage, errorMessage, warningMessage } from '../../../toasts';
+
+export const apiResponse = (type, payload) => ({
+  type,
+  payload
+});
 
 export const fetchTeams = (limit, offset, query = '') => dispatch => {
   let stringifyQuery = 'search=';
@@ -39,6 +46,24 @@ export const fetchTeams = (limit, offset, query = '') => dispatch => {
     });
 };
 
+/**
+ * @description redux action to change modal state
+ * @function modalState
+ * @param {bool} bool modal state
+ */
+export const modalState = bool => dispatch => {
+  dispatch({
+    type: ISMODAL_OPENED,
+    payload: bool
+  })
+}
+
+/**
+ * @description method to create team and multiple integration
+ * accounts
+ * @param {data} data
+ * @returns {object} allrequest
+ */
 export const createTeam = data => async (dispatch) => {
   dispatch(isLoading(true));
   try {
@@ -47,35 +72,47 @@ export const createTeam = data => async (dispatch) => {
       description: data.description,
       private: data.private,
     }
-    const githubRepos = data.integrations.github;
-    
-    const response = await instance.post('teams', teamInfo)
-    if (response.data.errors) {
-      errorMessage(response.data.errors[0]);
-      return;
+    const allRequest = {
+      team: [],
+      github: []
     }
-    successMessage(`${data.name} successfully created`);
     
-    githubRepos.length && githubRepos.map( async (repoName) => {
-      let githubInfo = {
-        name: repoName,
-        type: 'github_repo'
-      }
-      try {
-        let gitRepo = await instance.post(`teams/${response.data.data.team.id}/accounts`, githubInfo)
-        if (gitRepo.data.errors) {
-        errorMessage(gitRepo.data.errors[0]);
-        return
-      }
-      successMessage(`${repoName} successfully created`);
-      } catch(error) {
-        errorMessage(`failed to create ${repoName}`);
-      }
-    })
+    const repositories = data.integrations.github;
+    const response = await instance.post('teams', teamInfo);
+    console.log('<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>',repositories);
+    if (response.data.errors) {
+        dispatch(isLoading(false));
+        errorMessage(response.data.errors[0]);
+        return;
+    }
+    allRequest.team = [...allRequest.team, {created: true, name: data.name}]
 
-    dispatch(success(CREATE_TEAM, response.data));
+    if (repositories.length > 0) {
+      for( let repoName of repositories) {
+        let githubInfo = {
+          name: repoName,
+          type: 'github_repo'
+        }
+        try {
+          let gitRepo = await instance.post(`teams/${response.data.data.team.id}/accounts`, githubInfo)
+          if (gitRepo.data.errors) {
+            allRequest.github = [...allRequest.github, {created: false, name: repoName}]
+            continue
+        }
+        allRequest.github = [...allRequest.github, {created: true, name: repoName}]
+        }
+        catch(error) {
+          allRequest.github = [...allRequest.github, {created: false, name: repoName}]
+        }
+      }
+    }
+    dispatch(isLoading(false));
+    !repositories.length && successMessage(`${data.name} successfully created`);
+    repositories.length ? dispatch(apiResponse(SHOW_RESPONSE, allRequest)) :
+      dispatch(success(CREATE_TEAM, response.data));
 
   } catch(error) {
+    console.log('>>>>>>>>>>>>>>>>>>>>', error.response.status)
     dispatch(isLoading(false));
   }
 };

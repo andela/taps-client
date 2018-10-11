@@ -4,7 +4,7 @@ import { Dropdown } from 'semantic-ui-react'
 import slack from '../../../../public/resources/images/slack.png';
 import pt from '../../../../public/resources/images/pt.jpg';
 
-const Form = ({
+export const Form = ({
   handleChange,
   name,
   desc,
