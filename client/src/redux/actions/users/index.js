@@ -20,3 +20,9 @@ export const searchUser = query => dispatch => {
       dispatch(isLoading(false));
     });
 };
+
+export const clearUser = () => dispatch =>
+  dispatch(success(SEARCH_USERS, {
+    data: { users: [] }
+
+  }));
