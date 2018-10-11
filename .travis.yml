@@ -1,0 +1,8 @@
+after_success:
+  - npm run coveralls
+  - npm run codecov
+email: false
+language: node_js
+node_js:
+  - "8.9.2"
+script: npm test
