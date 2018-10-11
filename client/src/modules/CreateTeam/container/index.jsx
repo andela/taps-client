@@ -13,6 +13,10 @@ import Form from '../components/Form';
 import { errorMessage } from '../../../toasts';
 import VisualFeedback from '../../../toasts/VisualFeedback';
 
+/**
+ * @class
+ * @constructor
+ */
 export class CreateTeam extends Component {
   static propTypes = {
     teams: PropTypes.object.isRequired,
@@ -63,6 +67,11 @@ export class CreateTeam extends Component {
     this.props.clearTeams();
   }
 
+  /**
+   * @description handles form submission
+   * @param {object} event
+   * @returns {function} createTeam
+   */
   handleSubmit(event) {
     event.preventDefault();
     const { name, visibility, description, integrations } = this.state;
@@ -84,12 +93,21 @@ export class CreateTeam extends Component {
     }));
   }
 
+  /**
+   * @description handles input change
+   * @param {object} event
+   */
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
+  /**
+   * @description handles integration account dropdown
+   * @param {event}
+   * @param {item} selected items
+   */
   menuChange = (event, item) => {
     this.setState({
       integrations: {...this.state.integrations, [item.name]: item.value }

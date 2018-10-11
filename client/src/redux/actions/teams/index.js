@@ -11,14 +11,9 @@ import {
   REMOVE_FAVORITE_TEAM,
   ISMODAL_OPENED
 } from '../types';
-import { success, isErrored, isLoading, modalVisibility } from '../index';
+import { success, isErrored, isLoading, apiResponse } from '../index';
 import instance from '../../../config/axios';
 import { successMessage, errorMessage, warningMessage } from '../../../toasts';
-
-export const apiResponse = (type, payload) => ({
-  type,
-  payload
-});
 
 export const fetchTeams = (limit, offset, query = '') => dispatch => {
   let stringifyQuery = 'search=';
@@ -67,26 +62,33 @@ export const modalState = bool => dispatch => {
 export const createTeam = data => async (dispatch) => {
   dispatch(isLoading(true));
   try {
+    // required fields to create a team
     const teamInfo = {
       name: data.name,
       description: data.description,
       private: data.private,
     }
+
+    // api requests
     const allRequest = {
       team: [],
       github: []
     }
     
+    // array of repo names
     const repositories = data.integrations.github;
     const response = await instance.post('teams', teamInfo);
-    console.log('<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>',repositories);
+
+    // error creating team
     if (response.data.errors) {
         dispatch(isLoading(false));
         errorMessage(response.data.errors[0]);
         return;
     }
+
     allRequest.team = [...allRequest.team, {created: true, name: data.name}]
 
+    // check if github dropdown is selected
     if (repositories.length > 0) {
       for( let repoName of repositories) {
         let githubInfo = {
@@ -106,13 +108,16 @@ export const createTeam = data => async (dispatch) => {
         }
       }
     }
+
     dispatch(isLoading(false));
     !repositories.length && successMessage(`${data.name} successfully created`);
-    repositories.length ? dispatch(apiResponse(SHOW_RESPONSE, allRequest)) :
+
+    // create team response
+   return repositories.length ? dispatch(apiResponse(SHOW_RESPONSE, allRequest)) :
       dispatch(success(CREATE_TEAM, response.data));
 
   } catch(error) {
-    console.log('>>>>>>>>>>>>>>>>>>>>', error.response.status)
+    console.log('error:', error);
     dispatch(isLoading(false));
   }
 };

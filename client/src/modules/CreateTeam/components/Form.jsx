@@ -4,6 +4,11 @@ import { Dropdown } from 'semantic-ui-react'
 import slack from '../../../../public/resources/images/slack.png';
 import pt from '../../../../public/resources/images/pt.jpg';
 
+/**
+ * @description stateless form component
+ * @param {object} props
+ * @returns {JSX} jsx
+ */
 export const Form = ({
   handleChange,
   name,
@@ -24,10 +29,12 @@ export const Form = ({
     teamName = name
   }
 
+  // github dropdown options
   const githubOptions = [
     {key: `ah-${teamName}-frontend`, text: `ah-${teamName}-frontend`, value: `ah-${teamName}-frontend`},
     {key: `ah-${teamName}`, text: `ah-${teamName}`, value: `ah-${teamName}`},
-    {key: `${teamName}-ah`, text: `${teamName}-ah`, value: `${teamName}-ah`}
+    {key: `${teamName}-ah`, text: `${teamName}-ah`, value: `${teamName}-ah`},
+    {key: `ah-${teamName}-backend`, text: `ah-${teamName}-backend`, value: `ah-${teamName}-backend`},
   ]
 
   const ptOptions = [
@@ -103,7 +110,7 @@ export const Form = ({
         </div>
         {!showSubmitButton && (
           <div className="submit-btn">
-            <button className="btn right disabled top-margin bottom-margin">
+            <button className="btn form-subimt-btn right disabled top-margin bottom-margin">
             Submit
             </button>
           </div>

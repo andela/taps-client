@@ -7,6 +7,7 @@ import slack from '../../public/resources/images/slack.png';
 import pt from '../../public/resources/images/pt.jpg';
 import team from '../../public/resources/images/team.png';
 
+// icons for accounts
 const logos = [
   {
     name: 'github', link: github,
@@ -22,6 +23,10 @@ const logos = [
   }
 ]
 
+/**
+ * @description visual feedback for api response
+ * @param {object} props 
+ */
 const VisualFeedback = ({response, modalState, isModalOpened}) => {
     const allMessage = Object.entries(response);
 
