@@ -12,7 +12,7 @@ import { errorMessage } from '../../../toasts';
 import Button from '../components/GoogleButton';
 import Form from '../components/ExtraForm';
 
-class SignIn extends Component {
+export class SignIn extends Component {
   static propTypes = {
     auth: PropTypes.shape({
       auth: PropTypes.object.isRequired
@@ -123,7 +123,7 @@ class SignIn extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   auth: state.auth
 });
 
