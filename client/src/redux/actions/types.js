@@ -16,3 +16,5 @@ export const RENDER_SUB_CONTENT = '[ui]: render page content';
 export const ADD_FAVORITE_TEAM = 'ADD_FAVORITE_TEAM';
 export const FETCH_FAVORITES = 'FETCH_FAVORITES';
 export const REMOVE_FAVORITE_TEAM = 'REMOVE_FAVORITE_TEAM';
+export const SHOW_RESPONSE = 'SHOW_RESPONSE';
+export const ISMODAL_OPENED = 'ISMODAL_OPENED';

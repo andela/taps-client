@@ -72,3 +72,96 @@
         border-radius: 5px;
     }
 }
+
+.message-overlay {
+    z-index: 3;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(255, 255, 255, 0.75);
+  }
+.modalStyle {
+    margin: 16% auto;
+    width: 36%;
+    background: white;
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+
+    .top-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        .icon-indicator-container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+
+            .icon-indicator {
+                display: flex;
+                align-items: center;
+
+                h6 {
+                    margin: 0 0.1rem;
+                }
+            }
+        }
+    }
+}
+.notification-item {
+    margin-bottom: 1rem;
+
+    .notif-item-header {
+        display: flex;
+        align-items: center;
+
+        .notif-icon {
+            width: 2.7rem;
+        }
+        h4 {
+            margin: 0 0.6rem;
+            font-size: 2rem;
+        }
+    }
+    
+    .notif-list {
+        display: flex;
+        align-items: center;
+        margin: 0.3rem 3rem;
+
+        h5 {
+            margin: 0 0.3rem;
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.notif-pass-icon {
+    width: 1.7rem;
+}
+
+.notif-fail-icon {
+    width: 1.5rem;
+}
+
+
+.notif-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .btn {
+        padding: 0 28px;
+    }
+}
