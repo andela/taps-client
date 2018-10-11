@@ -51,3 +51,8 @@ export const isLoading = payload => dispatch => {
   }
   dispatch(toggleLoader(IS_LOADING, payload));
 };
+
+export const apiResponse = (type, payload) => ({
+  type,
+  payload
+});
