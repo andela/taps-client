@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
  *
  * @returns {JSX.Element} React element
  */
-export const Preloader = ({ isLoading: { isLoading } }) => (
+const Preloader = ({ isLoading: { isLoading } }) => (
   <React.Fragment>
     {isLoading && (
       <div className="progress preloader">
@@ -18,7 +18,7 @@ export const Preloader = ({ isLoading: { isLoading } }) => (
     )}
   </React.Fragment>
 );
-export const mapStateToProps = state => ({
+const mapStateToProps = state => ({
   isLoading: state.isLoading
 });
 
