@@ -19,7 +19,7 @@ const customStyles = {
   }
 };
 
-Modal.setAppElement('#app');
+// Modal.setAppElement('#app');
 
 const AddIntegration = ({ isModalOpen, closeModal }) => (
   <Modal
@@ -27,6 +27,7 @@ const AddIntegration = ({ isModalOpen, closeModal }) => (
     contentLabel="Add Integration"
     onRequestClose={closeModal}
     style={customStyles}
+    ariaHideApp="false"
   >
     <p className="integration-header">Select an integration to add</p>
     <p className="integration-tools">Github Repo</p>
