@@ -40,7 +40,8 @@ export class CreateTeam extends Component {
       visibility: false,
       submitting: false,
       integrations: {
-        github: []
+        github: [],
+        pt: []
       },
     };
     this.handleChange = this.handleChange.bind(this);

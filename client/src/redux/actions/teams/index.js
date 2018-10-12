@@ -11,6 +11,7 @@ import {
   REMOVE_FAVORITE_TEAM,
   ISMODAL_OPENED
 } from '../types';
+import api from '../../../utils/api';
 import { success, isErrored, isLoading, apiResponse } from '../index';
 import instance from '../../../config/axios';
 import { successMessage, errorMessage, warningMessage } from '../../../toasts';
@@ -54,71 +55,78 @@ export const modalState = bool => dispatch => {
 }
 
 /**
- * @description method to create team and multiple integration
- * accounts
+ * @description method to create team and multiple project integrations
  * @param {data} data
  * @returns {object} allrequest
  */
 export const createTeam = data => async (dispatch) => {
   dispatch(isLoading(true));
   try {
-    // required fields to create a team
+    // required properties to create a team
     const teamInfo = {
       name: data.name,
       description: data.description,
       private: data.private,
     }
 
-    // api requests
+    // all api response
     const allRequest = {
       team: [],
-      github: []
-    }
-    
-    // array of repo names
-    const repositories = data.integrations.github;
-    const response = await instance.post('teams', teamInfo);
-
-    // error creating team
-    if (response.data.errors) {
-        dispatch(isLoading(false));
-        errorMessage(response.data.errors[0]);
-        return;
     }
 
-    allRequest.team = [...allRequest.team, {created: true, name: data.name}]
+    let projects = {}
+    let integrationNames = data.integrations
 
-    // check if github dropdown is selected
-    if (repositories.length > 0) {
-      for( let repoName of repositories) {
-        let githubInfo = {
-          name: repoName,
-          type: 'github_repo'
-        }
-        try {
-          let gitRepo = await instance.post(`teams/${response.data.data.team.id}/accounts`, githubInfo)
-          if (gitRepo.data.errors) {
-            allRequest.github = [...allRequest.github, {created: false, name: repoName}]
-            continue
-        }
-        allRequest.github = [...allRequest.github, {created: true, name: repoName}]
-        }
-        catch(error) {
-          allRequest.github = [...allRequest.github, {created: false, name: repoName}]
-        }
+    // checks if any integration is selected
+    let integrationExist = Object.entries(integrationNames).some((integration) => {
+      return integration[1].length > 0
+    });
+
+    let integrationType = {
+      github: 'github_repo',
+      pt: 'pt_private_project'
+    }
+
+    // all selected integrations
+    for (const name of integrationNames) {
+      if (integrationNames[name].length) {
+        allRequest[name] = []
+        projects[name] = integrationNames[name]
       }
     }
 
+    // api call to create a team
+    const response = await api('teams', 'post', teamInfo)
+    allRequest.team = [...allRequest.team, {created: true, name: data.name}]
+    if (integrationExist) {
+      let allProject = Object.keys(projects)
+      for (let integration of allProject) {
+        for( let accountName of projects[integration]) {
+          let integrationInfo = {
+            name: accountName,
+            type: integrationType[integration]
+          }
+          try {
+            await api(`teams/${response.data.team.id}/accounts`, 'post', integrationInfo);
+            allRequest[integration]= [...allRequest[integration], {created: true, name: accountName}]
+          } catch(error) {
+              allRequest[integration]= [...allRequest[integration], {created: false, name: accountName}]
+            }
+        }
+      }
+    }
+    
     dispatch(isLoading(false));
-    !repositories.length && successMessage(`${data.name} successfully created`);
-
+    if (!integrationExist) {
+      successMessage(`${data.name} successfully created`);
+      return dispatch(success(CREATE_TEAM, response));
+    }
     // create team response
-   return repositories.length ? dispatch(apiResponse(SHOW_RESPONSE, allRequest)) :
-      dispatch(success(CREATE_TEAM, response.data));
-
+    return integrationExist && dispatch(apiResponse(SHOW_RESPONSE, allRequest))
+      
   } catch(error) {
-    console.log('error:', error);
-    dispatch(isLoading(false));
+      dispatch(isLoading(false));
+      errorMessage(error);
   }
 };
 

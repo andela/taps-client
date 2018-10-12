@@ -97,12 +97,13 @@ export const Form = ({
         </div>
         <div className="team-accounts top-margin">
           <i className="fab fa-github integration-icon">`</i>
-          <Dropdown name='github' onChange={menuChange} placeholder='Repo name'
+          <Dropdown name="github" onChange={menuChange} placeholder="Repo name"
            fluid multiple selection search options={githubOptions} />
         </div>
         <div className="team-accounts top-margin">
           <img src={pt} className="integration-icon small-icon" alt="pt-image"/>
-          <Dropdown placeholder='PT name' fluid multiple selection search options={ptOptions} />
+          <Dropdown name="pt" onChange={menuChange} placeholder="PT name"
+           fluid multiple selection search options={ptOptions} />
         </div>
         <div className="team-accounts top-margin">
           <img src={slack} className="integration-icon small-icon" alt="slack-image"/>
