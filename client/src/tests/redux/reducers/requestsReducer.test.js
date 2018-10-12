@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import requestsReducer from '../../../redux/reducers/requestsReducer';
 import { CREATE_ADMIN_REQUEST_SUCCESS, CREATE_ADMIN_REQUEST_ERROR } from '../../../../src/redux/actions/types';
 import { success, isErrored } from '../../../redux/actions';
-import requestsReponse from '../../__mockData__/requestsMock';
+import requestsReponse from '../../__mocks__/__mockData__/requestsMock';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
