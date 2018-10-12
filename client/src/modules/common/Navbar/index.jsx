@@ -4,18 +4,27 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../../redux/actions/auth';
+import createAdminRequest from '../../../redux/actions/requests';
+import { warningMessage, successMessage } from '../../../toasts';
+import errorFormatter from '../../../utils/errorFormatter.json';
 
 class Navbar extends Component {
   static propTypes = {
     signOut: PropTypes.func.isRequired,
+    createAdminRequest: PropTypes.func.isRequired,
     auth: PropTypes.shape({
       name: PropTypes.string
+    }).isRequired,
+    requestsReducer: PropTypes.shape({
+      error: PropTypes.string,
+      request: PropTypes.object,
+      success: PropTypes.bool
     }).isRequired,
     handleSubmit: PropTypes.func,
     switchContent: PropTypes.func,
     showTabs: PropTypes.bool,
     showIcon: PropTypes.bool,
-    gotoHome: PropTypes.func
+    gotoHome: PropTypes.func,
   };
   constructor(props) {
     super(props);
@@ -26,12 +35,23 @@ class Navbar extends Component {
     this.toggleState = this.toggleState.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.handleAdminRequest = this.handleAdminRequest.bind(this);
   }
   componentDidMount = () => {
     if (this.props.auth) {
       this.setState(() => ({ name: this.props.auth.name }));
     }
   };
+
+  componentDidUpdate(prevProps) {
+    const { requestsReducer: { error, success } } = this.props;
+    if (error && !success) {
+      warningMessage(errorFormatter[error]);
+    }
+    if (success) {
+      successMessage('Request Successful');
+    }
+  }
 
   handleSearch(event) {
     event.preventDefault();
@@ -44,6 +64,11 @@ class Navbar extends Component {
   signOut(event) {
     event.preventDefault();
     this.props.signOut();
+  }
+
+  handleAdminRequest(event) {
+    event.preventDefault();
+    this.props.createAdminRequest({ type: 'admin_request' });
   }
 
   toggleState(state) {
@@ -114,7 +139,10 @@ class Navbar extends Component {
                     </NavLink>
                   </li> :
                   <li>
-                    <button className="admin-request-btn">
+                    <button
+                      className="admin-request-btn"
+                      onClick={this.handleAdminRequest}
+                    >
                       <i
                         className="tiny material-icons"
                         data-tip="Only LFs can make this request">
@@ -273,8 +301,11 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({
-  auth
+const mapStateToProps = ({ auth, requestsReducer }) => ({
+  auth,
+  requestsReducer
 });
 
-export default connect(mapStateToProps, { signOut })(Navbar);
+export default connect(mapStateToProps, {
+  signOut, createAdminRequest
+})(Navbar);
