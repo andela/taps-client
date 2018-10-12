@@ -29,3 +29,27 @@ export const emptyProps = {
   searchUser: jest.fn(),
   addMember: jest.fn()
 };
+
+export const teams = [
+  {
+    team: {
+      name: 'First team',
+      private: true,
+      favorite: true,
+      progress: 15
+    }
+  }
+];
+
+export const data = {
+  user: {
+    email: 'eze.kevin@andela.com',
+    githubUsername: 'kevinostro',
+    id: 1,
+    photo: 'ttps://images.pexels.com/photos/573294/pexels-photo-573294.jpeg?cs=srgb&dl=art-back-view-black-573294.jpg&fm=jpg',
+    role: 'admin',
+    slackId: 'kevinostro',
+    displayName: 'kevinostro',
+    createdAt: '12/03/2018'
+  }
+};
