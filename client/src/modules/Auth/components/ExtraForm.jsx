@@ -30,15 +30,15 @@ const ExtraForm = ({
                 <i className="tooltip fa fa-question-circle" />
               </div>
               <div>
-                <div>
+                <div className="tooltip-padding">
                   <h5 className="">Need help getting slack ID?</h5>
                   <h6>Follow these simple steps</h6>
-                  <ul>
-                    <li><i className="far fa-dot-circle" /> &nbsp;Login to your slack account</li>
-                    <li><i className="far fa-dot-circle" /> &nbsp;At the top left corner, click on your name/username</li>
-                    <li><i className="far fa-dot-circle" /> &nbsp;From the pop up that appear, click on <b>Profile & Account</b> link</li>
-                    <li><i className="far fa-dot-circle" /> &nbsp;Click on <b>More actions</b> icon <img src="./resources/images/more1.png" height="13px" width="30px" alt="more" /></li>
-                    <li><i className="far fa-dot-circle" /> &nbsp;Click on <b>Copy member ID</b> to copy your slack membership ID(slack ID)</li>
+                  <ul className="li-style">
+                    <li>Login to your slack account</li>
+                    <li>At the top left corner, click on your name/username</li>
+                    <li>From the pop up that appear, click on <b>Profile & Account</b> link</li>
+                    <li>Click on <b>More actions</b> icon <img src="./resources/images/more1.png" height="13px" width="30px" alt="more" /></li>
+                    <li>Click on <b>Copy member ID</b> to copy your slack membership ID(slack ID)</li>
                   </ul>
                 </div>
               </div>

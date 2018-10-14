@@ -35,6 +35,16 @@
   color: rgba(56, 93, 215, 0.98);
 }
 
-.l-style {
-  list-style-type:circle;
+.li-style{
+  padding-left: 2rem !important;
+  li {
+  list-style-type: square !important;
+}
+}
+
+.tooltip-padding {
+  padding: 1rem;
+}
+.mappleTip {
+  border: 1px solid #d4d4d5 !important;
 }
