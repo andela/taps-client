@@ -74,6 +74,28 @@ describe('Create Team actions', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
+  it('creates a slack channel', async () => {
+    const {
+      slackResponse, createSlackData, createTeamData,
+      createTeamResponse, slackData
+    } = createTeamMock;
+    const expectedActions = [{ "name": "OLUWAFEMI", "payload": true, "type": "[auth]: check if user is logged in" },
+      { "payload": true, "type": "[ui]: show preloader" }, { "payload": false, "type": "[ui]: show preloader" },
+      {
+        "payload": { "slack": [{ "created": true, "name": "ghoulie-general" }], "team": [{ "created": true, "name": "ghoulie" }] },
+        "type": SHOW_RESPONSE
+      }];
+    const store = mockStore({});
+    await mock
+      .onPost('teams', createTeamData)
+      .reply(201, createTeamResponse);
+    await mock
+      .onPost('teams/2/accounts', slackData)
+      .reply(201, slackResponse);
+    await store.dispatch(createTeam(createSlackData));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
   it('fails to create a team with empty name input', async () => {
     const { createTeamErrResponse, emptyTeamName } = createTeamMock;
     const expectedActions = [{ "name": "OLUWAFEMI", "payload": true, "type": "[auth]: check if user is logged in" },
@@ -84,6 +106,28 @@ describe('Create Team actions', () => {
       .onPost('teams', emptyTeamName)
       .reply(201, createTeamErrResponse);
     await store.dispatch(createTeam(emptyTeamName));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it(`fails to create github, slack and pivotal tracker projects
+   when there is no team ID`, async () => {
+    const { teamResposne, createTeamData, integrationData } = createTeamMock;
+    const expectedActions = [{ "name": "OLUWAFEMI", "payload": true, "type": "[auth]: check if user is logged in" },
+      { "payload": true, "type": "[ui]: show preloader" }, { "payload": false, "type": "[ui]: show preloader" },
+      {
+        "payload": {
+          "github": [{ "created": false, "name": "ah-ghoulie" }],
+          "pt": [{ "created": false, "name": "ah-ghoulie" }],
+          "slack": [{ "created": false, "name": "ghoulie-general" }],
+          "team": [{ "created": true, "name": "ghoulie" }]
+        },
+        "type": SHOW_RESPONSE
+      }];
+    const store = mockStore({});
+    await mock
+      .onPost('teams', createTeamData)
+      .reply(201, teamResposne);
+    await store.dispatch(createTeam(integrationData));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
