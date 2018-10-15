@@ -8,7 +8,7 @@ import createAdminRequest from '../../../redux/actions/requests';
 import { warningMessage, successMessage } from '../../../toasts';
 import errorFormatter from '../../../utils/errorFormatter.json';
 
-class Navbar extends Component {
+export class Navbar extends Component {
   static propTypes = {
     signOut: PropTypes.func.isRequired,
     createAdminRequest: PropTypes.func.isRequired,
@@ -108,6 +108,7 @@ class Navbar extends Component {
             </NavLink>
             {showIcon && (
               <a
+                id="showSearchBar"
                 href="#!"
                 onClick={() => this.toggleState('showSearchBar')}
                 className=" float-right sidenav-trigger"
@@ -119,6 +120,7 @@ class Navbar extends Component {
               {this.props.showIcon && (
                 <li>
                   <a
+                    id="showSearchBar2"
                     href="#!"
                     onClick={() => this.toggleState('showSearchBar')}
                   >
@@ -200,6 +202,7 @@ class Navbar extends Component {
               <ul className="tabs tabs-transparent">
                 <li className="tab">
                   <a
+                    id="projects"
                     href="#Projects"
                     onClick={event => switchContent(event, 'project')}
                   >
@@ -208,6 +211,7 @@ class Navbar extends Component {
                 </li>
                 <li className="tab">
                   <a
+                    id="members"
                     href="#members"
                     onClick={event => switchContent(event, 'member')}
                   >
@@ -216,6 +220,7 @@ class Navbar extends Component {
                 </li>
                 <li className="tab">
                   <a
+                    id="account"
                     href="#account"
                     onClick={event => switchContent(event, 'account')}
                   >
@@ -242,6 +247,7 @@ class Navbar extends Component {
                 </label>
                 {/* eslint-disable-next-line */}
                 <i
+                  id="showSearchBar3"
                   className="material-icons"
                   onClick={() => this.toggleState('showSearchBar')}
                 >
