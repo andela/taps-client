@@ -51,8 +51,8 @@ export const modalState = bool => dispatch => {
   dispatch({
     type: ISMODAL_OPENED,
     payload: bool
-  })
-}
+  });
+};
 
 /**
  * @description method to create team and multiple project integrations
@@ -66,67 +66,62 @@ export const createTeam = data => async (dispatch) => {
     const teamInfo = {
       name: data.name,
       description: data.description,
-      private: data.private,
-    }
+      private: data.private
+    };
 
     // all api response
     const allRequest = {
-      team: [],
-    }
+      team: []
+    };
 
-    let projects = {}
-    let integrationNames = data.integrations
+    let projects = {};
+    let integrationNames = data.integrations;
 
     // checks if any integration is selected
-    let integrationExist = Object.entries(integrationNames).some((integration) => {
-      return integration[1].length > 0
-    });
+    let integrationExist = Object.entries(integrationNames).some((integration) => integration[1].length > 0);
 
     let integrationType = {
       github: 'github_repo',
       pt: 'pt_private_project'
-    }
+    };
 
     // all selected integrations
-    for (const name of integrationNames) {
+    for (const name in integrationNames) {
       if (integrationNames[name].length) {
-        allRequest[name] = []
-        projects[name] = integrationNames[name]
+        allRequest[name] = [];
+        projects[name] = integrationNames[name];
       }
     }
 
     // api call to create a team
-    const response = await api('teams', 'post', teamInfo)
-    allRequest.team = [...allRequest.team, {created: true, name: data.name}]
+    const response = await api('teams', 'post', teamInfo);
+    allRequest.team = [...allRequest.team, { created: true, name: data.name }];
     if (integrationExist) {
-      let allProject = Object.keys(projects)
+      let allProject = Object.keys(projects);
       for (let integration of allProject) {
-        for( let accountName of projects[integration]) {
+        for (let accountName of projects[integration]) {
           let integrationInfo = {
             name: accountName,
             type: integrationType[integration]
-          }
+          };
           try {
             await api(`teams/${response.data.team.id}/accounts`, 'post', integrationInfo);
-            allRequest[integration]= [...allRequest[integration], {created: true, name: accountName}]
-          } catch(error) {
-              allRequest[integration]= [...allRequest[integration], {created: false, name: accountName}]
-            }
+            allRequest[integration] = [...allRequest[integration], { created: true, name: accountName }];
+          } catch (error) {
+            allRequest[integration] = [...allRequest[integration], { created: false, name: accountName }];
+          }
         }
       }
-    }
-    
-    dispatch(isLoading(false));
-    if (!integrationExist) {
-      successMessage(`${data.name} successfully created`);
-      return dispatch(success(CREATE_TEAM, response));
-    }
-    // create team response
-    return integrationExist && dispatch(apiResponse(SHOW_RESPONSE, allRequest))
-      
-  } catch(error) {
       dispatch(isLoading(false));
-      errorMessage(error);
+      return dispatch(apiResponse(SHOW_RESPONSE, allRequest));
+    }
+
+    dispatch(isLoading(false));
+    successMessage(`${data.name} successfully created`);
+    return dispatch(success(CREATE_TEAM, response));
+  } catch (error) {
+    dispatch(isLoading(false));
+    errorMessage(error);
   }
 };
 
@@ -191,12 +186,10 @@ export const fetchFavoriteTeamsAction = () => dispatch => {
     });
 };
 
-export const removeFavoritesTeamsAction = (id) => dispatch => {
-  return instance.delete(`/favorites/${id}`)
-    .then(() => {
-      dispatch(removeFavoriteTeam(id));
-      successMessage('Team successfully removed from favorites');
-    }).catch((error) => {
-      console.error(error);
-    });
-};
+export const removeFavoritesTeamsAction = (id) => dispatch => instance.delete(`/favorites/${id}`)
+  .then(() => {
+    dispatch(removeFavoriteTeam(id));
+    successMessage('Team successfully removed from favorites');
+  }).catch((error) => {
+    console.error(error);
+  });

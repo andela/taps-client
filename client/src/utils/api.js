@@ -9,22 +9,21 @@ import instance from '../config/axios';
  * @returns {object} data - response
  */
 const api = async (url, method, obj = {}) => {
-    try {
-        const response = await instance[method](url, obj);
-        const { data } = response;
-        if (data.errors) {
-            throw(data.errors[0]);
-        }
-        return data;
-    } catch (error) {
-        if (typeof error === 'string') {
-            throw (error)
-        }
-        else if (error.response) {
-            throw (error.response.data)
-        }
-        throw('problem connecting...')
+  try {
+    const response = await instance[method](url, obj);
+    const { data } = response;
+    if (data.errors) {
+      throw (data.errors[0]);
     }
-}
+    return data;
+  } catch (error) {
+    if (typeof error === 'string') {
+      throw (error);
+    } else if (error.response) {
+      throw (error.response.data);
+    }
+    throw ('problem connecting...');
+  }
+};
 
 export default api;
