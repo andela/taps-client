@@ -178,23 +178,23 @@
   .team-account-wrapper {
     background-color: #F1F1F1; //#EBEBEB;
     border-radius: 10px;
+
     .team-accout-form {
       padding: 3rem 1rem 4rem 4rem;
       .select {
-        cursor: pointer;
+        cursor: default;
         display: inline-block;
-        width: 70%;
+        width: 80%;
       }     
       .account-btn {
-        margin: 5rem 21% 1rem;
+        margin: 5rem 20% 1rem;
         float: right;
         background-color: #385cd7 !important;
       }    
     }
     .span {
+      color: #504747 !important;
       font-size: 18px;
-      margin: 0.5rem 1rem 0 1rem;
-      position: absolute;
     }
   }
   .member-username {
@@ -269,4 +269,32 @@ input[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:bef
 .select-account-dropdown{
   font-size: 15px;
   display: 1px solid bold;
+}
+
+.formDefault {
+  margin-top: 21%;
+  .label {
+    color: #234fdd;
+  }
+  .search {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2); 
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    border-radius: 40px;
+  }
+}
+
+.formActive {
+  .label {
+    display: none;
+  }
+  .search {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2); 
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    border-radius: 20px;
+  }
+}
+
+.multi-select {
+  margin-top: 1rem;
+  margin-left: 8px;
 }
