@@ -1,4 +1,8 @@
-import { CREATE_ADMIN_REQUEST_SUCCESS, CREATE_ADMIN_REQUEST_ERROR } from '../actions/types';
+import {
+  CREATE_ADMIN_REQUEST_SUCCESS,
+  CREATE_ADMIN_REQUEST_ERROR,
+  CLEAR_REQUEST_STATE 
+} from '../actions/types';
 
 const initialState = {
   request: null,
@@ -18,6 +22,13 @@ const requestReducer = (state = initialState, action) => {
     return {
       ...state,
       error: action.payload,
+      success: false
+    };
+  case CLEAR_REQUEST_STATE:
+    return {
+      ...state,
+      error: '',
+      request: null,
       success: false
     };
   default:
