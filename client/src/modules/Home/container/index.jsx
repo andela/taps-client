@@ -118,7 +118,7 @@ export class Home extends Component {
     event.preventDefault();
     this.props.clearTeams();
     this.loadMore(this.state.searchInput);
-    this.setState(() => ({ offset: 0, searchInput: '', searchOffset: 0 }));
+    this.setState(() => ({ offset: 0, searchOffset: 0 }));
   }
 
   handleSearchInput(event) {
