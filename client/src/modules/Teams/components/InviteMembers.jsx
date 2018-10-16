@@ -20,7 +20,7 @@ export class InviteMember extends Component {
       accounts: { value: 'ghoullies-bot', label: 'ghoullies-bot', type: 'slack_channel' },
       ismultiSelectDisabled: false,
       selectAllDisabled: true,
-      user: {},
+      user: null,
       formClass: 'formDefault'
     };
 
@@ -45,9 +45,12 @@ export class InviteMember extends Component {
   }
 
   handleSearch(event) {
-    this.setState({ searchInput: event.target.value, formClass: 'formActive' });
     const searchInput = event.target.value;
-    this.props.searchUser(searchInput);
+    this.setState({ searchInput, formClass: 'formActive', user: null });
+    if (this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.props.searchUser(searchInput);
+    }, 500);
   }
 
   renderSearchOutput(users) {
@@ -164,7 +167,7 @@ export class InviteMember extends Component {
                 <h5 className="center-align label">Search New Member To Invite</h5>
               </div>
               <div className="input-field inline col s10 custom-form search-result search">
-                <i className="material-icons prefix">search</i>
+                <i className="material-icons prefix search-icon">search</i>
                 <input
                   id="invite-members"
                   type="search"
@@ -183,7 +186,7 @@ export class InviteMember extends Component {
         </div>
 
         <ReactTooltip />
-        {this.state.searchInput &&
+        {this.state.user &&
         <div className="row account-row">
           <div className="col s2" />
           <div className="col s7">

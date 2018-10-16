@@ -7,6 +7,7 @@ import autoBind from 'auto-bind';
 // import { NavLink } from 'react-router-dom';
 // actions
 import { fetchMembers, addMember } from '../../../redux/actions/teams/members';
+import { fetchAccounts } from '../../../redux/actions/teams/accounts';
 import {
   renderContent,
   renderSubContent
@@ -24,6 +25,7 @@ class Teams extends Component {
       params: PropTypes.shape({ id: PropTypes.string })
     }).isRequired,
     fetchMembers: PropTypes.func.isRequired,
+    fetchAccounts: PropTypes.func.isRequired,
     members: PropTypes.shape({
       data: PropTypes.shape({
         memberships: PropTypes.array
@@ -49,6 +51,7 @@ class Teams extends Component {
       }
     } = this.props;
     this.props.fetchMembers(id);
+    this.props.fetchAccounts(id);
   }
 
   switchContent(event, content) {
@@ -134,5 +137,6 @@ export default connect(mapStateToProps, {
   fetchMembers,
   addMember,
   renderContent,
-  renderSubContent
+  renderSubContent,
+  fetchAccounts
 })(Teams);

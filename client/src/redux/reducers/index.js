@@ -4,13 +4,15 @@ import users from './userReducer';
 import auth from './authReducer';
 import isLoading from './networkRequestReducer';
 import requestsReducer from './requestsReducer';
+import accounts from './accountReducer';
 
 const root = combineReducers({
   teams,
   users,
   auth,
   isLoading,
-  requestsReducer
+  requestsReducer,
+  accounts
 });
 
 export default root;
