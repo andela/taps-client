@@ -7,11 +7,13 @@ import { signOut } from '../../../redux/actions/auth';
 import createAdminRequest from '../../../redux/actions/requests';
 import { warningMessage, successMessage } from '../../../toasts';
 import errorFormatter from '../../../utils/errorFormatter.json';
+import { clearRequestState } from '../../../redux/actions';
 
 class Navbar extends Component {
   static propTypes = {
     signOut: PropTypes.func.isRequired,
     createAdminRequest: PropTypes.func.isRequired,
+    clearRequestState: PropTypes.func.isRequired,
     auth: PropTypes.shape({
       name: PropTypes.string
     }).isRequired,
@@ -47,9 +49,11 @@ class Navbar extends Component {
     const { requestsReducer: { error, success } } = this.props;
     if (error && !success) {
       warningMessage(errorFormatter[error]);
+      this.props.clearRequestState();
     }
     if (success) {
       successMessage('Request Successful');
+      this.props.clearRequestState();
     }
   }
 
@@ -307,5 +311,5 @@ const mapStateToProps = ({ auth, requestsReducer }) => ({
 });
 
 export default connect(mapStateToProps, {
-  signOut, createAdminRequest
+  signOut, createAdminRequest, clearRequestState
 })(Navbar);
