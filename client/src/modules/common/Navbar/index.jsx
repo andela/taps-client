@@ -9,7 +9,7 @@ import { warningMessage, successMessage } from '../../../toasts';
 import errorFormatter from '../../../utils/errorFormatter.json';
 import { clearRequestState } from '../../../redux/actions';
 
-class Navbar extends Component {
+export class Navbar extends Component {
   static propTypes = {
     signOut: PropTypes.func.isRequired,
     createAdminRequest: PropTypes.func.isRequired,
@@ -32,12 +32,14 @@ class Navbar extends Component {
     super(props);
     this.state = {
       showSearchBar: false,
-      name: ''
+      name: '',
+      timeout: 0
     };
     this.toggleState = this.toggleState.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.signOut = this.signOut.bind(this);
     this.handleAdminRequest = this.handleAdminRequest.bind(this);
+    this.instantSearch = this.instantSearch.bind(this);
   }
   componentDidMount = () => {
     if (this.props.auth) {
@@ -62,6 +64,15 @@ class Navbar extends Component {
     this.setState({
       showSearchBar: false
     });
+  }
+
+  instantSearch(event) {
+    event.preventDefault();
+    if (this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.props.handleSubmit(event);
+    }, 500);
+    this.props.handleInput(event);
   }
 
   signOut(event) {
@@ -99,6 +110,7 @@ class Navbar extends Component {
         <nav className={`nav-white ${extendNavbar} ${mainNav}`}>
           <div className="nav-wrapper">
             <a
+              id="showSearchBar"
               href="#!"
               data-target="main-navigation"
               className="sidenav-trigger"
@@ -111,6 +123,7 @@ class Navbar extends Component {
             </NavLink>
             {showIcon && (
               <a
+                id="showSearchBar2"
                 href="#!"
                 onClick={() => this.toggleState('showSearchBar')}
                 className=" float-right sidenav-trigger"
@@ -203,6 +216,7 @@ class Navbar extends Component {
               <ul className="tabs tabs-transparent">
                 <li className="tab">
                   <a
+                    className="projects"
                     href="#Projects"
                     onClick={event => switchContent(event, 'project')}
                   >
@@ -211,6 +225,7 @@ class Navbar extends Component {
                 </li>
                 <li className="tab">
                   <a
+                    className="members"
                     href="#members"
                     onClick={event => switchContent(event, 'member')}
                   >
@@ -219,6 +234,7 @@ class Navbar extends Component {
                 </li>
                 <li className="tab">
                   <a
+                    className="account"
                     href="#account"
                     onClick={event => switchContent(event, 'account')}
                   >
@@ -238,13 +254,14 @@ class Navbar extends Component {
                   type="search"
                   required
                   value={this.props.searchValue}
-                  onChange={this.props.handleInput}
+                  onChange={this.instantSearch}
                 />
                 <label className="label-icon" htmlFor="search">
                   <i className="material-icons">search</i>
                 </label>
                 {/* eslint-disable-next-line */}
                 <i
+                  id="showSearchBar3"
                   className="material-icons"
                   onClick={() => this.toggleState('showSearchBar')}
                 >
