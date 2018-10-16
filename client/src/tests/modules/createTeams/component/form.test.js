@@ -8,6 +8,12 @@ describe('CreateTeam Form test-suite', () => {
     name: 'jude',
     desc: 'cohort 56',
     checked: 'false',
+    project: 'card for humanity',
+    integrations: {
+      github: [],
+      slack: [],
+      pt: []
+    },
     handleSubmit: jest.fn(),
     submitting: false,
     menuChange: jest.fn()
