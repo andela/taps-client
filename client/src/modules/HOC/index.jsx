@@ -23,8 +23,10 @@ const renderCards = (addFavorites, { teams }) => {
           favorite={favorite}
           addFavorites={addFavorites}
           isFavorited={item.favoritedByYou}
+          favoriteLinkTooltip="Add to favorites"
           lock={lock}
           toolTip={toolTip}
+          icon="favorite"
           progressBar={progress}
         />
         <ReactTooltip />
