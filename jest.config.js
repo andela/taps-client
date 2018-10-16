@@ -1,5 +1,4 @@
 module.exports = {
-  'verbose': true,
   'roots': [
     '<rootDir>/client'
   ],
@@ -15,7 +14,7 @@ module.exports = {
     '\\.(css|less|scss)$': '<rootDir>/client/src/tests/__mocks__/assetsTransformer.js',
   },
   'collectCoverage': true,
-  'collectCoverageFrom': ["client/src/**/*.{js,x}"],
+  'collectCoverageFrom': ["client/src/**/*.jsx", "client/src/redux/**/*.js"],
   'testPathIgnorePatterns': [
     '<rootDir>/client/src/tests/__mocks__',
   ],
