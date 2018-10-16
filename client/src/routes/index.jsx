@@ -12,6 +12,7 @@ import Teams from '../modules/Teams/container';
 import RequireAuth from './RequireAuth';
 import AuthRoute from './AuthRoute';
 import ErrorPage from '../modules/common/404';
+import AdminRequests from '../modules/Admin/components/AdminRequest';
 
 export default class Routes extends Component {
   componentDidMount() {
@@ -35,6 +36,7 @@ export default class Routes extends Component {
             <Route path="/teams/create" component={RequireAuth(CreateTeam)} />
             <AuthRoute path="/" exact component={SignInContainer} />
             <Route path="/teams/:id" exact component={RequireAuth(Teams)} />
+            <Route path="/requests/admin" exact component={RequireAuth(AdminRequests)} />
             <Route path="/404" exact component={ErrorPage} />
             <Redirect from="*" to="/404" />
           </Switch>
