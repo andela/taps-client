@@ -153,7 +153,7 @@ export class CreateTeam extends Component {
   }
 }
 
-const mapStateToProps = ({ teams, isLoading }) => ({
+export const mapStateToProps = ({ teams, isLoading }) => ({
   teams: teams,
   apiMessage: teams.apiResponse,
   isFetching: isLoading
