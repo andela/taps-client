@@ -52,8 +52,7 @@ class Navbar extends Component {
       this.props.clearRequestState();
     }
     if (success) {
-      successMessage('Request Successful');
-      this.props.clearRequestState();
+      successMessage('Request Sent');
     }
   }
 
