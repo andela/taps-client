@@ -109,7 +109,8 @@ export const Form = ({
         </div>
         <div className="team-accounts top-margin">
           <img src={slack} className="integration-icon small-icon" alt="slack-image" />
-          <Dropdown placeholder="channel name" fluid multiple selection search options={slackOptions} />
+          <Dropdown
+            name="slack" onChange={menuChange} placeholder="channel name" fluid multiple selection search options={slackOptions} />
         </div>
         {!showSubmitButton && (
           <div className="submit-btn">
