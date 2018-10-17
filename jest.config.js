@@ -18,7 +18,7 @@ module.exports = {
   'testPathIgnorePatterns': [
     '<rootDir>/client/src/tests/__mocks__'
   ],
-  'coveragePathIgnorePatterns': ['/node_modules', '<rootDir>/client/src/index.tsx', `'<rootDir>/client/src/tests'`],
+  'coveragePathIgnorePatterns': ['/node_modules', '<rootDir>/client/src/index.tsx', '<rootDir>/client/src/tests'],
   'snapshotSerializers': ['enzyme-to-json/serializer'],
   'setupTestFrameworkScriptFile': '<rootDir>/client/src/setupEnzyme.js'
 };

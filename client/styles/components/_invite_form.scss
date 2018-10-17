@@ -1,0 +1,50 @@
+
+#invite_form{
+    .disabled-input-text{
+        // color:rgb(5, 5, 117);
+        color: black ;
+        background-color: rgba(255, 255, 255, 0.377);
+        padding-left: 14px ;
+        margin-top: 10px;
+        border-radius: 3px;
+    }
+
+    .form-style {
+        padding: 3rem 4rem 3rem 4rem;
+    }
+    .copy-link-text{
+        font-size: 15px;
+        color: black;
+        margin-top: 4px;
+    }
+
+    .copy-icon{
+        width:25px;
+        margin-right: 5px;
+        padding-top: 3px;
+    }
+    .copy-icon:hover{
+        cursor: pointer;
+    }
+    .link-group{
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        clear: both;
+    }
+
+    #role-select{
+        display: inline-block;
+        width: 50%;
+    }
+    .role-inputs{
+        margin-left: 35px;
+        margin-top: 13px;
+    }
+    .role-text{
+        font-size: 14px;
+        display: inline-block;
+        
+    }
+}

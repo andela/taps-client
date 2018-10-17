@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import Select, { components } from 'react-select';
+import Select from 'react-select';
+import MultiValueLabel from "./MultiValueLabel";
+import Dropdown from './Dropdown';
 
 // Actions
 import { searchUser, clearUser } from '../../../redux/actions/users';
@@ -152,47 +154,6 @@ export class InviteMember extends Component {
     const { searchInput } = this.state;
     const { users, showModal } = this.props;
 
-    const MultiValueLabel = (props) => (
-      <components.MultiValueLabel {...props}>
-        {props.data.type === 'github_repo' ?
-          <label className="select-account-label">
-            <img src="/resources/images/github.svg" className="account-icon" alt="github" />
-            {` ${props.data.label}`}
-          </label> :
-          <label>
-            {props.data.type === 'slack_channel' || props.data.type === 'slack_private_channel' ?
-              <label className="select-account-label">
-                <img src="/resources/images/slack.png" className="account-icon" alt="slack" />
-                {` ${props.data.label}`}
-              </label> :
-              <label className="select-account-label">
-                <img src="/resources/images/pt.png" className="account-icon" alt="pt" />
-                {` ${props.data.label}`}
-              </label>}
-          </label>}
-      </components.MultiValueLabel>
-    );
-
-    const dropDown = (props) => (
-      <components.Option {...props}>
-        {props.data.type === 'github_repo' ?
-          <label className="select-account-dropdown">
-            <img src="/resources/images/github.svg" className="account-icon" alt="github" />
-            {` ${props.data.label}`}
-          </label> :
-          <label>
-            {props.data.type === 'slack_channel' || props.data.type === 'slack_private_channel' ?
-              <label className="select-account-dropdown">
-                <img src="/resources/images/slack.png" className="account-icon" alt="slack" />
-                {` ${props.data.label}`}
-              </label> :
-              <label className="select-account-dropdown">
-                <img src="/resources/images/pt.png" className="account-icon" alt="pt" />
-                {` ${props.data.label}`}
-              </label>}
-          </label>}
-      </components.Option>
-    );
 
     return (
       <React.Fragment>
@@ -257,7 +218,7 @@ export class InviteMember extends Component {
                     <label className="select multi-select">
                       <Select
                         closeMenuOnSelect={false}
-                        components={{ MultiValueLabel, Option: dropDown }}
+                        components={{ MultiValueLabel, Option: Dropdown }}
                         styles={{
                           multiValueRemove: (base) => ({ ...base, fontSize: '15px', color: '#385cd7' })
                         }}

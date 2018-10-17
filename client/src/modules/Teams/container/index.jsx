@@ -83,7 +83,8 @@ class Teams extends Component {
 
   renderContent(content) {
     const { expanded } = this.state;
-    const { subtitle } = this.props;
+    const { subtitle, match: { params: { id } } } = this.props;
+
     const {
       members: {
         data: { memberships }
@@ -97,6 +98,7 @@ class Teams extends Component {
     case 'member':
       return (
         <Member
+          teamId={id}
           expanded={expanded}
           toggleSidenav={this.toggleSidenav}
           members={memberships}

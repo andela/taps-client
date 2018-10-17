@@ -2,7 +2,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-
 const isLoggedIn = () => localStorage.getItem('aTeamsToken') &&
     localStorage.getItem('userId') &&
     localStorage.getItem('role');
