@@ -40,8 +40,9 @@ export class CreateTeam extends Component {
       visibility: false,
       submitting: false,
       integrations: {
-        github: []
-      },
+        github: [],
+        pt: []
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -74,7 +75,9 @@ export class CreateTeam extends Component {
    */
   handleSubmit(event) {
     event.preventDefault();
-    const { name, visibility, description, integrations } = this.state;
+    const {
+      name, visibility, description, integrations
+    } = this.state;
     const data = {
       name,
       description,
@@ -110,8 +113,8 @@ export class CreateTeam extends Component {
    */
   menuChange = (event, item) => {
     this.setState({
-      integrations: {...this.state.integrations, [item.name]: item.value }
-    })
+      integrations: { ...this.state.integrations, [item.name]: item.value }
+    });
   }
 
   /**
@@ -127,13 +130,14 @@ export class CreateTeam extends Component {
     const {
       name, description, visibility, github
     } = this.state;
-    const { showModal } = this.props.teams
+    const { showModal } = this.props.teams;
     return (
       <React.Fragment>
         <Navbar />
         <div className="container">
-          {showModal && <VisualFeedback modalState={this.handleModalState}
-           response={this.props.apiMessage} isModalOpened={showModal} />}
+          {showModal && <VisualFeedback
+            modalState={this.handleModalState}
+            response={this.props.apiMessage} isModalOpened={showModal} />}
           <div className="row valign-wrapper">
             <Form
               handleSubmit={this.handleSubmit}
