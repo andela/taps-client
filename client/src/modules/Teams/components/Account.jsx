@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import AddIntegrationModal from '../../common/Modals/AddIntegration';
+import pt from '../../../../public/resources/images/pt.png';
+import github from '../../../../public/resources/images/github.png';
+import slack from '../../../../public/resources/images/slack.png';
 
 
 class Account extends React.Component {
@@ -66,15 +69,9 @@ class Account extends React.Component {
             closeModal={this.onCloseModal}
           />
           <div className={`col ${contentWidth} integration-row`}>
-            <i className="material-icons integration-icons">
-                group_add
-            </i>
-            <i className="material-icons integration-icons">
-            sync
-            </i>
-            <i className="material-icons integration-icons">
-            pie_chart
-            </i>
+            <img className="integration-icons" src={github} alt="github" />
+            <img className="integration-icons" src={slack} alt="github" />
+            <img className="integration-icons" src={pt} alt="github" />
             <h6 className="integration-h6">Track your teams with additional data</h6>
             <button
               onClick={this.onOpenModal}
