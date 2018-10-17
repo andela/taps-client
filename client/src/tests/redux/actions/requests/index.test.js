@@ -4,7 +4,7 @@ import moxios from 'moxios';
 import instance from '../../../../config/axios';
 import { CREATE_ADMIN_REQUEST_SUCCESS, CREATE_ADMIN_REQUEST_ERROR } from '../../../../../src/redux/actions/types';
 import createAdminRequest from '../../../../redux/actions/requests';
-import requestsReponse from '../../../__mockData__/requestsMock';
+import requestsReponse from '../../../__mocks__/__mockData__/requestsMock';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
