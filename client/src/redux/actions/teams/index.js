@@ -82,7 +82,8 @@ export const createTeam = data => async (dispatch) => {
 
     let integrationType = {
       github: 'github_repo',
-      pt: 'pt_private_project'
+      pt: 'pt_project',
+      slack: 'slack_private_channel'
     };
 
     // all selected integrations
@@ -97,10 +98,10 @@ export const createTeam = data => async (dispatch) => {
     const response = await api('teams', 'post', teamInfo);
     allRequest.team = [...allRequest.team, { created: true, name: data.name }];
     if (integrationExist) {
-      let allProject = Object.keys(projects);
-      for (let integration of allProject) {
-        for (let accountName of projects[integration]) {
-          let integrationInfo = {
+      const allProject = Object.keys(projects);
+      for (const integration of allProject) {
+        for (const accountName of projects[integration]) {
+          const integrationInfo = {
             name: accountName,
             type: integrationType[integration]
           };

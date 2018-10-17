@@ -12,6 +12,13 @@ const createTeamMock = {
       errors: ['The name field is required.']
     }
   },
+  teamResposne: {
+    data: {
+      team: {
+        containsYou: true
+      }
+    }
+  },
   emptyTeamName: {
     name: '',
     description: 'lagos cohort 32',
@@ -57,7 +64,7 @@ const createTeamMock = {
   },
   ptData: {
     name: 'ah-ghoulie',
-    type: 'pt_private_project'
+    type: 'pt_project'
   },
   createPtData: {
     name: 'ghoulie',
@@ -67,7 +74,33 @@ const createTeamMock = {
       pt: ['ah-ghoulie']
     }
   },
-
+  slackData: {
+    name: 'ghoulie-general',
+    type: 'slack_private_channel'
+  },
+  createSlackData: {
+    name: 'ghoulie',
+    description: 'lagos cohort 32',
+    private: 'private',
+    integrations: {
+      slack: ['ghoulie-general']
+    }
+  },
+  slackResponse: {
+    data: {
+      created: true
+    }
+  },
+  integrationData: {
+    name: 'ghoulie',
+    description: 'lagos cohort 32',
+    private: 'private',
+    integrations: {
+      slack: ['ghoulie-general'],
+      pt: ['ah-ghoulie'],
+      github: ['ah-ghoulie']
+    }
+  }
 };
 
 export default createTeamMock;

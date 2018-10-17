@@ -41,7 +41,8 @@ export class CreateTeam extends Component {
       submitting: false,
       integrations: {
         github: [],
-        pt: []
+        pt: [],
+        slack: []
       }
     };
     this.handleChange = this.handleChange.bind(this);
@@ -150,7 +151,6 @@ export class CreateTeam extends Component {
               submitting={this.props.isFetching.isLoading}
             />
           </div>
-          }
         </div>
       </React.Fragment>
     );
