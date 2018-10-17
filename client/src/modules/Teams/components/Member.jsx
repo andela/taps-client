@@ -7,7 +7,7 @@ import autoBind from 'auto-bind';
 import Gallery from './Gallery';
 import InviteMembers from './InviteMembers';
 
-class Member extends Component {
+export class Member extends Component {
   constructor(props) {
     super(props);
     autoBind(this);
@@ -36,10 +36,19 @@ class Member extends Component {
       <Gallery data={member} key={member.user.id} />
     ));
   }
+
+  checkTeamLead() {
+    const { members } = this.props;
+    const currentUserId = localStorage.getItem('userId');
+    const lead = members.find(member => (member.role === 'lead' && member.userId === currentUserId));
+    return !!(lead);
+  }
+
   render = () => {
     const {
       expanded, toggleSidenav, chooseContent, content
     } = this.props;
+
     const showSidenav = expanded ?
       'side-nav-width-expanded' :
       'side-nav-width-collapsed';
@@ -59,16 +68,19 @@ class Member extends Component {
             {!expanded && (
               <div className="sidebar-inner">
                 <ul className="sidebar-nav">
+                <li className="nav-submenu" data-tip="see members">
+                    <a href="#!">
+                      <i className="material-icons">group</i>
+                    </a>
+                  </li>
+                { this.checkTeamLead() && (
                   <li className="nav-submenu" data-tip="invite new member">
                     <a href="#!">
                       <i className="material-icons">person_add</i>
                     </a>
                   </li>
-                  <li className="nav-submenu" data-tip="see members">
-                    <a href="#!">
-                      <i className="material-icons">group</i>
-                    </a>
-                  </li>
+                   )
+                  }
                 </ul>
                 <ReactTooltip />
               </div>
@@ -76,6 +88,14 @@ class Member extends Component {
             {expanded && (
               <div className="sidebar-inner">
                 <ul className="sidebar-nav">
+                <li
+                    className="nav-link "
+                    onClick={event => chooseContent(event, 'see members')}
+                  >
+                    <i className="material-icons left nav-icons">group</i>
+                    <span className="nav-icons">See members</span>
+                  </li>
+                { this.checkTeamLead() && (
                   <li
                     className="nav-link"
                     onClick={event => chooseContent(event, 'invite members')}
@@ -83,13 +103,8 @@ class Member extends Component {
                     <i className="material-icons left nav-icons">person_add</i>
                     <span className="nav-icons">Invite new members</span>
                   </li>
-                  <li
-                    className="nav-link "
-                    onClick={event => chooseContent(event, 'see members')}
-                  >
-                    <i className="material-icons left nav-icons">group</i>
-                    <span className="nav-icons">See members</span>
-                  </li>
+                )
+                }
                 </ul>
               </div>
             )}

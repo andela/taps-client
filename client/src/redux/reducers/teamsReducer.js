@@ -19,7 +19,7 @@ const initialState = {
   members: { data: { memberships: [] } },
   addMember: '',
   title: 'project',
-  subtitle: 'invite members',
+  subtitle: 'see members',
   favoriteTeams: [],
   favoriteTeamObject: [],
   favoritesId: [],

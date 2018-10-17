@@ -24,7 +24,13 @@ const Gallery = ({
   const fullName = temp.split('.').join(' ');
   return (
     <div>
-      <MemberCard photo={photo} role={role} name={fullName} remove />
+      <MemberCard
+        photo={photo}
+        role={role}
+        name={fullName}
+        remove="remove"
+        userId={id}
+      />
       <ReactTooltip />
     </div>
   );
