@@ -14,10 +14,24 @@
     height: 5rem;
 }
 
+.select-wrapper+label {
+    margin-top: 0.4rem
+}
+
 .select-wrapper {
     ul {
         top: 37px !important
     }
+}
+
+.form-wrapper {
+    margin-bottom: 1rem
+}
+
+.input-field {
+    position: relative;
+    margin-top: 0.4rem;
+    margin-bottom: 0.75rem;
 }
 
 .team-accounts {
