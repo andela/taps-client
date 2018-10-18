@@ -7,6 +7,13 @@ export const props = {
     role: 'admin',
     email: 'eze.kevin@andela.com',
     githubUsername: 'kenware'
+  }],
+  members: [{
+    userId: 2,
+    id: 2,
+    role: 'admin',
+    email: 'eze.kevin@andela.com',
+    githubUsername: 'kenware'
   }]
 };
 

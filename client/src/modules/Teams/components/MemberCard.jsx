@@ -7,7 +7,6 @@ class MemberCard extends Component {
     role: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,
     remove: PropTypes.string.isRequired,
-    addMember: PropTypes.func.isRequired,
     userId: PropTypes.string.isRequired
   }
   constructor(props) {

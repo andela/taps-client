@@ -20,7 +20,8 @@ export class InviteMember extends Component {
       accounts: { value: 'ghoullies-bot', label: 'ghoullies-bot', type: 'slack_channel' },
       ismultiSelectDisabled: false,
       selectAllDisabled: true,
-      user: {}
+      user: null,
+      formClass: 'formDefault'
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -31,6 +32,7 @@ export class InviteMember extends Component {
     this.inviteMember = this.inviteMember.bind(this);
     this.isDisabled = this.isDisabled.bind(this);
     this.selectUser = this.selectUser.bind(this);
+    this.toggleSearch = this.toggleSearch.bind(this);
   }
 
   handleSubmit(event) {
@@ -43,9 +45,12 @@ export class InviteMember extends Component {
   }
 
   handleSearch(event) {
-    this.setState({ searchInput: event.target.value });
-    const { searchInput } = this.state;
-    this.props.searchUser(searchInput);
+    const searchInput = event.target.value;
+    this.setState({ searchInput, formClass: 'formActive', user: null });
+    if (this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.props.searchUser(searchInput);
+    }, 500);
   }
 
   renderSearchOutput(users) {
@@ -92,6 +97,13 @@ export class InviteMember extends Component {
   selectUser(name, item) {
     this.setState({ searchInput: name, user: item });
     this.props.clearUser();
+  }
+
+  toggleSearch() {
+    if (!this.state.searchInput) {
+      this.setState({ formClass: 'formDefault' });
+      this.props.clearUser();
+    }
   }
 
   render() {
@@ -150,9 +162,12 @@ export class InviteMember extends Component {
       <React.Fragment>
         <div className="row">
           <div className="col s12">
-            <form onSubmit={this.handleSubmit}>
-              <div className="input-field inline col s11 custom-form search-result">
-                <i className="material-icons prefix">search</i>
+            <form onSubmit={this.handleSubmit} className={this.state.formClass}>
+              <div className="input-field inline col s10">
+                <h5 className="center-align label">Search New Member To Invite</h5>
+              </div>
+              <div className="input-field inline col s10 custom-form search-result search">
+                <i className="material-icons prefix search-icon">search</i>
                 <input
                   id="invite-members"
                   type="search"
@@ -160,6 +175,7 @@ export class InviteMember extends Component {
                   onChange={this.handleSearch}
                   placeholder="Invite members"
                   autoComplete="off"
+                  onBlur={this.toggleSearch}
                 />
                 <span className="helper-text user-placeholder">search by username or email</span>
                 {users && this.renderSearchOutput(users)}
@@ -170,7 +186,7 @@ export class InviteMember extends Component {
         </div>
 
         <ReactTooltip />
-        {this.state.searchInput &&
+        {this.state.user &&
         <div className="row account-row">
           <div className="col s2" />
           <div className="col s7">
@@ -180,21 +196,26 @@ export class InviteMember extends Component {
                 {` ${this.state.searchInput}`}
               </span> to any of these tools
             </h5>
-            <div className="col s12 team-account-wrapper">
+            <div className="col s10 team-account-wrapper">
               <form className="row team-accout-form">
                 <div className="">
                   <label>
                     <input className="with-gap select-all" name="select" type="radio" onClick={() => this.isDisabled('all')} />
-                    <span><img src="/resources/images/select.png" alt="icon" height="30px" width="30px" /></span>
+                    <span className="span">Add user to all accounts</span>
                   </label>
-                  <span className="span">Add user to all accounts</span>
+
                 </div>
                 <br />
-                <div>
+                <div className="">
                   <label>
                     <input onClick={() => this.isDisabled('select')} className="with-gap select-some" name="select" type="radio" defaultChecked />
-                    <span />
-                    <label className="select">
+                    <span className="span">Add user to some accounts</span>
+                  </label>
+
+                </div>
+                <div>
+                  <label>
+                    <label className="select multi-select">
                       <Select
                         closeMenuOnSelect={false}
                         components={{ MultiValueLabel, Option: dropDown }}
