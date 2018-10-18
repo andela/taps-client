@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../../redux/actions/auth';
-import createAdminRequest from '../../../redux/actions/requests';
+import { createAdminRequest, checkUserRequest } from '../../../redux/actions/requests';
 import { warningMessage, successMessage } from '../../../toasts';
 import errorFormatter from '../../../utils/errorFormatter.json';
 import { clearRequestState } from '../../../redux/actions';
@@ -14,13 +14,15 @@ class Navbar extends Component {
     signOut: PropTypes.func.isRequired,
     createAdminRequest: PropTypes.func.isRequired,
     clearRequestState: PropTypes.func.isRequired,
+    checkUserRequest: PropTypes.func.isRequired,
     auth: PropTypes.shape({
       name: PropTypes.string
     }).isRequired,
     requestsReducer: PropTypes.shape({
       error: PropTypes.string,
       request: PropTypes.object,
-      success: PropTypes.bool
+      success: PropTypes.bool,
+      hasRequest: PropTypes.bool
     }).isRequired,
     handleSubmit: PropTypes.func,
     switchContent: PropTypes.func,
@@ -45,6 +47,8 @@ class Navbar extends Component {
     if (this.props.auth) {
       this.setState(() => ({ name: this.props.auth.name }));
     }
+    const userId = localStorage.getItem("userId");
+    this.props.checkUserRequest(userId, 'admin_request');
   };
 
   componentDidUpdate(prevProps) {
@@ -55,6 +59,7 @@ class Navbar extends Component {
     }
     if (success) {
       successMessage('Request Sent');
+      this.props.clearRequestState();
     }
   }
 
@@ -98,6 +103,7 @@ class Navbar extends Component {
 
   render() {
     const { showSearchBar, name } = this.state;
+    const { requestsReducer: { hasRequest } } = this.props;
     const role = localStorage.getItem("role");
     const {
       showTabs, switchContent, showIcon, gotoHome
@@ -105,6 +111,7 @@ class Navbar extends Component {
     const searchBar = showSearchBar ? 'show' : 'hide';
     const mainNav = showSearchBar ? 'hide' : 'show';
     const extendNavbar = showTabs ? 'nav-extended ' : '';
+    const disableClass = hasRequest ? 'disabledButton' : '';
     return (
       <div className="navbar-fixed">
         <nav className={`nav-white ${extendNavbar} ${mainNav}`}>
@@ -154,8 +161,9 @@ class Navbar extends Component {
                   </li> :
                   <li>
                     <button
-                      className="admin-request-btn"
+                      className={`admin-request-btn ${disableClass}`}
                       onClick={this.handleAdminRequest}
+                      disabled={hasRequest}
                     >
                       <i
                         className="tiny material-icons"
@@ -321,5 +329,5 @@ const mapStateToProps = ({ auth, requestsReducer }) => ({
 });
 
 export default connect(mapStateToProps, {
-  signOut, createAdminRequest, clearRequestState
+  signOut, createAdminRequest, clearRequestState, checkUserRequest
 })(Navbar);

@@ -20,8 +20,7 @@
 
 .integration-icons {
   margin-right: 20px;
-  color: $andela-blue;
-  font-size: 35px;
+  width: 40px;
 }
 
 .integration-h6 {
@@ -49,16 +48,66 @@
 }
 
 .integration-tools {
-  border-block-end: inherit;
-  margin-top: 20px;
-  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #DDDDDD;
+  padding: 11px 10px;
   font-family: 'Lato';
 }
 
+.integration-modal {
+  padding: 0 !important;
+  width: 29% !important;
+}
+
 .integration-header {
-  text-align: center;
-  font-size: 14px;
+  text-align: left;
   font-family: 'Lato';
+  padding: 15px;
+
+  h5 {
+    font-size: 18px;
+  }
+}
+
+.no-border {
+  border: none;
+}
+
+.integration-tool-name {
+  display: flex;
+  align-items: center;
+}
+
+.integration-body {
+  padding: 15px 29px;
+  border-bottom: 1px solid #DDDDDD;
+  border-top: 1px solid #DDDDDD;
+}
+
+.integration-tool-icon {
+  width: 35px;
+  height: 35px;
+  margin-right: 12px;
+}
+
+.integration-tools-container {
+  background-color: #F7F6F6;
+  padding: 0px 6px;
+
+}
+
+.integration-tool-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 11px 29px;
+  cursor: pointer;
+
+  p {
+    font-size: 16px;
+    text-transform: capitalize;
+  }
 }
 
 .sidebar {
