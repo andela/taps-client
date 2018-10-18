@@ -7,8 +7,14 @@ describe('Create Team Form', () => {
   const props = {
     handleSubmit: jest.fn(),
     handleChange: jest.fn(),
+    integrations: {
+      github: [],
+      slack: [],
+      pt: []
+    },
     name: 'taps-client',
     desc: 'taps-client',
+    project: 'author haven',
     checked: true,
     submitting: true
   };

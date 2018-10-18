@@ -7,8 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Favorite from '../modules/Teams/components/FavoriteTeams';
 import Home from '../modules/Home/container';
 import Preloader from '../modules/common/Preloader';
-import AuthRoute from './AuthRoute';
-import CreateTeamContainer from '../modules/CreateTeam/container';
+import SignIn from '../modules/Auth/container';
+import CreateTeam from '../modules/CreateTeam/container';
 import Teams from '../modules/Teams/container';
 import RequireAuth from './RequireAuth';
 
@@ -31,8 +31,8 @@ export default class Routes extends Component {
           <Switch>
             <Route path="/teams/favorites" exact component={RequireAuth(Favorite)} />
             <Route path="/teams" exact component={Home} />
-            <AuthRoute />
-            <Route path="/teams/create" component={RequireAuth(CreateTeamContainer)} />
+            <Route path="/" exact component={SignIn} />
+            <Route path="/teams/create" component={RequireAuth(CreateTeam)} />
             <Route path="/teams/:id" exact component={RequireAuth(Teams)} />
           </Switch>
         </React.Fragment>

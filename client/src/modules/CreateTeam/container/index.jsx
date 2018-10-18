@@ -37,6 +37,7 @@ export class CreateTeam extends Component {
     this.state = {
       name: '',
       description: '',
+      project: 'authors haven',
       visibility: false,
       submitting: false,
       integrations: {
@@ -103,7 +104,12 @@ export class CreateTeam extends Component {
    */
   handleChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      integrations: {
+        github: [],
+        slack: [],
+        pt: []
+      }
     });
   }
 
@@ -129,7 +135,8 @@ export class CreateTeam extends Component {
 
   render() {
     const {
-      name, description, visibility, github
+      name, description, visibility, github,
+      project, integrations
     } = this.state;
     const { showModal } = this.props.teams;
     return (
@@ -144,7 +151,9 @@ export class CreateTeam extends Component {
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
               menuChange={this.menuChange}
+              integrations={integrations}
               name={name}
+              project={project}
               desc={description}
               checked={visibility}
               github={github}
