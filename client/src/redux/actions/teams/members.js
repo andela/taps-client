@@ -26,22 +26,19 @@ export const addMember = data => async dispatch => {
   try {
     let request;
     await api(`teams/${data.teamId}/members/${data.userId}`, 'post', { role: 'developer' });
+
     const member = { type: 'team', name: data.teamName, invited: true };
 
     if (data.accounts.length) {
       request = data.accounts.map(async (account) => {
         try {
           const response = await api(`teams/${data.teamId}/accounts/${account.accountId}/members/${data.userId}`, 'post', null);
-          console.log(response);
-          console.log('response >>>>>>>>>>>>>>>>>>>>>>>>>>');
           return {
             type: account.type,
             name: account.name,
             invited: response.data.response.invitedUser.ok
           };
         } catch (error) {
-          console.log(error);
-          console.log('error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
           return {
             type: account.type,
             name: account.name,
@@ -54,16 +51,11 @@ export const addMember = data => async dispatch => {
 
     const allResponse = await Promise.all(request);
     allResponse.push(member);
-    console.log(allResponse);
     dispatch(success(ADD_MEMBER, allResponse));
-    console.log('allResponse >>>>>>>>>>>>>>]]]]]]]]]]]]]]]]]]]]]]=');
-
     successMessage('user successfully added to this team');
     dispatch(isLoading(false));
   } catch (error) {
     dispatch(isLoading(false));
-    console.log('member error >>>>>>>>>>>>>>>>>>>');
-    console.log(error);
     errorMessage(error);
   }
 };
