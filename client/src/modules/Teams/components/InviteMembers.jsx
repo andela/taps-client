@@ -17,7 +17,7 @@ export class InviteMember extends Component {
     super(props);
     this.state = {
       searchInput: '',
-      accounts: { value: 'ghoullies-bot', label: 'ghoullies-bot', type: 'slack_channel' },
+      accounts: [this.multiSelectOptions()[0]],
       ismultiSelectDisabled: false,
       selectAllDisabled: true,
       user: null,
@@ -33,6 +33,7 @@ export class InviteMember extends Component {
     this.isDisabled = this.isDisabled.bind(this);
     this.selectUser = this.selectUser.bind(this);
     this.toggleSearch = this.toggleSearch.bind(this);
+    this.multiSelectOptions = this.multiSelectOptions.bind(this);
   }
 
   handleSubmit(event) {
@@ -77,13 +78,25 @@ export class InviteMember extends Component {
     e.preventDefault();
     const { addMember } = this.props;
     const userId = this.state.user.id;
-    addMember(e, userId);
+    let accounts;
     if (!this.state.ismultiSelectDisabled && this.state.selectAllDisabled) {
-      const { accounts } = this.state;
-      console.log(accounts);
+      // eslint-disable-next-line prefer-destructuring
+      accounts = this.state.accounts;
     } else if (this.state.ismultiSelectDisabled && !this.state.selectAllDisabled) {
-    // const { addMember } = this.props;
+      accounts = this.props.accounts.map(account => {
+        const accountObj = {
+          type: account.type,
+          accountId: account.id,
+          name: account.name
+        };
+        return accountObj;
+      });
     }
+    const data = {
+      accounts,
+      userId
+    };
+    addMember(e, data);
   }
 
   isDisabled(value) {
@@ -106,6 +119,16 @@ export class InviteMember extends Component {
     }
   }
 
+  multiSelectOptions() {
+    return this.props.accounts.map(account => ({
+      value: account.name,
+      label: account.name,
+      type: account.type,
+      accountId: account.id,
+      name: account.name
+    }));
+  }
+
   render() {
     const { searchInput } = this.state;
     const { users } = this.props;
@@ -118,7 +141,7 @@ export class InviteMember extends Component {
             {` ${props.data.label}`}
           </label> :
           <label>
-            {props.data.type === 'slack_channel' ?
+            {props.data.type === 'slack_channel' || props.data.type === 'slack_private_channel' ?
               <label className="select-account-label">
                 <img src="/resources/images/slack.png" className="account-icon" alt="slack" />
                 {` ${props.data.label}`}
@@ -139,7 +162,7 @@ export class InviteMember extends Component {
             {` ${props.data.label}`}
           </label> :
           <label>
-            {props.data.type === 'slack_channel' ?
+            {props.data.type === 'slack_channel' || props.data.type === 'slack_private_channel' ?
               <label className="select-account-dropdown">
                 <img src="/resources/images/slack.png" className="account-icon" alt="slack" />
                 {` ${props.data.label}`}
@@ -151,12 +174,6 @@ export class InviteMember extends Component {
           </label>}
       </components.Option>
     );
-
-    const options = [
-      { value: 'ah-tap', label: 'ah-tap', type: 'github_repo' },
-      { value: 'ghoullies-bot', label: 'ghoullies-bot', type: 'slack_channel' },
-      { value: 'Ghoullies-taps', label: 'Ghoullies-taps', type: 'pt_project' }
-    ];
 
     return (
       <React.Fragment>
@@ -222,9 +239,9 @@ export class InviteMember extends Component {
                         styles={{
                           multiValueRemove: (base) => ({ ...base, fontSize: '15px', color: '#385cd7' })
                         }}
-                        defaultValue={[options[1]]}
+                        defaultValue={[this.multiSelectOptions()[0]]}
                         isMulti
-                        options={options}
+                        options={this.multiSelectOptions()}
                         onChange={this.handleSelected}
                         isDisabled={this.state.ismultiSelectDisabled}
                       />
@@ -250,9 +267,14 @@ const mapStateToProps = ({
     users: {
       data: { users }
     }
+  },
+  accounts: {
+    accounts: {
+      data: { accounts }
+    }
   }
 }) => ({
-  users
+  users, accounts
 });
 
 export default connect(mapStateToProps, { searchUser, clearUser })(InviteMember);
