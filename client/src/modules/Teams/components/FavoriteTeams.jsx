@@ -55,9 +55,11 @@ class Favorites extends Component {
                         item={items.team}
                         favorite={favorite}
                         lock={lock}
+                        favoriteLinkTooltip="Remove from favourites"
                         addFavorites={this.removeFavorites}
                         toolTip={toolTip}
                         progressBar={progress}
+                        icon="close"
                       />
                       <ReactTooltip />
                     </React.Fragment>
