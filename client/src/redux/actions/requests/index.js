@@ -21,8 +21,8 @@ export const createAdminRequest = requestData => dispatch => instance
 export const checkUserRequest = (userId, requestType) => async dispatch => {
   try {
     const response = await instance.get(`/requests?userId=${userId}&type=${requestType}`);
-    if (response.data.requests) {
-      return dispatch(success(CHECK_USER_REQUEST, response.data.requests));
+    if (response.data) {
+      return dispatch(success(CHECK_USER_REQUEST, response.data.data.requests));
     }
   } catch (error) {
     errorMessage(error);
