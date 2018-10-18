@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SignInContainer from '../modules/Auth/container';
@@ -11,6 +11,7 @@ import CreateTeam from '../modules/CreateTeam/container';
 import Teams from '../modules/Teams/container';
 import RequireAuth from './RequireAuth';
 import AuthRoute from './AuthRoute';
+import ErrorPage from '../modules/common/404';
 
 export default class Routes extends Component {
   componentDidMount() {
@@ -34,6 +35,8 @@ export default class Routes extends Component {
             <Route path="/teams/create" component={RequireAuth(CreateTeam)} />
             <AuthRoute path="/" exact component={SignInContainer} />
             <Route path="/teams/:id" exact component={RequireAuth(Teams)} />
+            <Route path="/404" exact component={ErrorPage} />
+            <Redirect from="*" to="/404" />
           </Switch>
         </React.Fragment>
       </BrowserRouter>

@@ -30,6 +30,7 @@ const logos = [
  */
 const VisualFeedback = ({ response, modalState, isModalOpened }) => {
   const allMessage = Object.entries(response);
+  allMessage.shift();
 
   return (
     <Modal
@@ -41,43 +42,45 @@ const VisualFeedback = ({ response, modalState, isModalOpened }) => {
       contentLabel="Pop up Modal"
     >
       <div className="modal-container">
-        <header className="top-header"> <h4>Notification</h4>
-          <div className="icon-indicator-container">
-            <div className="icon-indicator">
-              <img className="notif-pass-icon" src={passed} />
-              <h6>Successful</h6>
-            </div>
-            <div className="icon-indicator">
-              <img className="notif-fail-icon" src={failed} />
-              <h6>Failed</h6>
-            </div>
-          </div>
+        <header className="top-header">
+          <h1>Status</h1>
         </header>
-        <section>
-          {
-            allMessage.map((message, index) => {
-              const source = logos.find((logo) => logo.name === message[0]);
-              return message.length &&
-              <div key={index} className="notification-item">
-                <div className="notif-item-header">
-                  <img className="notif-icon" src={source.link} />
-                  <h4>{message[0]}</h4>
-                </div>
-                {
-                  message[1].map((name, index) => (
-                    <div key={index} className="notif-list">
-                      {name.created ?
-                        <img className="notif-pass-icon" src={passed} /> :
-                        <img className="notif-fail-icon" src={failed} />
-                      }
-                      <h5>{name.name}</h5>
-                    </div>
-                  ))
-                }
-              </div>;
-            })
-          }
 
+        <h5 className="created-team-h">Team <span className="slick-blue">{response.team[0].name}</span> has been successfully created</h5>
+        <section className="response-body">
+          <header className="response-top-header">
+            <h3>Result of completed integrations</h3>
+          </header>
+          <div className="integration-res-container">
+            {
+              allMessage.map((message, index) => {
+                const source = logos.find((logo) => logo.name === message[0]);
+                return message.length &&
+                <div key={index} className="notification-item">
+                  <div className="notif-item-header">
+                    <img className="notif-icon" src={source.link} />
+                    <h4>{message[0]}</h4>
+                  </div>
+                  {
+                    message[1].map((name, index) => (
+                      <div key={index} className="notif-item-header">
+                        <div className="notif-list">
+                          {name.created ?
+                            <img className="notif-pass-icon" src={passed} /> :
+                            <img className="notif-fail-icon" src={failed} />
+                          }
+                          <div className="integration-tool-name">
+                            <h6>{name.name}</h6>
+                            <p>{name.created ? 'created' : 'failed'}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>;
+              })
+            }
+          </div>
         </section>
         <footer className="notif-footer">
           <button onClick={() => modalState(false)} className="btn">
