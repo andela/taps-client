@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import accountsReducer from '../../../redux/reducers/accountReducer';
 import { FETCH_TEAM_ACCOUNTS } from '../../../redux/actions/types';
 import { success } from '../../../redux/actions';
-import accountsReponse from '../../__mockData__/accountMock';
+import accountsReponse from '../../__mocks__/__mockData__/accountMock';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
