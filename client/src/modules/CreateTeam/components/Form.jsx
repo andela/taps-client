@@ -32,14 +32,14 @@ export const Form = ({
   if (name.trim() && desc.trim()) {
     showSubmitButton = true;
     showDropDown = false;
-    teamName = formatWord(name).toLowerCase();
+    teamName = formatWord(name.trim()).toLowerCase();
     slackDropdown = slackOptions(teamName);
     ptDropdown = ptOptions(teamName);
     githubDropdown = githubOptions(teamName);
   }
 
   if (project.trim()) {
-    teamName = formatWord(name).toLowerCase();
+    teamName = formatWord(name.trim()).toLowerCase();
     projectName = getInitials(project).toLowerCase();
     slackDropdown = slackOptions(teamName, projectName);
     ptDropdown = ptOptions(teamName, projectName);
