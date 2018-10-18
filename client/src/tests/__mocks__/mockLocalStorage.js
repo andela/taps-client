@@ -7,8 +7,4 @@ export default {
   removeItem(key) {
    return delete localStorage[key]; //eslint-disable-line
   },
-
-  getItem(key) {
-    return localStorage[key];
-  }
 };
