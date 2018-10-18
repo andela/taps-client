@@ -24,28 +24,28 @@ const AddIntegration = ({ isModalOpen, closeModal }) => (
         <p className="">Select an integration to add</p>
         <div className="integration-tools-container">
           <div className="integration-tools">
-            <div className="integration-tool-name">
+            <div className="integration-tool-names">
               <img className="integration-tool-icon" src={github} alt="git" />
               <p className="">Github Repository</p>
             </div>
             <i className="fas fa-greater-than" />
           </div>
           <div className="integration-tools">
-            <div className="integration-tool-name">
+            <div className="integration-tool-names">
               <img className="integration-tool-icon" src={pt} alt="git" />
               <p className="">Pivotal Tracker</p>
             </div>
             <i className="fas fa-greater-than" />
           </div>
           <div className="integration-tools">
-            <div className="integration-tool-name">
+            <div className="integration-tool-names">
               <img className="integration-tool-icon" src={slack} alt="git" />
               <p className="">Slack Channel (private)</p>
             </div>
             <i className="fas fa-greater-than" />
           </div>
           <div className="integration-tools no-border">
-            <div className="integration-tool-name">
+            <div className="integration-tool-names">
               <img className="integration-tool-icon" src={slack} alt="git" />
               <p className="">Slack Channel (public)</p>
             </div>
