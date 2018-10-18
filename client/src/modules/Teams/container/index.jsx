@@ -64,14 +64,16 @@ class Teams extends Component {
     this.props.renderSubContent(content);
   }
 
-  addNewMember(event, userId) {
+  addNewMember(event, data) {
     const {
       match: {
         params: { id }
       }
     } = this.props;
     event.preventDefault();
-    this.props.addMember(id, userId);
+    data.teamId = id;
+    data.teamName = this.props.members.data.memberships[0].team.name;
+    this.props.addMember(data);
   }
 
   toggleSidenav(event) {

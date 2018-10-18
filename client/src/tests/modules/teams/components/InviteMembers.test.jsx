@@ -66,10 +66,18 @@ describe('<Test Component />', () => {
     wrapper.instance().handleSubmit({ preventDefault: jest.fn() });
     expect(handleSubmit).toHaveBeenCalled();
   });
+
   it('toggleSearch class methods should be called', () => {
     const toggleSearch = jest.spyOn(InviteMember.prototype, 'toggleSearch');
     const wrapper = shallow(<InviteMember {...props} />);
     wrapper.instance().toggleSearch();
     expect(toggleSearch).toHaveBeenCalled();
+  });
+
+  it('multiSelectOptions class methods should be called', () => {
+    const multiSelectOptions = jest.spyOn(InviteMember.prototype, 'multiSelectOptions');
+    const wrapper = shallow(<InviteMember {...props} />);
+    wrapper.instance().multiSelectOptions();
+    expect(multiSelectOptions).toHaveBeenCalled();
   });
 });
