@@ -4,7 +4,7 @@ import moxios from 'moxios';
 import instance from '../../../../config/axios';
 import { FETCH_TEAM_ACCOUNTS } from '../../../../../src/redux/actions/types';
 import { fetchAccounts } from '../../../../redux/actions/teams/accounts';
-import accountsReponse from '../../../__mockData__/accountMock';
+import accountsReponse from '../../../__mocks__/__mockData__/accountMock';
 
 const middlewares = [thunk];
 
