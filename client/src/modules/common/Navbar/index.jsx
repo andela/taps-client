@@ -32,12 +32,14 @@ class Navbar extends Component {
     super(props);
     this.state = {
       showSearchBar: false,
-      name: ''
+      name: '',
+      timeout: 0
     };
     this.toggleState = this.toggleState.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.signOut = this.signOut.bind(this);
     this.handleAdminRequest = this.handleAdminRequest.bind(this);
+    this.instantSearch = this.instantSearch.bind(this);
   }
   componentDidMount = () => {
     if (this.props.auth) {
@@ -62,6 +64,15 @@ class Navbar extends Component {
     this.setState({
       showSearchBar: false
     });
+  }
+
+  instantSearch(event) {
+    event.preventDefault();
+    if (this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.props.handleSubmit(event);
+    }, 500);
+    this.props.handleInput(event);
   }
 
   signOut(event) {
@@ -238,7 +249,7 @@ class Navbar extends Component {
                   type="search"
                   required
                   value={this.props.searchValue}
-                  onChange={this.props.handleInput}
+                  onChange={this.instantSearch}
                 />
                 <label className="label-icon" htmlFor="search">
                   <i className="material-icons">search</i>
