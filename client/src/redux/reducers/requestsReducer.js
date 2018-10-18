@@ -1,13 +1,15 @@
 import {
   CREATE_ADMIN_REQUEST_SUCCESS,
   CREATE_ADMIN_REQUEST_ERROR,
-  CLEAR_REQUEST_STATE 
+  CLEAR_REQUEST_STATE,
+  CHECK_USER_REQUEST
 } from '../actions/types';
 
 const initialState = {
   request: null,
   success: false,
-  error: ''
+  error: '',
+  hasRequest: null
 };
 
 const requestReducer = (state = initialState, action) => {
@@ -16,20 +18,27 @@ const requestReducer = (state = initialState, action) => {
     return {
       ...state,
       success: true,
-      request: action.payload
+      request: action.payload,
+      hasRequest: true
     };
   case CREATE_ADMIN_REQUEST_ERROR:
     return {
       ...state,
       error: action.payload,
-      success: false
+      success: false,
+      hasRequest: false
     };
   case CLEAR_REQUEST_STATE:
     return {
       ...state,
-      error: '',
       request: null,
-      success: false
+      success: false,
+      error: ''
+    };
+  case CHECK_USER_REQUEST:
+    return {
+      ...state,
+      hasRequest: action.payload.length > 0
     };
   default:
     return state;
