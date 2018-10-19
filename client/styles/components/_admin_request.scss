@@ -1,0 +1,34 @@
+.request-container {
+  color: $blue;
+  text-align: center;
+  margin-top: 50px;
+  position: relative;
+
+    .hr-top {
+      width: 80%;
+      background-color: $blue;
+      border: 1px solid;
+    }
+
+    .request-checkbox-container {
+      width: 85%;
+      margin: 5em auto;
+      position: relative;
+      text-align: center;
+
+      form {
+        text-align: left;
+        width: 70%;
+        margin: 3em auto;
+
+        span {
+          font-size: 1.5rem;
+          color: rgba(0,0,0,.95);
+        }
+      }
+    }
+
+    .admin-btn-holder {
+      margin: 3em auto;
+    }
+}
