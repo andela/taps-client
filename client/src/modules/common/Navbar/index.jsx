@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signOut } from '../../../redux/actions/auth';
-import { createAdminRequest, checkUserRequest } from '../../../redux/actions/requests';
+import { makeRequest, checkUserRequest } from '../../../redux/actions/requests';
 import { warningMessage, successMessage } from '../../../toasts';
 import errorFormatter from '../../../utils/errorFormatter.json';
 import { clearRequestState } from '../../../redux/actions';
@@ -12,7 +12,7 @@ import { clearRequestState } from '../../../redux/actions';
 class Navbar extends Component {
   static propTypes = {
     signOut: PropTypes.func.isRequired,
-    createAdminRequest: PropTypes.func.isRequired,
+    makeRequest: PropTypes.func.isRequired,
     clearRequestState: PropTypes.func.isRequired,
     checkUserRequest: PropTypes.func.isRequired,
     auth: PropTypes.shape({
@@ -87,7 +87,7 @@ class Navbar extends Component {
 
   handleAdminRequest(event) {
     event.preventDefault();
-    this.props.createAdminRequest({ type: 'admin_request' });
+    this.props.makeRequest({ type: 'admin_request' });
   }
 
   toggleState(state) {
@@ -329,5 +329,5 @@ const mapStateToProps = ({ auth, requestsReducer }) => ({
 });
 
 export default connect(mapStateToProps, {
-  signOut, createAdminRequest, clearRequestState, checkUserRequest
+  signOut, makeRequest, clearRequestState, checkUserRequest
 })(Navbar);
