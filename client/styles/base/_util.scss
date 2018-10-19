@@ -77,6 +77,11 @@
   width: 3rem;
 }
 
+// to allow user input to be selected
+[type="checkbox"] {
+  user-select: all !important;
+}
+
 .custom-form {
   .input-field input[type=text]:focus+label,
   .input-field input[type=number]:focus+label,
@@ -145,6 +150,21 @@
   }
   &:focus {
     background: $blue;
+  }
+}
+
+.admin-btn-margin {
+  margin-right: 2em;
+}
+
+.red-btn {
+  background: $red;
+  color: $white;
+  &:hover {
+    background: $red-hover;
+  }
+  &:focus {
+    background: $red-hover;
   }
 }
 

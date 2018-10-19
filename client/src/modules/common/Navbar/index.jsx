@@ -35,7 +35,8 @@ class Navbar extends Component {
     this.state = {
       showSearchBar: false,
       name: '',
-      timeout: 0
+      timeout: 0,
+      noOfRequests: 5
     };
     this.toggleState = this.toggleState.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -191,13 +192,13 @@ class Navbar extends Component {
                 </NavLink>
               </li>
               <li className="notif-container">
-                <a href="#!">
+                <NavLink to="/requests/admin">
                   {/* Notifications */}
-                  <span className="notif-badge" />
+                  <span className="badge notif-badge">{this.state.noOfRequests}</span>
                   <i className="material-icons" data-tip="notifications">
                     notifications_active
                   </i>
-                </a>
+                </NavLink>
               </li>
               <li>
                 <a

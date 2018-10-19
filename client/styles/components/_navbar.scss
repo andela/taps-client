@@ -82,6 +82,19 @@
 .notif-container {
   position: relative;
 }
+.notif-badge {
+  height: 22px !important;
+    width: 22px !important;
+    min-width: 0 !important;
+    color: white !important;
+    position: absolute;
+    left: 25px;
+    text-align: center;
+    top: 7px;
+    padding: 0 !important;
+    border-radius: 10px !important;
+    background: rgb(240, 1, 1) !important;
+}
 
 .tabs.tabs-transparent .indicator {
   background: $blue;
