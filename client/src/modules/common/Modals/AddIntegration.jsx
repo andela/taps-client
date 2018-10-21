@@ -5,6 +5,7 @@ import github from '../../../../public/resources/images/github.png';
 import pt from '../../../../public/resources/images/pt.png';
 import slack from '../../../../public/resources/images/slack.png';
 
+// Modal.setAppElement('#app');
 
 const AddIntegration = ({ isModalOpen, closeModal }) => (
   <Modal
