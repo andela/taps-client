@@ -14,7 +14,6 @@ const AddIntegration = ({ isModalOpen, closeModal }) => (
     overlayClassName="message-overlay"
     onRequestClose={closeModal}
     className="modalStyle integration-modal"
-    // style={customStyles}
   >
     <div>
       <header className="integration-header">
