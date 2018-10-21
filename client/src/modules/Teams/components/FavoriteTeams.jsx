@@ -8,7 +8,7 @@ import Navbar from '../../common/Navbar';
 import Spinner from '../../common/Spinner/Spinner';
 import { fetchFavoriteTeamsAction, removeFavoritesTeamsAction } from '../../../redux/actions/teams';
 
-class Favorites extends Component {
+export class Favorites extends Component {
   componentDidMount() {
     this.props.fetchFavoriteTeamsAction();
   }
