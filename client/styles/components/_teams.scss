@@ -357,6 +357,15 @@ input[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:bef
   margin-top: 8px !important;
   border-radius: 8px !important;
 }
+.fs-25 {
+  font-size: 2.5rem !important;
+}
+.nav-red {
+  background: #F58090;
+  &:hover {
+    background: #F58090;
+  }
+}
 .multi-select {
   margin-top: 1rem;
   margin-left: 8px;

@@ -9,6 +9,7 @@ import Home from '../modules/Home/container';
 import Preloader from '../modules/common/Preloader';
 import CreateTeam from '../modules/CreateTeam/container';
 import Teams from '../modules/Teams/container';
+import Join from '../modules/Teams/container/Join';
 import RequireAuth from './RequireAuth';
 import AuthRoute from './AuthRoute';
 import ErrorPage from '../modules/common/404';
@@ -33,6 +34,7 @@ export default class Routes extends Component {
           <Switch>
             <Route path="/teams/favorites" exact component={RequireAuth(Favorite)} />
             <Route path="/teams" exact component={Home} />
+            <Route path="/join/:joinToken/" exact component={Join} />
             <Route path="/teams/create" component={RequireAuth(CreateTeam)} />
             <AuthRoute path="/" exact component={SignInContainer} />
             <Route path="/teams/:id" exact component={RequireAuth(Teams)} />
