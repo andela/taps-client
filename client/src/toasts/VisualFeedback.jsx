@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import { Popup } from 'semantic-ui-react';
 import passed from '../../public/resources/images/passed.png';
 import failed from '../../public/resources/images/failed.png';
 import github from '../../public/resources/images/github.png';
@@ -58,7 +59,7 @@ const VisualFeedback = ({ response, modalState, isModalOpened }) => {
                 return message.length &&
                 <div key={index} className="notification-item">
                   <div className="space-bottom notif-item-header">
-                    <img className="notif-icon" src={source.link} />
+                    <img className="notif-icon" alt="icon" src={source.link} />
                     <h4>{message[0]}</h4>
                   </div>
                   {
@@ -67,13 +68,22 @@ const VisualFeedback = ({ response, modalState, isModalOpened }) => {
                         <div className="notif-list">
                           <div>
                             {name.created ?
-                              <img className="notif-pass-icon" src={passed} /> :
-                              <img className="notif-fail-icon" src={failed} />
+                              <img className="notif-pass-icon" alt="icon" src={passed} /> :
+                              <img className="notif-fail-icon" alt="icon" src={failed} />
                             }
                           </div>
                           <div className="integration-tool-name">
                             <h6>{name.name}</h6>
-                            <p>{name.created ? 'created' : 'failed'}</p>
+                            {name.created ?
+                              <p>created</p> :
+                              <Popup
+                                trigger={<p>failed</p>}
+                                className="failed-tooltip"
+                                inverted
+                                content={name.error}
+
+                              />
+                            }
                           </div>
                         </div>
                       </div>
