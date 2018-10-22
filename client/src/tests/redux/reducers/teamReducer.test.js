@@ -4,7 +4,7 @@ import teamReducer from '../../../redux/reducers/teamsReducer'
 const initialState = {
     teams: [],
     members: { data: { memberships: [] } },
-    addMember: '',
+    memberInvitation: [],
     title: 'project',
     subtitle: 'see members',
     favoriteTeams: [],

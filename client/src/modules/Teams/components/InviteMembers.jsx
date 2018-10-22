@@ -6,6 +6,8 @@ import Select, { components } from 'react-select';
 
 // Actions
 import { searchUser, clearUser } from '../../../redux/actions/users';
+import { modalState } from '../../../redux/actions/teams';
+import VisualFeedback from '../../../toasts/memberInvitationStatus';
 
 export class InviteMember extends Component {
   static propTypes = {
@@ -34,6 +36,7 @@ export class InviteMember extends Component {
     this.selectUser = this.selectUser.bind(this);
     this.toggleSearch = this.toggleSearch.bind(this);
     this.multiSelectOptions = this.multiSelectOptions.bind(this);
+    this.handleModalState = this.handleModalState.bind(this);
   }
 
   handleSubmit(event) {
@@ -129,9 +132,18 @@ export class InviteMember extends Component {
     }));
   }
 
+  /**
+   * @description controls modal visibility
+   * @param {bool} bool
+   */
+  handleModalState(bool) {
+    this.props.modalState(bool);
+  }
+
+
   render() {
     const { searchInput } = this.state;
-    const { users } = this.props;
+    const { users, showModal } = this.props;
 
     const MultiValueLabel = (props) => (
       <components.MultiValueLabel {...props}>
@@ -203,6 +215,9 @@ export class InviteMember extends Component {
         </div>
 
         <ReactTooltip />
+        {showModal && <VisualFeedback
+          modalState={this.handleModalState}
+          response={this.props.memberInvitation} isModalOpened={showModal} />}
         {this.state.user &&
         <div className="row account-row">
           <div className="col s2" />
@@ -272,9 +287,20 @@ const mapStateToProps = ({
     accounts: {
       data: { accounts }
     }
-  }
+  },
+  teams: { showModal, memberInvitation }
 }) => ({
-  users, accounts
+  users,
+  accounts,
+  showModal,
+  memberInvitation
 });
 
-export default connect(mapStateToProps, { searchUser, clearUser })(InviteMember);
+export default connect(
+  mapStateToProps,
+  {
+    searchUser,
+    clearUser,
+    modalState
+  }
+)(InviteMember);

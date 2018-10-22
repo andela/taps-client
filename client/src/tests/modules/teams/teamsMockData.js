@@ -21,7 +21,9 @@ export const props = {
     role: 'admin',
     email: 'eze.kevin@andela.com',
     githubUsername: 'kenware'
-  }]
+  }],
+  modalState: jest.fn(),
+  showModal: true
 };
 
 export const emptyProps = {
