@@ -23,7 +23,8 @@ export class InviteMember extends Component {
       ismultiSelectDisabled: false,
       selectAllDisabled: true,
       user: null,
-      formClass: 'formDefault'
+      formClass: 'formDefault',
+      role: 'developer'
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -37,6 +38,7 @@ export class InviteMember extends Component {
     this.toggleSearch = this.toggleSearch.bind(this);
     this.multiSelectOptions = this.multiSelectOptions.bind(this);
     this.handleModalState = this.handleModalState.bind(this);
+    this.handleRoleChange = this.handleRoleChange.bind(this);
   }
 
   handleSubmit(event) {
@@ -97,7 +99,8 @@ export class InviteMember extends Component {
     }
     const data = {
       accounts,
-      userId
+      userId,
+      role: this.state.role
     };
     addMember(e, data);
   }
@@ -138,6 +141,10 @@ export class InviteMember extends Component {
    */
   handleModalState(bool) {
     this.props.modalState(bool);
+  }
+
+  handleRoleChange(e) {
+    this.setState({ role: e.target.value });
   }
 
 
@@ -222,7 +229,7 @@ export class InviteMember extends Component {
         <div className="row account-row">
           <div className="col s2" />
           <div className="col s7">
-            <h5 className="center-align">
+            <h5 className="col s10 center-align">
               Add
               <span className="member-username">
                 {` ${this.state.searchInput}`}
@@ -262,6 +269,16 @@ export class InviteMember extends Component {
                       />
                     </label>
                   </label>
+                </div>
+                <div className="role-inputs">
+                  <div>  <label className="role-text span">Select User Role </label></div>
+                  <div>
+                    <select className="role-select" onChange={this.handleRoleChange} name="role" placeholder="Select ">
+                      <option value="developer">Developer</option>
+                      <option value="lead">Team Lead</option>
+                      <option value="member">Member</option>
+                    </select>
+                  </div>
                 </div>
                 <button onClick={this.inviteMember} className="btn account-btn" type="submit" name="action">
                   Invite
