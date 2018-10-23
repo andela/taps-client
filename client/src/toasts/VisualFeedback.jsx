@@ -57,7 +57,7 @@ const VisualFeedback = ({ response, modalState, isModalOpened }) => {
                 const source = logos.find((logo) => logo.name === message[0]);
                 return message.length &&
                 <div key={index} className="notification-item">
-                  <div className="notif-item-header">
+                  <div className="space-bottom notif-item-header">
                     <img className="notif-icon" src={source.link} />
                     <h4>{message[0]}</h4>
                   </div>
@@ -65,10 +65,12 @@ const VisualFeedback = ({ response, modalState, isModalOpened }) => {
                     message[1].map((name, index) => (
                       <div key={index} className="notif-item-header">
                         <div className="notif-list">
-                          {name.created ?
-                            <img className="notif-pass-icon" src={passed} /> :
-                            <img className="notif-fail-icon" src={failed} />
-                          }
+                          <div>
+                            {name.created ?
+                              <img className="notif-pass-icon" src={passed} /> :
+                              <img className="notif-fail-icon" src={failed} />
+                            }
+                          </div>
                           <div className="integration-tool-name">
                             <h6>{name.name}</h6>
                             <p>{name.created ? 'created' : 'failed'}</p>
