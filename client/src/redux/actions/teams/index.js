@@ -109,7 +109,7 @@ export const createTeam = data => async (dispatch) => {
             await api(`teams/${response.data.team.id}/accounts`, 'post', integrationInfo);
             allRequest[integration] = [...allRequest[integration], { created: true, name: accountName }];
           } catch (error) {
-            allRequest[integration] = [...allRequest[integration], { created: false, name: accountName }];
+            allRequest[integration] = [...allRequest[integration], { created: false, name: accountName, error: error }];
           }
         }
       }
