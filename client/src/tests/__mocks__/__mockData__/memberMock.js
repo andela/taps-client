@@ -2,6 +2,7 @@ export const addMemberRequest = {
   userId: 2,
   teamId: 3,
   teamName: 'team',
+  role: 'developer',
   accounts: [
     {
       type: 'github_repo',

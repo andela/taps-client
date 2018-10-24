@@ -25,7 +25,7 @@ export const addMember = data => async dispatch => {
 
   try {
     let request;
-    await api(`teams/${data.teamId}/members/${data.userId}`, 'post', { role: 'developer' });
+    await api(`teams/${data.teamId}/members/${data.userId}`, 'post', { role: data.role });
 
     const member = { type: 'team', name: data.teamName, invited: true };
 
