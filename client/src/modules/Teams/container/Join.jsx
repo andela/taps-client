@@ -17,7 +17,8 @@ export class Join extends Component {
     const decoded = jwtDecode(this.props.match.params.joinToken);
     this.setState({
       teamId: decoded.teamId,
-      teamName: decoded.teamName
+      teamName: decoded.teamName,
+      role: decoded.role
     });
     this.joinTeam = this.joinTeam.bind(this);
   }
@@ -32,7 +33,7 @@ export class Join extends Component {
       userId: localStorage.getItem('userId'),
       teamId: this.state.teamId,
       type: 'member_request',
-      data: 'developer'
+      data: this.state.role
     };
     this.props.makeRequest(requestData);
     this.props.history.push('/teams');
