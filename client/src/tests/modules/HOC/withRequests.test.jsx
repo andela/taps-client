@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import withRequests from '../../../modules/HOC/withRequests';
+import { withRequests } from '../../../modules/HOC/withRequests';
 import requests from '../Admin/mock/mockData';
 
 describe('Test for withRequests HOC', () => {
@@ -11,7 +11,10 @@ describe('Test for withRequests HOC', () => {
     pageTitle: 'Admin Requests'
   });
 
-  const wrapper = shallow(<ComponentFromHOC />);
+  const mockProps = {
+    loadRequests: jest.fn()
+  };
+  const wrapper = shallow(<ComponentFromHOC {...mockProps} />);
   it("should mount without crashing", () => {
     expect(wrapper).toMatchSnapshot();
   });

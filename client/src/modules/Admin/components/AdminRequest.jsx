@@ -1,20 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 // components
 import withRequests from '../../HOC/withRequests';
 import RequestHolder from './RequestHolder';
 import RequestPagination from '../../common/Pagination';
-
-// mock data
-import requests from '../../../tests/modules/Admin/mock/mockData';
-
+import { loadRequests } from '../../../redux/actions/requests';
 
 export const Request = ({
   headerText,
   handleChange,
   requests,
-  checkedAll
+  checkedAll,
+  pagination,
+  handlePaginationClick
 }) => (
   <div className="request-container text-blue">
     <h4>{headerText}</h4>
@@ -24,7 +23,10 @@ export const Request = ({
       requests={requests}
       checkedAll={checkedAll}
     />
-    <RequestPagination />
+    <RequestPagination
+      noOfPages={pagination ? pagination.pages : 1}
+      onClick={handlePaginationClick}
+    />
 
     <div className="admin-btn-holder">
       <button className="btn blue-btn admin-btn-margin" type="button">Accept</button>
@@ -37,13 +39,19 @@ export const Request = ({
 Request.propTypes = {
   headerText: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  requests: PropTypes.array.isRequired,
-  checkedAll: PropTypes.bool.isRequired
+  requests: PropTypes.array,
+  checkedAll: PropTypes.bool.isRequired,
+  pagination: PropTypes.object,
+  handlePaginationClick: PropTypes.func.isRequired
 };
 
-const AdminRequests = withRequests(Request, {
-  requests: requests.data.requests,
+export const AdminRequests = withRequests(Request, {
   pageTitle: 'Admin Requests'
 });
 
-export default AdminRequests;
+
+export const mapStateToProps = ({ requestsReducer }) => ({
+  loadedRequests: requestsReducer.loadedRequests
+});
+
+export default connect(mapStateToProps, { loadRequests })(AdminRequests);
