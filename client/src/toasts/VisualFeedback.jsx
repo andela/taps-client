@@ -77,7 +77,7 @@ const VisualFeedback = ({ response, modalState, isModalOpened }) => {
                             {name.created ?
                               <p>created</p> :
                               <Popup
-                                trigger={<p>failed</p>}
+                                trigger={<p className="mouse-pointer">failed</p>}
                                 className="failed-tooltip"
                                 inverted
                                 content={name.error}
