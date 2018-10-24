@@ -1,22 +1,36 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loadRequests } from '../../redux/actions/requests';
 
 // components
 import Navbar from '../common/Navbar';
 
-const withRequests = (WrappedComponent, data) => {
+export const withRequests = (WrappedComponent, data) => {
   class ComponentWithData extends Component {
     constructor(props) {
       super(props);
 
       this.state = {
-        checkAll: false
+        checkAll: false,
+        allRequests: []
       };
 
       this.handleInputChange = this.handleInputChange.bind(this);
+      this.handlePaginationClick = this.handlePaginationClick.bind(this);
     }
 
     componentDidMount() {
-      this.addCheckedFieldToRequests(data.requests);
+      const { loadRequests } = this.props;
+      loadRequests('admin_request', 20);
+    }
+
+    componentWillReceiveProps(nextProps) {
+      // set state for pagination support
+      this.setState({
+        pagination: nextProps.loadedRequests.pagination
+      });
+      this.addCheckedFieldToRequests(nextProps.loadedRequests.requests);
     }
 
     handleInputChange(event, request) {
@@ -67,8 +81,18 @@ const withRequests = (WrappedComponent, data) => {
       });
     }
 
+    handlePaginationClick(event, { activePage }) {
+      const { pagination } = this.state;
+      const { loadRequests } = this.props;
+      const nextOffset = (activePage - 1) * pagination.limit;
+      loadRequests('admin_request', '', nextOffset);
+    }
+
     render() {
-      const { checkBoxes, checkAll, allRequests } = this.state;
+      const {
+        checkBoxes, checkAll,
+        allRequests, pagination
+      } = this.state;
       return (
         <Fragment>
           <Navbar />
@@ -78,12 +102,23 @@ const withRequests = (WrappedComponent, data) => {
             checkOne={checkBoxes}
             requests={allRequests}
             checkedAll={checkAll}
+            pagination={pagination}
+            handlePaginationClick={this.handlePaginationClick}
           />
         </Fragment>
       );
     }
   }
 
+  ComponentWithData.propTypes = {
+    loadRequests: PropTypes.func,
+    loadedRequests: PropTypes.object
+  };
+
+  ComponentWithData.defaultProps = {
+    loadRequests: () => {},
+    loadedRequests: []
+  };
   return ComponentWithData;
 };
 
