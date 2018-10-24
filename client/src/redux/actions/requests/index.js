@@ -42,7 +42,6 @@ export const loadRequests = (requestType = '', limit = '', offset = 0) => dispat
           data.errors[0]
         ));
       }
-      console.log(data, 'the data response');
       const payload = {
         requests: data.data.requests,
         meta: data.meta

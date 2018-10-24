@@ -6,6 +6,7 @@ import autoBind from 'auto-bind';
 // components
 import Gallery from './Gallery';
 import InviteMembers from './InviteMembers';
+import ShareLinkComponent from './ShareLink';
 
 export class Member extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export class Member extends Component {
   }
 
   renderContent(content) {
-    const { members, addNewMember } = this.props;
+    const { members, addNewMember, teamId } = this.props;
     switch (content) {
     case 'see members':
       return members.map(member => (
@@ -25,6 +26,9 @@ export class Member extends Component {
       return <InviteMembers addMember={addNewMember} />;
       break;
 
+    case 'share link':
+      return <ShareLinkComponent teamId={teamId} />;
+      break;
     default:
       return <InviteMembers addMember={addNewMember} />;
       break;
@@ -105,6 +109,18 @@ export class Member extends Component {
                   </li>
                 )
                 }
+
+                 { this.checkTeamLead() && (
+                <li
+                    className="nav-link "
+                    onClick={event => chooseContent(event, 'share link')}
+                  >
+                    <i className="material-icons left nav-icons">share</i>
+                    <span className="nav-icons">Share invite link</span>
+                  </li>
+                )
+                }
+                  
                 </ul>
               </div>
             )}
