@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // components
-import withRequests from '../../HOC/withRequests';
+import { withRequests } from '../../HOC/withRequests';
 import RequestHolder from './RequestHolder';
 import RequestPagination from '../../common/Pagination';
 import { loadRequests } from '../../../redux/actions/requests';
@@ -39,14 +39,15 @@ export const Request = ({
 Request.propTypes = {
   headerText: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  requests: PropTypes.array,
+  requests: PropTypes.array.isRequired,
   checkedAll: PropTypes.bool.isRequired,
-  pagination: PropTypes.object,
+  pagination: PropTypes.object.isRequired,
   handlePaginationClick: PropTypes.func.isRequired
 };
 
 export const AdminRequests = withRequests(Request, {
-  pageTitle: 'Admin Requests'
+  pageTitle: 'Admin Requests',
+  requestType: 'admin_request'
 });
 
 

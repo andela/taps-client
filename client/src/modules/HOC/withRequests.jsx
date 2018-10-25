@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { loadRequests } from '../../redux/actions/requests';
 
 // components
 import Navbar from '../common/Navbar';
@@ -22,7 +20,7 @@ export const withRequests = (WrappedComponent, data) => {
 
     componentDidMount() {
       const { loadRequests } = this.props;
-      loadRequests('admin_request', 20);
+      loadRequests(data.requestType, 20);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -85,7 +83,8 @@ export const withRequests = (WrappedComponent, data) => {
       const { pagination } = this.state;
       const { loadRequests } = this.props;
       const nextOffset = (activePage - 1) * pagination.limit;
-      loadRequests('admin_request', '', nextOffset);
+
+      loadRequests(data.requestType, '', nextOffset);
     }
 
     render() {
@@ -95,7 +94,7 @@ export const withRequests = (WrappedComponent, data) => {
       } = this.state;
       return (
         <Fragment>
-          <Navbar />
+          {!data.hideNav ? <Navbar /> : null}
           <WrappedComponent
             headerText={data.pageTitle}
             handleChange={this.handleInputChange}
