@@ -80,4 +80,18 @@ describe('<Test Component />', () => {
     wrapper.instance().multiSelectOptions();
     expect(multiSelectOptions).toHaveBeenCalled();
   });
+
+  it('handleModalState class methods should be called', () => {
+    const handleModalState = jest.spyOn(InviteMember.prototype, 'handleModalState');
+    const wrapper = shallow(<InviteMember {...props} />);
+    wrapper.instance().handleModalState();
+    expect(handleModalState).toHaveBeenCalled();
+  });
+
+  it('handleRoleChange class methods should be called', () => {
+    const handleRoleChange = jest.spyOn(InviteMember.prototype, 'handleRoleChange');
+    const wrapper = shallow(<InviteMember {...props} />);
+    wrapper.instance().handleRoleChange({ target: { value: 'member' } });
+    expect(handleRoleChange).toHaveBeenCalled();
+  });
 });

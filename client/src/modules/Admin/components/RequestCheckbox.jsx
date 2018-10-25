@@ -2,12 +2,10 @@ import React from 'react';
 
 const RequestCheckbox = ({
   handleChange,
-  checkOne,
-  requests = [],
-  checkedAll
+  requests = []
 }) => {
   const Requests = requests.map((request, index) => (
-    <p key={request.id}>
+    <p key={request.id} id="request-checkbox">
       <label htmlFor={request.id}>
         <input
           name={request.id}
@@ -17,7 +15,11 @@ const RequestCheckbox = ({
           onChange={(e) => handleChange(e, request)}
           checked={request.checked}
         />
-        <span>{`${request.user.displayName} < ${request.user.email} >`}</span>
+        <span>{`${request.user.displayName} < ${request.user.email} >`}
+          <label className="team-type-label ">Requested to join as a  <b>{request.data}</b>
+          </label>
+        </span>
+
       </label>
     </p>));
 

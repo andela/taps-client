@@ -36,22 +36,20 @@ export const loadRequests = (requestType = '', limit = '', offset = 0) => dispat
   return instance.get(`/requests?type=${requestType}&@limit=${limit}&@offset=${offset}`)
     .then(response => response.data)
     .then(data => {
-      if (data.errorrs) {
+      if (data.errors) {
         return dispatch(isErrored(
           `${FETCH_REQUESTS}_ERROR`,
           data.errors[0]
         ));
       }
-      console.log(data, 'the data response');
       const payload = {
         requests: data.data.requests,
         meta: data.meta
       };
-
+      dispatch(isLoading(false));
       return dispatch(success(`${FETCH_REQUESTS}_SUCCESS`, payload));
     }).catch(errors => {
       dispatch(isErrored(`${FETCH_REQUESTS}_ERROR`, errors.response));
       dispatch(isLoading(false));
     });
 };
-

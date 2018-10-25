@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import Select, { components } from 'react-select';
+import Select from 'react-select';
+import MultiValueLabel from "./MultiValueLabel";
+import Dropdown from './Dropdown';
 
 // Actions
 import { searchUser, clearUser } from '../../../redux/actions/users';
+import { modalState } from '../../../redux/actions/teams';
+import VisualFeedback from '../../../toasts/memberInvitationStatus';
 
 export class InviteMember extends Component {
   static propTypes = {
@@ -21,7 +25,8 @@ export class InviteMember extends Component {
       ismultiSelectDisabled: false,
       selectAllDisabled: true,
       user: null,
-      formClass: 'formDefault'
+      formClass: 'formDefault',
+      role: 'developer'
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -34,6 +39,8 @@ export class InviteMember extends Component {
     this.selectUser = this.selectUser.bind(this);
     this.toggleSearch = this.toggleSearch.bind(this);
     this.multiSelectOptions = this.multiSelectOptions.bind(this);
+    this.handleModalState = this.handleModalState.bind(this);
+    this.handleRoleChange = this.handleRoleChange.bind(this);
   }
 
   handleSubmit(event) {
@@ -94,7 +101,8 @@ export class InviteMember extends Component {
     }
     const data = {
       accounts,
-      userId
+      userId,
+      role: this.state.role
     };
     addMember(e, data);
   }
@@ -129,51 +137,23 @@ export class InviteMember extends Component {
     }));
   }
 
+  /**
+   * @description controls modal visibility
+   * @param {bool} bool
+   */
+  handleModalState(bool) {
+    this.props.modalState(bool);
+  }
+
+  handleRoleChange(e) {
+    this.setState({ role: e.target.value });
+  }
+
+
   render() {
     const { searchInput } = this.state;
-    const { users } = this.props;
+    const { users, showModal } = this.props;
 
-    const MultiValueLabel = (props) => (
-      <components.MultiValueLabel {...props}>
-        {props.data.type === 'github_repo' ?
-          <label className="select-account-label">
-            <img src="/resources/images/github.svg" className="account-icon" alt="github" />
-            {` ${props.data.label}`}
-          </label> :
-          <label>
-            {props.data.type === 'slack_channel' || props.data.type === 'slack_private_channel' ?
-              <label className="select-account-label">
-                <img src="/resources/images/slack.png" className="account-icon" alt="slack" />
-                {` ${props.data.label}`}
-              </label> :
-              <label className="select-account-label">
-                <img src="/resources/images/pt.png" className="account-icon" alt="pt" />
-                {` ${props.data.label}`}
-              </label>}
-          </label>}
-      </components.MultiValueLabel>
-    );
-
-    const dropDown = (props) => (
-      <components.Option {...props}>
-        {props.data.type === 'github_repo' ?
-          <label className="select-account-dropdown">
-            <img src="/resources/images/github.svg" className="account-icon" alt="github" />
-            {` ${props.data.label}`}
-          </label> :
-          <label>
-            {props.data.type === 'slack_channel' || props.data.type === 'slack_private_channel' ?
-              <label className="select-account-dropdown">
-                <img src="/resources/images/slack.png" className="account-icon" alt="slack" />
-                {` ${props.data.label}`}
-              </label> :
-              <label className="select-account-dropdown">
-                <img src="/resources/images/pt.png" className="account-icon" alt="pt" />
-                {` ${props.data.label}`}
-              </label>}
-          </label>}
-      </components.Option>
-    );
 
     return (
       <React.Fragment>
@@ -203,11 +183,14 @@ export class InviteMember extends Component {
         </div>
 
         <ReactTooltip />
+        {showModal && <VisualFeedback
+          modalState={this.handleModalState}
+          response={this.props.memberInvitation} isModalOpened={showModal} />}
         {this.state.user &&
         <div className="row account-row">
           <div className="col s2" />
           <div className="col s7">
-            <h5 className="center-align">
+            <h5 className="col s10 center-align">
               Add
               <span className="member-username">
                 {` ${this.state.searchInput}`}
@@ -235,7 +218,7 @@ export class InviteMember extends Component {
                     <label className="select multi-select">
                       <Select
                         closeMenuOnSelect={false}
-                        components={{ MultiValueLabel, Option: dropDown }}
+                        components={{ MultiValueLabel, Option: Dropdown }}
                         styles={{
                           multiValueRemove: (base) => ({ ...base, fontSize: '15px', color: '#385cd7' })
                         }}
@@ -247,6 +230,16 @@ export class InviteMember extends Component {
                       />
                     </label>
                   </label>
+                </div>
+                <div className="role-inputs">
+                  <div>  <label className="role-text span">Select User Role </label></div>
+                  <div>
+                    <select className="role-select" onChange={this.handleRoleChange} name="role" placeholder="Select ">
+                      <option value="developer">Developer</option>
+                      <option value="lead">Team Lead</option>
+                      <option value="member">Member</option>
+                    </select>
+                  </div>
                 </div>
                 <button onClick={this.inviteMember} className="btn account-btn" type="submit" name="action">
                   Invite
@@ -272,9 +265,20 @@ const mapStateToProps = ({
     accounts: {
       data: { accounts }
     }
-  }
+  },
+  teams: { showModal, memberInvitation }
 }) => ({
-  users, accounts
+  users,
+  accounts,
+  showModal,
+  memberInvitation
 });
 
-export default connect(mapStateToProps, { searchUser, clearUser })(InviteMember);
+export default connect(
+  mapStateToProps,
+  {
+    searchUser,
+    clearUser,
+    modalState
+  }
+)(InviteMember);

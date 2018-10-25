@@ -6,6 +6,8 @@ import autoBind from 'auto-bind';
 // components
 import Gallery from './Gallery';
 import InviteMembers from './InviteMembers';
+import ShareLinkComponent from './ShareLink';
+import JoinTeamRequestsComponent from "./JoinTeamRequests";
 
 export class Member extends Component {
   constructor(props) {
@@ -14,17 +16,23 @@ export class Member extends Component {
   }
 
   renderContent(content) {
-    const { members, addNewMember } = this.props;
+    const { members, addNewMember, teamId } = this.props;
     switch (content) {
     case 'see members':
       return members.map(member => (
         <Gallery data={member} key={member.user.id} />
       ));
-      break;
+
     case 'invite members':
       return <InviteMembers addMember={addNewMember} />;
-      break;
 
+    case 'confirm requests':
+      return <JoinTeamRequestsComponent />;
+
+
+    case 'share link':
+      return <ShareLinkComponent teamId={teamId} />;
+      break;
     default:
       return <InviteMembers addMember={addNewMember} />;
       break;
@@ -105,6 +113,29 @@ export class Member extends Component {
                   </li>
                 )
                 }
+
+                 { this.checkTeamLead() && (
+                <li
+                    className="nav-link "
+                    onClick={event => chooseContent(event, 'share link')}
+                  >
+                    <i className="material-icons left nav-icons">share</i>
+                    <span className="nav-icons">Share invite link</span>
+                  </li>
+                )
+                }
+                  
+                { this.checkTeamLead() && (
+                  <li
+                    className="nav-link"
+                    onClick={event => chooseContent(event, 'confirm requests')}
+                  >
+                    <i className="material-icons left nav-icons">person_outline</i>
+                    <span className="nav-icons">Confirm Requests</span>
+                  </li>
+                )
+                }
+                
                 </ul>
               </div>
             )}

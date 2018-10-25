@@ -17,7 +17,7 @@ import {
 const initialState = {
   teams: [],
   members: { data: { memberships: [] } },
-  addMember: '',
+  memberInvitation: [],
   title: 'project',
   subtitle: 'see members',
   favoriteTeams: [],
@@ -57,7 +57,8 @@ const teamReducer = (state = initialState, action) => {
   case ADD_MEMBER:
     return {
       ...state,
-      addMember: action.payload
+      showModal: true,
+      memberInvitation: action.payload
     };
   case RENDER_CONTENT:
     return {

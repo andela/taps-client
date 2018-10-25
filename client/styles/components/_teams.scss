@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lato|Open+Sans+Condensed:300');
+$grey: #dddddd;
 
 .team-bg {
   background: rgb(248, 248, 248);
@@ -51,12 +52,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #DDDDDD;
+  border-bottom: 1px solid $grey;
   padding: 11px 10px;
   font-family: 'Lato';
 }
 
 .integration-modal {
+  margin: 18% auto !important;
   padding: 0 !important;
   width: 29% !important;
 }
@@ -82,8 +84,8 @@
 
 .integration-body {
   padding: 15px 29px;
-  border-bottom: 1px solid #DDDDDD;
-  border-top: 1px solid #DDDDDD;
+  border-bottom: 1px solid $grey;
+  border-top: 1px solid $grey;
 }
 
 .integration-tool-icon {
@@ -239,7 +241,21 @@
         margin: 5rem 20% 1rem;
         float: right;
         background-color: #385cd7 !important;
-      }    
+      }
+      .role-select {
+        display: inline-block;
+        width: 81%;
+      }
+      .role-inputs {
+        margin-left: 8px;
+        margin-top: 1rem;
+      }
+      .role-text {
+        display: inline-block;
+        font-size: 17px;
+        margin-bottom: 4px;
+        margin-left: 2px;
+      }
     }
     .span {
       color: #504747 !important;
@@ -369,4 +385,85 @@ input[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:bef
 .multi-select {
   margin-top: 1rem;
   margin-left: 8px;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.body-padding {
+  padding: 16px;
+}
+
+.remove-margin-bottom {
+  margin-bottom: 0;
+}
+
+.hide {
+  display: none;
+}
+
+.remove-margin-top {
+  margin-top: 0;
+}
+
+.grey-border {
+  border: 1px solid $grey !important;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.flex-center {
+  align-items: center;
+}
+
+.center-axis {
+  justify-content: center;
+}
+
+.integration-btn-container {
+  padding-top: 15px;
+}
+
+.tool-header {
+  border-bottom: 1px solid $grey;
+  padding: 3px 11px;
+}
+
+.mouse-pointer {
+  cursor: pointer;
+}
+
+.arrow-back-pointer {
+  margin-right: 6px;
+  margin-top: 7px;
+}
+
+.left-margin {
+  margin-left: -12px;
+}
+
+.go-back {
+  position: absolute;
+  top: 16rem;
+  width: 29%;
+}
+
+.margin-top-12 {
+  margin-top: 12px;
+}
+
+@media only screen and (max-width: 1020px) {
+  .go-back {
+    position: absolute;
+    top: 9rem;
+    width: 29%;
+  }
 }

@@ -64,6 +64,17 @@ const requestReducer = (state = initialState, action) => {
 
     };
   }
+  case FETCH_REQUESTS: {
+    const { requests, meta } = action.payload;
+    return {
+      ...state,
+      loadedRequests: {
+        requests: requests,
+        pagination: meta.pagination
+      }
+    };
+  }
+
 
   default:
     return state;

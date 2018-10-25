@@ -118,7 +118,6 @@ describe('Request Actions', () => {
       return store.dispatch(loadRequests('admin_request', 10, 10))
         .then(() => {
           const actions = store.getActions();
-          console.log(actions);
 
           expect(actions[0].type).toEqual(IS_LOGGED_IN);
           expect(actions[0].payload).toEqual(false);
@@ -126,7 +125,8 @@ describe('Request Actions', () => {
           expect(actions[1].type).toEqual(IS_LOADING);
           expect(actions[1].payload).toEqual(true);
 
-          expect(actions[2].type).toEqual(`${FETCH_REQUESTS}_SUCCESS`);
+          expect(actions[2].type).toEqual(`${IS_LOADING}`);
+          expect(actions[3].type).toEqual(`${FETCH_REQUESTS}_SUCCESS`);
           done();
         }, 3000);
     });
